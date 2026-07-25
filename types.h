@@ -2,7 +2,9 @@
 #define TYPES_H
 
 typedef enum {
-    Brown = 1,
+    
+    None,
+    Brown,
     Light_Blue,
     Pink,
     Orange,
@@ -13,6 +15,7 @@ typedef enum {
 
 typedef enum {
 
+    Owner_None,
     Owner_Bank,
     Owner_Aggressive_Investor,
     Owner_Conservative_Banker,
@@ -30,6 +33,7 @@ typedef enum{
 
 typedef enum{
 
+    Not_choosen,
     Sri_Lanka_Insurance,
     Ceylinco_Insurance
 
@@ -38,6 +42,7 @@ typedef enum{
 
 typedef enum{
 
+    Not_Insured,
     Basic_Property_Insurance,
     Comprehensive_Insurance,
     Business_Interruption_Insurance,
@@ -157,6 +162,8 @@ typedef struct{
 
     Railway_Names Name;
     Owners_Property Railway_Owner;
+    Mortgage_Status Mortgage;
+    int Mortgage_Value;
 
 }Railway_Stations;
 
@@ -165,15 +172,13 @@ typedef struct{
 
     Utility_Names Company;
     Owners_Property Company_Owner;
+    Mortgage_Status Mortgage;
+    int Mortgage_Value;
 
 }Utility_Companies;
 
 
-typedef struct{
-    
-    char Bank_Name[24];
 
-}Bank;
 
 typedef struct{
 
@@ -185,7 +190,7 @@ typedef struct{
         Property Properties;
         Railway_Stations Railway;
         Utility_Companies Utility;
-        Bank Bank;
+        
     }Cell_Data;
 
     Insurance Insurance_Details;
