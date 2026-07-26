@@ -73,7 +73,8 @@ typedef enum{
 
 typedef enum{
 
-    SQ_GO = 0,
+    SQ_None = -1,
+    SQ_GO,
     SQ_PETTAH,
     SQ_COMMUNITY_DEVELOPMENT_FUND,
     SQ_MARADANA,
@@ -132,6 +133,22 @@ typedef enum{
 
 
 }Square_type;
+
+typedef enum{
+
+    Aggressive_Investor,
+    Conservative_Banker,
+    Risk_Taker,
+    Opportunistic_Trader
+    
+}Player_Type;
+
+typedef enum{
+
+    No_Loans,
+    Have_Loans
+
+}Player_Loan;
 
 
 typedef struct{
@@ -197,9 +214,21 @@ typedef struct{
 
 }square;
 
+typedef struct {
+    
+    char Player_Name[24];
+    Player_Type Player_ID;
+    Square_ID Player_Owns[30];
+    int Player_Cash;
+    int Player_Assets;
+    Player_Loan Loan_status;
+    Square_ID Player_Position;
 
 
+}Players;
 
+
+void Player_Initialization(void);
 
 
 

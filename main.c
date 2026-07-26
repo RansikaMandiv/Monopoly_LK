@@ -3,5 +3,6 @@
  
 int main(){
 
-    printf("%zu",sizeof(Property_Properties));
+    Player_Initialization();    
+
 }
