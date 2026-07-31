@@ -2,14 +2,14 @@
 #include <string.h>
 #include "types.h"
 
-#define Total_Players 4
 
 
 
-Players Player_List[Total_Players];
 
 
-void Player_Initialization(void){
+
+
+void Player_Initialization(Players Player_List[]){
 
     const char* Default_Names[] = {
 
@@ -27,6 +27,8 @@ void Player_Initialization(void){
         Player_List[i].Player_Assets = 0;
         Player_List[i].Loan_status = No_Loans;
         Player_List[i].Player_Position = SQ_GO;
+        Player_List[i].Player_Roll_Order = -1;
+        Player_List[i].Temp_Dice_Value = 0;
 
         for(int j = 0; j < 30; j++)
         {

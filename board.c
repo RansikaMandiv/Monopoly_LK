@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+#include <stdlib.h>
 #include "types.h"
 
-square board[SQ_Board_Size];
 
-void Board_Initialization(void){
+
+
+void Board_Initialization(square board[]){
 
     board[SQ_GO] = (square){
         .Square_Name = "GO",
@@ -769,5 +772,7 @@ void Board_Initialization(void){
             .Package = Not_Insured
         }
     };
-
 };
+
+  
+

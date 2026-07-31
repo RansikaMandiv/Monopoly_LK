@@ -1,0 +1,8 @@
+# Ignore VS Code configuration directory
+.vscode/
+
+# Ignore compiled binary executables (no extensions)
+main
+monopoly
+
+test.c

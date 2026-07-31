@@ -1,6 +1,10 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#define Total_Players 4
+
+
+
 typedef enum {
     
     None,
@@ -223,14 +227,18 @@ typedef struct {
     int Player_Assets;
     Player_Loan Loan_status;
     Square_ID Player_Position;
+    short Player_Roll_Order;
+    short Temp_Dice_Value;
 
 
 }Players;
 
 
-void Player_Initialization(void);
-
-
+void Board_Initialization(square board[]);
+//void Value_Sort(int arr[],int size);
+void Player_Initialization(Players Player_List[]);
+int Dice_Roll(void);
+void Start_Game(void);
 
 
 

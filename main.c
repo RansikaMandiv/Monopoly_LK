@@ -1,8 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "types.h"
  
 int main(){
 
-    Player_Initialization();    
+    srand(3);
+    Start_Game();
 
 }
