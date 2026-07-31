@@ -16,6 +16,29 @@ int Dice_Roll(void)
 };
 
 
+int Round_Counter(Players Player_List[],int Round_Count)
+{
+    if(((Player_List[Aggressive_Investor].Total_Dice_Value / 39) > Round_Count) && ((Player_List[Opportunistic_Trader].Total_Dice_Value / 39) > Round_Count) && ((Player_List[Risk_Taker].Total_Dice_Value / 39) > Round_Count) && ((Player_List[Conservative_Banker].Total_Dice_Value / 39) > Round_Count))
+    {
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+
+void Player_Moves(Players Player_List[],int Player_Id_Input)
+{
+    Player_List[Player_Id_Input].Temp_Dice_Value = Dice_Roll();
+    Player_List[Player_Id_Input].Player_Position = (Player_List[Player_Id_Input].Player_Position + Player_List[Player_Id_Input].Temp_Dice_Value) % 39;
+    Player_List[Player_Id_Input].Total_Dice_Value += Player_List[Player_Id_Input].Temp_Dice_Value;
+    printf("\n%s Rolls: %d Player Moves to: %d\n",Player_List[Player_Id_Input].Player_Name,Player_List[Player_Id_Input].Temp_Dice_Value,Player_List[Player_Id_Input].Player_Position);
+    
+    
+}
+
+
 //Determining Player Order//
 
 void Determine_Order(Players Players_Arr[],int No_Of_Players)
@@ -82,6 +105,9 @@ void Determine_Order(Players Players_Arr[],int No_Of_Players)
 void Start_Game(void)
 {
 
+short Round_Count = 0;
+short Turn_Count = 0;
+
 square Board[SQ_Board_Size];
 Board_Initialization(Board);
 
@@ -105,13 +131,14 @@ for (int i = 0; i < Total_Players; i++)
 {
     printf("\nFinal Player Roll Order is:\n%s:\t%d\n",Player_List[i].Player_Name,Player_List[i].Player_Roll_Order);
 
-    for (int j = 0; j < Total_Players; j++)
+   for (int j = 0; j < Total_Players; j++)
     {
         if (i == Player_List[j].Player_Roll_Order)
         {
             Final_Order[i] = Player_List[j].Player_ID;
         }
     }
+
 }
 
 printf("\nFinal Order is:\t\n");
@@ -120,11 +147,42 @@ for (int j = 0; j < Total_Players; j++)
     printf("\n%d Position is %s\n",j+1,Player_List[Final_Order[j]].Player_Name);
 }
 
+//Resetting Temp Dice Values
 
+{
+    for (int i = 0; i < Total_Players; i++)
+    {
+        Player_List[i].Temp_Dice_Value = 0;
+    }
+}
 //
 
-};
+    
+while(Round_Count < 5)
+{
+    
 
+    for(int i = 0; i < Total_Players; i++)
+    {
+        int Id_Input = Final_Order[i];
+        Player_Moves(Player_List,Id_Input);
+        
+        if (Round_Counter(Player_List,Round_Count))
+        {
+            Round_Count++;
+        }
+        
+    }
+    Turn_Count++;
+    printf("%d",Turn_Count);
+
+}
+}
+
+int Player_Buys(Players Player_List[])
+{
+    
+}
 
 
 

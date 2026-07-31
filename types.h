@@ -229,6 +229,7 @@ typedef struct {
     Square_ID Player_Position;
     short Player_Roll_Order;
     short Temp_Dice_Value;
+    short Total_Dice_Value;
 
 
 }Players;

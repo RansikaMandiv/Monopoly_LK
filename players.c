@@ -29,6 +29,7 @@ void Player_Initialization(Players Player_List[]){
         Player_List[i].Player_Position = SQ_GO;
         Player_List[i].Player_Roll_Order = -1;
         Player_List[i].Temp_Dice_Value = 0;
+        
 
         for(int j = 0; j < 30; j++)
         {

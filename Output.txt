@@ -1,0 +1,525 @@
+
+Aggressive Investor Rolled:	3
+
+Conservative Banker Rolled:	2
+
+Risk Taker Rolled:	9
+
+Opportunistic Trader Rolled:	6
+
+Final Player Roll Order is:
+Aggressive Investor:	2
+
+Final Player Roll Order is:
+Conservative Banker:	3
+
+Final Player Roll Order is:
+Risk Taker:	0
+
+Final Player Roll Order is:
+Opportunistic Trader:	1
+
+Final Order is:	
+
+1 Position is Risk Taker
+
+2 Position is Opportunistic Trader
+
+3 Position is Aggressive Investor
+
+4 Position is Conservative Banker
+
+Risk Taker Rolls: 7 Player Moves to: 7
+
+Opportunistic Trader Rolls: 10 Player Moves to: 10
+
+Aggressive Investor Rolls: 6 Player Moves to: 6
+
+Conservative Banker Rolls: 9 Player Moves to: 9
+
+Risk Taker Rolls: 3 Player Moves to: 10
+
+Opportunistic Trader Rolls: 6 Player Moves to: 16
+
+Aggressive Investor Rolls: 3 Player Moves to: 9
+
+Conservative Banker Rolls: 6 Player Moves to: 15
+
+Risk Taker Rolls: 8 Player Moves to: 18
+
+Opportunistic Trader Rolls: 12 Player Moves to: 28
+
+Aggressive Investor Rolls: 10 Player Moves to: 19
+
+Conservative Banker Rolls: 10 Player Moves to: 25
+
+Risk Taker Rolls: 8 Player Moves to: 26
+
+Opportunistic Trader Rolls: 5 Player Moves to: 33
+
+Aggressive Investor Rolls: 5 Player Moves to: 24
+
+Conservative Banker Rolls: 6 Player Moves to: 31
+
+Risk Taker Rolls: 8 Player Moves to: 34
+
+Opportunistic Trader Rolls: 7 Player Moves to: 1
+
+Aggressive Investor Rolls: 7 Player Moves to: 31
+
+Conservative Banker Rolls: 9 Player Moves to: 1
+
+Risk Taker Rolls: 8 Player Moves to: 3
+
+Opportunistic Trader Rolls: 8 Player Moves to: 9
+
+Aggressive Investor Rolls: 9 Player Moves to: 1
+
+Conservative Banker Rolls: 9 Player Moves to: 10
+
+Risk Taker Rolls: 7 Player Moves to: 10
+
+Opportunistic Trader Rolls: 8 Player Moves to: 17
+
+Aggressive Investor Rolls: 4 Player Moves to: 5
+
+Conservative Banker Rolls: 8 Player Moves to: 18
+
+Risk Taker Rolls: 6 Player Moves to: 16
+
+Opportunistic Trader Rolls: 5 Player Moves to: 22
+
+Aggressive Investor Rolls: 11 Player Moves to: 16
+
+Conservative Banker Rolls: 6 Player Moves to: 24
+
+Risk Taker Rolls: 12 Player Moves to: 28
+
+Opportunistic Trader Rolls: 9 Player Moves to: 31
+
+Aggressive Investor Rolls: 3 Player Moves to: 19
+
+Conservative Banker Rolls: 7 Player Moves to: 31
+
+Risk Taker Rolls: 9 Player Moves to: 37
+
+Opportunistic Trader Rolls: 7 Player Moves to: 38
+
+Aggressive Investor Rolls: 4 Player Moves to: 23
+
+Conservative Banker Rolls: 2 Player Moves to: 33
+
+Risk Taker Rolls: 6 Player Moves to: 4
+
+Opportunistic Trader Rolls: 7 Player Moves to: 6
+
+Aggressive Investor Rolls: 8 Player Moves to: 31
+
+Conservative Banker Rolls: 7 Player Moves to: 1
+
+Risk Taker Rolls: 4 Player Moves to: 8
+
+Opportunistic Trader Rolls: 5 Player Moves to: 11
+
+Aggressive Investor Rolls: 2 Player Moves to: 33
+
+Conservative Banker Rolls: 7 Player Moves to: 8
+
+Risk Taker Rolls: 11 Player Moves to: 19
+
+Opportunistic Trader Rolls: 6 Player Moves to: 17
+
+Aggressive Investor Rolls: 9 Player Moves to: 3
+
+Conservative Banker Rolls: 6 Player Moves to: 14
+
+Risk Taker Rolls: 7 Player Moves to: 26
+
+Opportunistic Trader Rolls: 10 Player Moves to: 27
+
+Aggressive Investor Rolls: 7 Player Moves to: 10
+
+Conservative Banker Rolls: 12 Player Moves to: 26
+
+Risk Taker Rolls: 6 Player Moves to: 32
+
+Opportunistic Trader Rolls: 11 Player Moves to: 38
+
+Aggressive Investor Rolls: 7 Player Moves to: 17
+
+Conservative Banker Rolls: 8 Player Moves to: 34
+
+Risk Taker Rolls: 4 Player Moves to: 36
+
+Opportunistic Trader Rolls: 3 Player Moves to: 2
+
+Aggressive Investor Rolls: 7 Player Moves to: 24
+
+Conservative Banker Rolls: 10 Player Moves to: 5
+
+Risk Taker Rolls: 8 Player Moves to: 5
+
+Opportunistic Trader Rolls: 3 Player Moves to: 5
+
+Aggressive Investor Rolls: 8 Player Moves to: 32
+
+Conservative Banker Rolls: 2 Player Moves to: 7
+
+Risk Taker Rolls: 8 Player Moves to: 13
+
+Opportunistic Trader Rolls: 8 Player Moves to: 13
+
+Aggressive Investor Rolls: 8 Player Moves to: 1
+
+Conservative Banker Rolls: 7 Player Moves to: 14
+
+Risk Taker Rolls: 3 Player Moves to: 16
+
+Opportunistic Trader Rolls: 6 Player Moves to: 19
+
+Aggressive Investor Rolls: 11 Player Moves to: 12
+
+Conservative Banker Rolls: 4 Player Moves to: 18
+
+Risk Taker Rolls: 7 Player Moves to: 23
+
+Opportunistic Trader Rolls: 6 Player Moves to: 25
+
+Aggressive Investor Rolls: 5 Player Moves to: 17
+
+Conservative Banker Rolls: 10 Player Moves to: 28
+
+Risk Taker Rolls: 9 Player Moves to: 32
+
+Opportunistic Trader Rolls: 6 Player Moves to: 31
+
+Aggressive Investor Rolls: 8 Player Moves to: 25
+
+Conservative Banker Rolls: 10 Player Moves to: 38
+
+Risk Taker Rolls: 8 Player Moves to: 1
+
+Opportunistic Trader Rolls: 10 Player Moves to: 2
+
+Aggressive Investor Rolls: 9 Player Moves to: 34
+
+Conservative Banker Rolls: 10 Player Moves to: 9
+
+Risk Taker Rolls: 10 Player Moves to: 11
+
+Opportunistic Trader Rolls: 7 Player Moves to: 9
+
+Aggressive Investor Rolls: 6 Player Moves to: 1
+
+Conservative Banker Rolls: 5 Player Moves to: 14
+
+Risk Taker Rolls: 8 Player Moves to: 19
+
+Opportunistic Trader Rolls: 6 Player Moves to: 15
+
+Aggressive Investor Rolls: 5 Player Moves to: 6
+
+Conservative Banker Rolls: 9 Player Moves to: 23
+
+Risk Taker Rolls: 9 Player Moves to: 28
+
+Opportunistic Trader Rolls: 2 Player Moves to: 17
+
+Aggressive Investor Rolls: 8 Player Moves to: 14
+
+Conservative Banker Rolls: 7 Player Moves to: 30
+
+Risk Taker Rolls: 9 Player Moves to: 37
+
+Opportunistic Trader Rolls: 2 Player Moves to: 19
+
+Aggressive Investor Rolls: 7 Player Moves to: 21
+
+Conservative Banker Rolls: 5 Player Moves to: 35
+
+Risk Taker Rolls: 6 Player Moves to: 4
+
+Opportunistic Trader Rolls: 6 Player Moves to: 25
+
+Aggressive Investor Rolls: 9 Player Moves to: 30
+
+Conservative Banker Rolls: 2 Player Moves to: 37
+
+Risk Taker Rolls: 11 Player Moves to: 15
+
+Opportunistic Trader Rolls: 7 Player Moves to: 32
+
+Aggressive Investor Rolls: 4 Player Moves to: 34
+
+Conservative Banker Rolls: 7 Player Moves to: 5
+
+Risk Taker Rolls: 6 Player Moves to: 21
+
+Opportunistic Trader Rolls: 12 Player Moves to: 5
+
+Aggressive Investor Rolls: 7 Player Moves to: 2
+
+Conservative Banker Rolls: 3 Player Moves to: 8
+
+Aggressive Investor Rolled:	3
+
+Conservative Banker Rolled:	2
+
+Risk Taker Rolled:	9
+
+Opportunistic Trader Rolled:	6
+
+Final Player Roll Order is:
+Aggressive Investor:	2
+
+Final Player Roll Order is:
+Conservative Banker:	3
+
+Final Player Roll Order is:
+Risk Taker:	0
+
+Final Player Roll Order is:
+Opportunistic Trader:	1
+
+Final Order is:	
+
+1 Position is Risk Taker
+
+2 Position is Opportunistic Trader
+
+3 Position is Aggressive Investor
+
+4 Position is Conservative Banker
+
+Risk Taker Rolls: 7 Player Moves to: 7
+
+Opportunistic Trader Rolls: 10 Player Moves to: 10
+
+Aggressive Investor Rolls: 6 Player Moves to: 6
+
+Conservative Banker Rolls: 9 Player Moves to: 9
+1
+Risk Taker Rolls: 3 Player Moves to: 10
+
+Opportunistic Trader Rolls: 6 Player Moves to: 16
+
+Aggressive Investor Rolls: 3 Player Moves to: 9
+
+Conservative Banker Rolls: 6 Player Moves to: 15
+2
+Risk Taker Rolls: 8 Player Moves to: 18
+
+Opportunistic Trader Rolls: 12 Player Moves to: 28
+
+Aggressive Investor Rolls: 10 Player Moves to: 19
+
+Conservative Banker Rolls: 10 Player Moves to: 25
+3
+Risk Taker Rolls: 8 Player Moves to: 26
+
+Opportunistic Trader Rolls: 5 Player Moves to: 33
+
+Aggressive Investor Rolls: 5 Player Moves to: 24
+
+Conservative Banker Rolls: 6 Player Moves to: 31
+4
+Risk Taker Rolls: 8 Player Moves to: 34
+
+Opportunistic Trader Rolls: 7 Player Moves to: 1
+
+Aggressive Investor Rolls: 7 Player Moves to: 31
+
+Conservative Banker Rolls: 9 Player Moves to: 1
+5
+Risk Taker Rolls: 8 Player Moves to: 3
+
+Opportunistic Trader Rolls: 8 Player Moves to: 9
+
+Aggressive Investor Rolls: 9 Player Moves to: 1
+
+Conservative Banker Rolls: 9 Player Moves to: 10
+6
+Risk Taker Rolls: 7 Player Moves to: 10
+
+Opportunistic Trader Rolls: 8 Player Moves to: 17
+
+Aggressive Investor Rolls: 4 Player Moves to: 5
+
+Conservative Banker Rolls: 8 Player Moves to: 18
+7
+Risk Taker Rolls: 6 Player Moves to: 16
+
+Opportunistic Trader Rolls: 5 Player Moves to: 22
+
+Aggressive Investor Rolls: 11 Player Moves to: 16
+
+Conservative Banker Rolls: 6 Player Moves to: 24
+8
+Risk Taker Rolls: 12 Player Moves to: 28
+
+Opportunistic Trader Rolls: 9 Player Moves to: 31
+
+Aggressive Investor Rolls: 3 Player Moves to: 19
+
+Conservative Banker Rolls: 7 Player Moves to: 31
+9
+Risk Taker Rolls: 9 Player Moves to: 37
+
+Opportunistic Trader Rolls: 7 Player Moves to: 38
+
+Aggressive Investor Rolls: 4 Player Moves to: 23
+
+Conservative Banker Rolls: 2 Player Moves to: 33
+10
+Risk Taker Rolls: 6 Player Moves to: 4
+
+Opportunistic Trader Rolls: 7 Player Moves to: 6
+
+Aggressive Investor Rolls: 8 Player Moves to: 31
+
+Conservative Banker Rolls: 7 Player Moves to: 1
+11
+Risk Taker Rolls: 4 Player Moves to: 8
+
+Opportunistic Trader Rolls: 5 Player Moves to: 11
+
+Aggressive Investor Rolls: 2 Player Moves to: 33
+
+Conservative Banker Rolls: 7 Player Moves to: 8
+12
+Risk Taker Rolls: 11 Player Moves to: 19
+
+Opportunistic Trader Rolls: 6 Player Moves to: 17
+
+Aggressive Investor Rolls: 9 Player Moves to: 3
+
+Conservative Banker Rolls: 6 Player Moves to: 14
+13
+Risk Taker Rolls: 7 Player Moves to: 26
+
+Opportunistic Trader Rolls: 10 Player Moves to: 27
+
+Aggressive Investor Rolls: 7 Player Moves to: 10
+
+Conservative Banker Rolls: 12 Player Moves to: 26
+14
+Risk Taker Rolls: 6 Player Moves to: 32
+
+Opportunistic Trader Rolls: 11 Player Moves to: 38
+
+Aggressive Investor Rolls: 7 Player Moves to: 17
+
+Conservative Banker Rolls: 8 Player Moves to: 34
+15
+Risk Taker Rolls: 4 Player Moves to: 36
+
+Opportunistic Trader Rolls: 3 Player Moves to: 2
+
+Aggressive Investor Rolls: 7 Player Moves to: 24
+
+Conservative Banker Rolls: 10 Player Moves to: 5
+16
+Risk Taker Rolls: 8 Player Moves to: 5
+
+Opportunistic Trader Rolls: 3 Player Moves to: 5
+
+Aggressive Investor Rolls: 8 Player Moves to: 32
+
+Conservative Banker Rolls: 2 Player Moves to: 7
+17
+Risk Taker Rolls: 8 Player Moves to: 13
+
+Opportunistic Trader Rolls: 8 Player Moves to: 13
+
+Aggressive Investor Rolls: 8 Player Moves to: 1
+
+Conservative Banker Rolls: 7 Player Moves to: 14
+18
+Risk Taker Rolls: 3 Player Moves to: 16
+
+Opportunistic Trader Rolls: 6 Player Moves to: 19
+
+Aggressive Investor Rolls: 11 Player Moves to: 12
+
+Conservative Banker Rolls: 4 Player Moves to: 18
+19
+Risk Taker Rolls: 7 Player Moves to: 23
+
+Opportunistic Trader Rolls: 6 Player Moves to: 25
+
+Aggressive Investor Rolls: 5 Player Moves to: 17
+
+Conservative Banker Rolls: 10 Player Moves to: 28
+20
+Risk Taker Rolls: 9 Player Moves to: 32
+
+Opportunistic Trader Rolls: 6 Player Moves to: 31
+
+Aggressive Investor Rolls: 8 Player Moves to: 25
+
+Conservative Banker Rolls: 10 Player Moves to: 38
+21
+Risk Taker Rolls: 8 Player Moves to: 1
+
+Opportunistic Trader Rolls: 10 Player Moves to: 2
+
+Aggressive Investor Rolls: 9 Player Moves to: 34
+
+Conservative Banker Rolls: 10 Player Moves to: 9
+22
+Risk Taker Rolls: 10 Player Moves to: 11
+
+Opportunistic Trader Rolls: 7 Player Moves to: 9
+
+Aggressive Investor Rolls: 6 Player Moves to: 1
+
+Conservative Banker Rolls: 5 Player Moves to: 14
+23
+Risk Taker Rolls: 8 Player Moves to: 19
+
+Opportunistic Trader Rolls: 6 Player Moves to: 15
+
+Aggressive Investor Rolls: 5 Player Moves to: 6
+
+Conservative Banker Rolls: 9 Player Moves to: 23
+24
+Risk Taker Rolls: 9 Player Moves to: 28
+
+Opportunistic Trader Rolls: 2 Player Moves to: 17
+
+Aggressive Investor Rolls: 8 Player Moves to: 14
+
+Conservative Banker Rolls: 7 Player Moves to: 30
+25
+Risk Taker Rolls: 9 Player Moves to: 37
+
+Opportunistic Trader Rolls: 2 Player Moves to: 19
+
+Aggressive Investor Rolls: 7 Player Moves to: 21
+
+Conservative Banker Rolls: 5 Player Moves to: 35
+26
+Risk Taker Rolls: 6 Player Moves to: 4
+
+Opportunistic Trader Rolls: 6 Player Moves to: 25
+
+Aggressive Investor Rolls: 9 Player Moves to: 30
+
+Conservative Banker Rolls: 2 Player Moves to: 37
+27
+Risk Taker Rolls: 11 Player Moves to: 15
+
+Opportunistic Trader Rolls: 7 Player Moves to: 32
+
+Aggressive Investor Rolls: 4 Player Moves to: 34
+
+Conservative Banker Rolls: 7 Player Moves to: 5
+28
+Risk Taker Rolls: 6 Player Moves to: 21
+
+Opportunistic Trader Rolls: 12 Player Moves to: 5
+
+Aggressive Investor Rolls: 7 Player Moves to: 2
+
+Conservative Banker Rolls: 3 Player Moves to: 8
+29
