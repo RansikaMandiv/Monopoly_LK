@@ -29,7 +29,10 @@ void Player_Initialization(Players Player_List[]){
         Player_List[i].Player_Position = SQ_GO;
         Player_List[i].Player_Roll_Order = -1;
         Player_List[i].Temp_Dice_Value = 0;
-        
+        Player_List[i].Total_Dice_Value = 0;
+        Player_List[i].Is_Bankrupt = Not_Bankrupt;
+        Player_List[i].Jail_Status = Not_In_Jail;
+        Player_List[i].Player_Passed_Go = Not_Passed;
 
         for(int j = 0; j < 30; j++)
         {
@@ -38,13 +41,11 @@ void Player_Initialization(Players Player_List[]){
         }
     }
 
-   // printf("%s\n",Player_List[1].Player_Name);
-   // printf("%d\n",Player_List[1].Player_ID);
-   // printf("%d\n",Player_List[1].Player_Owns[1]);
-   // printf("%d\n",Player_List[1].Player_Cash);
-   // printf("%d\n",Player_List[1].Player_Assets);
-   // printf("%d\n",Player_List[1].Loan_status);
-   // printf("%d\n",Player_List[1].Player_Position);
-
+  
     
 };
+
+void Player_Models(Players Player_List[],int Player_Id)
+{
+
+}

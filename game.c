@@ -16,25 +16,40 @@ int Dice_Roll(void)
 };
 
 
-int Round_Counter(Players Player_List[],int Round_Count)
+int Round_Counter(Players Player_List[],short *Round_Count)
 {
-    if(((Player_List[Aggressive_Investor].Total_Dice_Value / 39) > Round_Count) && ((Player_List[Opportunistic_Trader].Total_Dice_Value / 39) > Round_Count) && ((Player_List[Risk_Taker].Total_Dice_Value / 39) > Round_Count) && ((Player_List[Conservative_Banker].Total_Dice_Value / 39) > Round_Count))
+    for (int i = 0; i < Total_Players; i++)
     {
-        return 1;
+        if(Player_List[i].Total_Dice_Value > 39)
+        {
+            Player_List[i].Player_Passed_Go = Passed_Go;
+            Player_List[i].Total_Dice_Value = (Player_List[i].Total_Dice_Value) % (SQ_Board_Size);
+        }
     }
-    else{
-        return 0;
+
+    if((Player_List[Aggressive_Investor].Player_Passed_Go == Passed_Go) && (Player_List[Opportunistic_Trader].Player_Passed_Go == Passed_Go) && (Player_List[Risk_Taker].Player_Passed_Go == Passed_Go) && (Player_List[Conservative_Banker].Player_Passed_Go == Passed_Go))
+    {
+        (*Round_Count)++;
+       
+        for (int i = 0; i < Total_Players; i++)
+        {
+        
+            Player_List[i].Player_Passed_Go = Not_Passed;
+           
+        }
     }
+
 }
+
 
 
 void Player_Moves(Players Player_List[],int Player_Id_Input)
 {
+
     Player_List[Player_Id_Input].Temp_Dice_Value = Dice_Roll();
     Player_List[Player_Id_Input].Player_Position = (Player_List[Player_Id_Input].Player_Position + Player_List[Player_Id_Input].Temp_Dice_Value) % 39;
     Player_List[Player_Id_Input].Total_Dice_Value += Player_List[Player_Id_Input].Temp_Dice_Value;
     printf("\n%s Rolls: %d Player Moves to: %d\n",Player_List[Player_Id_Input].Player_Name,Player_List[Player_Id_Input].Temp_Dice_Value,Player_List[Player_Id_Input].Player_Position);
-    
     
 }
 
@@ -106,7 +121,7 @@ void Start_Game(void)
 {
 
 short Round_Count = 0;
-short Turn_Count = 0;
+int Turn_Count = 0;
 
 square Board[SQ_Board_Size];
 Board_Initialization(Board);
@@ -167,10 +182,7 @@ while(Round_Count < 5)
         int Id_Input = Final_Order[i];
         Player_Moves(Player_List,Id_Input);
         
-        if (Round_Counter(Player_List,Round_Count))
-        {
-            Round_Count++;
-        }
+        Round_Counter(Player_List,&Round_Count);
         
     }
     Turn_Count++;
@@ -179,7 +191,7 @@ while(Round_Count < 5)
 }
 }
 
-int Player_Buys(Players Player_List[])
+int Player_Buys_Property(Players Player_List[])
 {
     
 }

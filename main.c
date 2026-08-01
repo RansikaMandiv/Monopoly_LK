@@ -4,7 +4,7 @@
  
 int main(){
 
-    srand(3);
+    srand(1);
     Start_Game();
 
 }

@@ -7,7 +7,7 @@
 
 typedef enum {
     
-    None,
+    None = -1,
     Brown,
     Light_Blue,
     Pink,
@@ -154,6 +154,24 @@ typedef enum{
 
 }Player_Loan;
 
+typedef enum{
+
+    Bankrupt = -1,
+    Not_Bankrupt
+}Player_Bankrupt;
+
+typedef enum{
+
+    In_Jail = -1,
+    Not_In_Jail,
+}Player_Jail;
+
+typedef enum{
+
+    Not_Passed = -1,
+    Passed_Go,
+}Player_Go;
+
 
 typedef struct{
 
@@ -230,6 +248,11 @@ typedef struct {
     short Player_Roll_Order;
     short Temp_Dice_Value;
     short Total_Dice_Value;
+    Property_Group_Type Has_Monopoly[9];
+    Player_Bankrupt Is_Bankrupt;
+    Player_Jail Jail_Status;
+    Player_Go Player_Passed_Go;
+    
 
 
 }Players;
