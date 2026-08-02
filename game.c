@@ -16,25 +16,28 @@ int Dice_Roll(void)
 };
 
 
-int Round_Counter(Players Player_List[],short *Round_Count)
+int Round_Counter(Players player_list[],short *Round_Count)
 {
     for (int i = 0; i < Total_Players; i++)
     {
-        if(Player_List[i].Total_Dice_Value > 39)
+        if(player_list[i].Total_Dice_Value > 39)
         {
-            Player_List[i].Player_Passed_Go = Passed_Go;
-            Player_List[i].Total_Dice_Value = (Player_List[i].Total_Dice_Value) % (SQ_Board_Size);
+            player_list[i].Player_Passed_Go = Passed_Go;
+            player_list[i].Player_Cash += 2000;
+            printf("\n%s has Passed Go.\nCollected LKR 2,000.\nCurrent Balance LKR : %d \n",player_list[i].Player_Name,player_list[i].Player_Cash);
+            
+            player_list[i].Total_Dice_Value = (player_list[i].Total_Dice_Value) % (SQ_Board_Size);
         }
     }
 
-    if((Player_List[Aggressive_Investor].Player_Passed_Go == Passed_Go) && (Player_List[Opportunistic_Trader].Player_Passed_Go == Passed_Go) && (Player_List[Risk_Taker].Player_Passed_Go == Passed_Go) && (Player_List[Conservative_Banker].Player_Passed_Go == Passed_Go))
+    if((player_list[Aggressive_Investor].Player_Passed_Go == Passed_Go) && (player_list[Opportunistic_Trader].Player_Passed_Go == Passed_Go) && (player_list[Risk_Taker].Player_Passed_Go == Passed_Go) && (player_list[Conservative_Banker].Player_Passed_Go == Passed_Go))
     {
         (*Round_Count)++;
        
         for (int i = 0; i < Total_Players; i++)
         {
         
-            Player_List[i].Player_Passed_Go = Not_Passed;
+            player_list[i].Player_Passed_Go = Not_Passed;
            
         }
     }
@@ -43,13 +46,13 @@ int Round_Counter(Players Player_List[],short *Round_Count)
 
 
 
-void Player_Moves(Players Player_List[],int Player_Id_Input)
+void Player_Moves(Players player_list[],int Player_Id_Input)
 {
 
-    Player_List[Player_Id_Input].Temp_Dice_Value = Dice_Roll();
-    Player_List[Player_Id_Input].Player_Position = (Player_List[Player_Id_Input].Player_Position + Player_List[Player_Id_Input].Temp_Dice_Value) % 39;
-    Player_List[Player_Id_Input].Total_Dice_Value += Player_List[Player_Id_Input].Temp_Dice_Value;
-    printf("\n%s Rolls: %d Player Moves to: %d\n",Player_List[Player_Id_Input].Player_Name,Player_List[Player_Id_Input].Temp_Dice_Value,Player_List[Player_Id_Input].Player_Position);
+    player_list[Player_Id_Input].Temp_Dice_Value = Dice_Roll();
+    player_list[Player_Id_Input].Player_Position = (player_list[Player_Id_Input].Player_Position + player_list[Player_Id_Input].Temp_Dice_Value) % 39;
+    player_list[Player_Id_Input].Total_Dice_Value += player_list[Player_Id_Input].Temp_Dice_Value;
+    printf("\n%s Rolls: %d Player Moves to: %d\n",player_list[Player_Id_Input].Player_Name,player_list[Player_Id_Input].Temp_Dice_Value,player_list[Player_Id_Input].Player_Position);
     
 }
 
@@ -122,6 +125,7 @@ void Start_Game(void)
 
 short Round_Count = 0;
 int Turn_Count = 0;
+Economic Economy_Status = Normal;
 
 square Board[SQ_Board_Size];
 Board_Initialization(Board);
@@ -183,18 +187,17 @@ while(Round_Count < 5)
         Player_Moves(Player_List,Id_Input);
         
         Round_Counter(Player_List,&Round_Count);
+
+        Player_Buys_Property(Player_List,Board,Id_Input,Economy_Status);
         
     }
     Turn_Count++;
-    printf("%d",Turn_Count);
+   // printf("%d",Turn_Count);
 
 }
 }
 
-int Player_Buys_Property(Players Player_List[])
-{
-    
-}
+
 
 
 

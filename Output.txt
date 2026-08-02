@@ -1,525 +1,430 @@
 
-Aggressive Investor Rolled:	3
+Aggressive Investor Rolled:	7
 
-Conservative Banker Rolled:	2
+Conservative Banker Rolled:	6
 
-Risk Taker Rolled:	9
+Risk Taker Rolled:	8
 
 Opportunistic Trader Rolled:	6
 
-Final Player Roll Order is:
-Aggressive Investor:	2
+[Tie Detected] Players Tied with a Roll of 6 are Re Rolling
+Player Conservative Banker Re-Rolled and got: 6
+Player Opportunistic Trader Re-Rolled and got: 5
 
 Final Player Roll Order is:
-Conservative Banker:	3
+Aggressive Investor:	1
+
+Final Player Roll Order is:
+Conservative Banker:	2
 
 Final Player Roll Order is:
 Risk Taker:	0
 
 Final Player Roll Order is:
-Opportunistic Trader:	1
+Opportunistic Trader:	3
 
 Final Order is:	
 
 1 Position is Risk Taker
 
-2 Position is Opportunistic Trader
+2 Position is Aggressive Investor
 
-3 Position is Aggressive Investor
+3 Position is Conservative Banker
 
-4 Position is Conservative Banker
+4 Position is Opportunistic Trader
 
-Risk Taker Rolls: 7 Player Moves to: 7
+Risk Taker Rolls: 5 Player Moves to: 5
+
+Risk Taker Purchased Colombo Fort Railway Station for LKR 999.
+Remaining Balance : 29001
+
+Aggressive Investor Rolls: 11 Player Moves to: 11
+
+Aggressive Investor Purchased Nugegoda for LKR 3500.
+Remaining Balance : 26500
+
+Conservative Banker Rolls: 2 Player Moves to: 2
 
 Opportunistic Trader Rolls: 10 Player Moves to: 10
 
-Aggressive Investor Rolls: 6 Player Moves to: 6
+Risk Taker Rolls: 9 Player Moves to: 14
 
-Conservative Banker Rolls: 9 Player Moves to: 9
+Risk Taker Purchased Kottawa for LKR 4000.
+Remaining Balance : 25001
 
-Risk Taker Rolls: 3 Player Moves to: 10
+Aggressive Investor Rolls: 8 Player Moves to: 19
 
-Opportunistic Trader Rolls: 6 Player Moves to: 16
+Aggressive Investor Purchased Ja-Ela for LKR 5000.
+Remaining Balance : 21500
 
-Aggressive Investor Rolls: 3 Player Moves to: 9
+Conservative Banker Rolls: 6 Player Moves to: 8
 
-Conservative Banker Rolls: 6 Player Moves to: 15
+Conservative Banker Purchased Wellawatte for LKR 2700.
+Remaining Balance : 27300
 
-Risk Taker Rolls: 8 Player Moves to: 18
+Opportunistic Trader Rolls: 5 Player Moves to: 15
 
-Opportunistic Trader Rolls: 12 Player Moves to: 28
+Risk Taker Rolls: 4 Player Moves to: 18
 
-Aggressive Investor Rolls: 10 Player Moves to: 19
+Risk Taker Purchased Katunayake for LKR 4700.
+Remaining Balance : 20301
 
-Conservative Banker Rolls: 10 Player Moves to: 25
+Aggressive Investor Rolls: 7 Player Moves to: 26
 
-Risk Taker Rolls: 8 Player Moves to: 26
+Aggressive Investor Purchased Galle Fort for LKR 6500.
+Remaining Balance : 15000
 
-Opportunistic Trader Rolls: 5 Player Moves to: 33
+Conservative Banker Rolls: 2 Player Moves to: 10
 
-Aggressive Investor Rolls: 5 Player Moves to: 24
+Opportunistic Trader Rolls: 10 Player Moves to: 25
 
-Conservative Banker Rolls: 6 Player Moves to: 31
+Risk Taker Rolls: 7 Player Moves to: 25
 
-Risk Taker Rolls: 8 Player Moves to: 34
+Risk Taker Purchased Galle Railway Station for LKR 999.
+Remaining Balance : 19302
 
-Opportunistic Trader Rolls: 7 Player Moves to: 1
-
-Aggressive Investor Rolls: 7 Player Moves to: 31
-
-Conservative Banker Rolls: 9 Player Moves to: 1
-
-Risk Taker Rolls: 8 Player Moves to: 3
-
-Opportunistic Trader Rolls: 8 Player Moves to: 9
-
-Aggressive Investor Rolls: 9 Player Moves to: 1
-
-Conservative Banker Rolls: 9 Player Moves to: 10
-
-Risk Taker Rolls: 7 Player Moves to: 10
-
-Opportunistic Trader Rolls: 8 Player Moves to: 17
-
-Aggressive Investor Rolls: 4 Player Moves to: 5
+Aggressive Investor Rolls: 7 Player Moves to: 33
 
 Conservative Banker Rolls: 8 Player Moves to: 18
 
-Risk Taker Rolls: 6 Player Moves to: 16
+Opportunistic Trader Rolls: 10 Player Moves to: 35
 
-Opportunistic Trader Rolls: 5 Player Moves to: 22
+Risk Taker Rolls: 5 Player Moves to: 30
 
-Aggressive Investor Rolls: 11 Player Moves to: 16
+Aggressive Investor Rolls: 6 Player Moves to: 0
 
-Conservative Banker Rolls: 6 Player Moves to: 24
+Conservative Banker Rolls: 7 Player Moves to: 25
 
-Risk Taker Rolls: 12 Player Moves to: 28
+Opportunistic Trader Rolls: 11 Player Moves to: 7
 
-Opportunistic Trader Rolls: 9 Player Moves to: 31
+Opportunistic Trader has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 32000 
 
-Aggressive Investor Rolls: 3 Player Moves to: 19
+Risk Taker Rolls: 5 Player Moves to: 35
 
-Conservative Banker Rolls: 7 Player Moves to: 31
+Risk Taker Purchased Jaffna Railway Station for LKR 999.
+Remaining Balance : 18303
 
-Risk Taker Rolls: 9 Player Moves to: 37
+Aggressive Investor Rolls: 7 Player Moves to: 7
 
-Opportunistic Trader Rolls: 7 Player Moves to: 38
+Aggressive Investor has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 17000 
 
-Aggressive Investor Rolls: 4 Player Moves to: 23
+Conservative Banker Rolls: 6 Player Moves to: 31
 
-Conservative Banker Rolls: 2 Player Moves to: 33
+Conservative Banker Purchased Jaffna Town for LKR 8000.
+Remaining Balance : 19300
 
-Risk Taker Rolls: 6 Player Moves to: 4
+Opportunistic Trader Rolls: 7 Player Moves to: 14
 
-Opportunistic Trader Rolls: 7 Player Moves to: 6
+Risk Taker Rolls: 8 Player Moves to: 4
 
-Aggressive Investor Rolls: 8 Player Moves to: 31
+Risk Taker has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 20303 
 
-Conservative Banker Rolls: 7 Player Moves to: 1
+Aggressive Investor Rolls: 7 Player Moves to: 14
 
-Risk Taker Rolls: 4 Player Moves to: 8
+Conservative Banker Rolls: 9 Player Moves to: 1
 
-Opportunistic Trader Rolls: 5 Player Moves to: 11
+Conservative Banker has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 21300 
 
-Aggressive Investor Rolls: 2 Player Moves to: 33
+Conservative Banker Purchased Pettah for LKR 1500.
+Remaining Balance : 19800
 
-Conservative Banker Rolls: 7 Player Moves to: 8
+Opportunistic Trader Rolls: 9 Player Moves to: 23
 
-Risk Taker Rolls: 11 Player Moves to: 19
+Risk Taker Rolls: 8 Player Moves to: 12
 
-Opportunistic Trader Rolls: 6 Player Moves to: 17
+Risk Taker Purchased Ceylon Electricity Board for LKR 999.
+Remaining Balance : 19304
 
-Aggressive Investor Rolls: 9 Player Moves to: 3
+Aggressive Investor Rolls: 5 Player Moves to: 19
 
-Conservative Banker Rolls: 6 Player Moves to: 14
+Conservative Banker Rolls: 5 Player Moves to: 6
 
-Risk Taker Rolls: 7 Player Moves to: 26
+Conservative Banker Purchased Bambalapitiya for LKR 2500.
+Remaining Balance : 17300
 
-Opportunistic Trader Rolls: 10 Player Moves to: 27
+Opportunistic Trader Rolls: 7 Player Moves to: 30
 
-Aggressive Investor Rolls: 7 Player Moves to: 10
+Risk Taker Rolls: 6 Player Moves to: 18
 
-Conservative Banker Rolls: 12 Player Moves to: 26
+Aggressive Investor Rolls: 7 Player Moves to: 26
 
-Risk Taker Rolls: 6 Player Moves to: 32
+Conservative Banker Rolls: 3 Player Moves to: 9
 
-Opportunistic Trader Rolls: 11 Player Moves to: 38
+Conservative Banker Purchased Mount Lavinia for LKR 3000.
+Remaining Balance : 14300
 
-Aggressive Investor Rolls: 7 Player Moves to: 17
+Opportunistic Trader Rolls: 4 Player Moves to: 34
 
-Conservative Banker Rolls: 8 Player Moves to: 34
+Risk Taker Rolls: 4 Player Moves to: 22
 
-Risk Taker Rolls: 4 Player Moves to: 36
-
-Opportunistic Trader Rolls: 3 Player Moves to: 2
-
-Aggressive Investor Rolls: 7 Player Moves to: 24
-
-Conservative Banker Rolls: 10 Player Moves to: 5
-
-Risk Taker Rolls: 8 Player Moves to: 5
-
-Opportunistic Trader Rolls: 3 Player Moves to: 5
-
-Aggressive Investor Rolls: 8 Player Moves to: 32
-
-Conservative Banker Rolls: 2 Player Moves to: 7
-
-Risk Taker Rolls: 8 Player Moves to: 13
-
-Opportunistic Trader Rolls: 8 Player Moves to: 13
-
-Aggressive Investor Rolls: 8 Player Moves to: 1
-
-Conservative Banker Rolls: 7 Player Moves to: 14
-
-Risk Taker Rolls: 3 Player Moves to: 16
-
-Opportunistic Trader Rolls: 6 Player Moves to: 19
-
-Aggressive Investor Rolls: 11 Player Moves to: 12
-
-Conservative Banker Rolls: 4 Player Moves to: 18
-
-Risk Taker Rolls: 7 Player Moves to: 23
-
-Opportunistic Trader Rolls: 6 Player Moves to: 25
-
-Aggressive Investor Rolls: 5 Player Moves to: 17
-
-Conservative Banker Rolls: 10 Player Moves to: 28
-
-Risk Taker Rolls: 9 Player Moves to: 32
-
-Opportunistic Trader Rolls: 6 Player Moves to: 31
-
-Aggressive Investor Rolls: 8 Player Moves to: 25
-
-Conservative Banker Rolls: 10 Player Moves to: 38
-
-Risk Taker Rolls: 8 Player Moves to: 1
-
-Opportunistic Trader Rolls: 10 Player Moves to: 2
-
-Aggressive Investor Rolls: 9 Player Moves to: 34
-
-Conservative Banker Rolls: 10 Player Moves to: 9
-
-Risk Taker Rolls: 10 Player Moves to: 11
-
-Opportunistic Trader Rolls: 7 Player Moves to: 9
-
-Aggressive Investor Rolls: 6 Player Moves to: 1
+Aggressive Investor Rolls: 10 Player Moves to: 36
 
 Conservative Banker Rolls: 5 Player Moves to: 14
 
-Risk Taker Rolls: 8 Player Moves to: 19
+Opportunistic Trader Rolls: 2 Player Moves to: 36
 
-Opportunistic Trader Rolls: 6 Player Moves to: 15
+Risk Taker Rolls: 4 Player Moves to: 26
 
-Aggressive Investor Rolls: 5 Player Moves to: 6
+Aggressive Investor Rolls: 7 Player Moves to: 4
 
-Conservative Banker Rolls: 9 Player Moves to: 23
+Aggressive Investor has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 19000 
 
-Risk Taker Rolls: 9 Player Moves to: 28
+Conservative Banker Rolls: 6 Player Moves to: 20
 
-Opportunistic Trader Rolls: 2 Player Moves to: 17
+Opportunistic Trader Rolls: 7 Player Moves to: 4
 
-Aggressive Investor Rolls: 8 Player Moves to: 14
+Opportunistic Trader has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 34000 
 
-Conservative Banker Rolls: 7 Player Moves to: 30
+Risk Taker Rolls: 9 Player Moves to: 35
 
-Risk Taker Rolls: 9 Player Moves to: 37
+Aggressive Investor Rolls: 8 Player Moves to: 12
 
-Opportunistic Trader Rolls: 2 Player Moves to: 19
+Conservative Banker Rolls: 10 Player Moves to: 30
 
-Aggressive Investor Rolls: 7 Player Moves to: 21
+Opportunistic Trader Rolls: 9 Player Moves to: 13
+
+Risk Taker Rolls: 5 Player Moves to: 1
+
+Risk Taker Purchased Pettah for LKR 1500.
+Remaining Balance : 17804
+
+Aggressive Investor Rolls: 8 Player Moves to: 20
 
 Conservative Banker Rolls: 5 Player Moves to: 35
 
-Risk Taker Rolls: 6 Player Moves to: 4
+Opportunistic Trader Rolls: 5 Player Moves to: 18
 
-Opportunistic Trader Rolls: 6 Player Moves to: 25
+Risk Taker Rolls: 10 Player Moves to: 11
 
-Aggressive Investor Rolls: 9 Player Moves to: 30
+Risk Taker has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 19804 
 
-Conservative Banker Rolls: 2 Player Moves to: 37
+Aggressive Investor Rolls: 11 Player Moves to: 31
 
-Risk Taker Rolls: 11 Player Moves to: 15
+Aggressive Investor Purchased Jaffna Town for LKR 8000.
+Remaining Balance : 11000
 
-Opportunistic Trader Rolls: 7 Player Moves to: 32
+Conservative Banker Rolls: 9 Player Moves to: 5
 
-Aggressive Investor Rolls: 4 Player Moves to: 34
+Conservative Banker has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 16300 
 
-Conservative Banker Rolls: 7 Player Moves to: 5
+Opportunistic Trader Rolls: 6 Player Moves to: 24
 
-Risk Taker Rolls: 6 Player Moves to: 21
+Risk Taker Rolls: 10 Player Moves to: 21
 
-Opportunistic Trader Rolls: 12 Player Moves to: 5
+Risk Taker Purchased Kandy City for LKR 5500.
+Remaining Balance : 14304
 
-Aggressive Investor Rolls: 7 Player Moves to: 2
+Aggressive Investor Rolls: 10 Player Moves to: 2
 
-Conservative Banker Rolls: 3 Player Moves to: 8
+Conservative Banker Rolls: 6 Player Moves to: 11
 
-Aggressive Investor Rolled:	3
+Opportunistic Trader Rolls: 9 Player Moves to: 33
 
-Conservative Banker Rolled:	2
+Risk Taker Rolls: 10 Player Moves to: 31
 
-Risk Taker Rolled:	9
+Aggressive Investor Rolls: 7 Player Moves to: 9
 
-Opportunistic Trader Rolled:	6
+Aggressive Investor has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 13000 
 
-Final Player Roll Order is:
-Aggressive Investor:	2
+Aggressive Investor Purchased Mount Lavinia for LKR 3000.
+Remaining Balance : 10000
 
-Final Player Roll Order is:
-Conservative Banker:	3
+Conservative Banker Rolls: 11 Player Moves to: 22
 
-Final Player Roll Order is:
-Risk Taker:	0
+Opportunistic Trader Rolls: 9 Player Moves to: 3
 
-Final Player Roll Order is:
-Opportunistic Trader:	1
+Opportunistic Trader has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 36000 
 
-Final Order is:	
+Risk Taker Rolls: 9 Player Moves to: 1
 
-1 Position is Risk Taker
+Aggressive Investor Rolls: 9 Player Moves to: 18
 
-2 Position is Opportunistic Trader
+Conservative Banker Rolls: 10 Player Moves to: 32
 
-3 Position is Aggressive Investor
+Opportunistic Trader Rolls: 2 Player Moves to: 5
 
-4 Position is Conservative Banker
+Risk Taker Rolls: 11 Player Moves to: 12
 
-Risk Taker Rolls: 7 Player Moves to: 7
+Risk Taker has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 16304 
 
-Opportunistic Trader Rolls: 10 Player Moves to: 10
+Aggressive Investor Rolls: 9 Player Moves to: 27
 
-Aggressive Investor Rolls: 6 Player Moves to: 6
+Aggressive Investor Purchased Unawatuna for LKR 6800.
+Remaining Balance : 3200
 
-Conservative Banker Rolls: 9 Player Moves to: 9
-1
-Risk Taker Rolls: 3 Player Moves to: 10
+Conservative Banker Rolls: 7 Player Moves to: 0
+
+Opportunistic Trader Rolls: 5 Player Moves to: 10
+
+Risk Taker Rolls: 7 Player Moves to: 19
+
+Aggressive Investor Rolls: 8 Player Moves to: 35
+
+Conservative Banker Rolls: 11 Player Moves to: 11
+
+Conservative Banker has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 18300 
 
 Opportunistic Trader Rolls: 6 Player Moves to: 16
 
-Aggressive Investor Rolls: 3 Player Moves to: 9
+Risk Taker Rolls: 5 Player Moves to: 24
 
-Conservative Banker Rolls: 6 Player Moves to: 15
-2
-Risk Taker Rolls: 8 Player Moves to: 18
+Risk Taker Purchased Katugastota for LKR 6000.
+Remaining Balance : 10304
 
-Opportunistic Trader Rolls: 12 Player Moves to: 28
+Aggressive Investor Rolls: 7 Player Moves to: 3
 
-Aggressive Investor Rolls: 10 Player Moves to: 19
+Aggressive Investor Purchased Maradana for LKR 1800.
+Remaining Balance : 1400
 
-Conservative Banker Rolls: 10 Player Moves to: 25
-3
-Risk Taker Rolls: 8 Player Moves to: 26
+Conservative Banker Rolls: 8 Player Moves to: 19
 
-Opportunistic Trader Rolls: 5 Player Moves to: 33
+Opportunistic Trader Rolls: 6 Player Moves to: 22
 
-Aggressive Investor Rolls: 5 Player Moves to: 24
+Risk Taker Rolls: 9 Player Moves to: 33
 
-Conservative Banker Rolls: 6 Player Moves to: 31
-4
-Risk Taker Rolls: 8 Player Moves to: 34
+Aggressive Investor Rolls: 8 Player Moves to: 11
 
-Opportunistic Trader Rolls: 7 Player Moves to: 1
+Aggressive Investor has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 3400 
 
-Aggressive Investor Rolls: 7 Player Moves to: 31
-
-Conservative Banker Rolls: 9 Player Moves to: 1
-5
-Risk Taker Rolls: 8 Player Moves to: 3
-
-Opportunistic Trader Rolls: 8 Player Moves to: 9
-
-Aggressive Investor Rolls: 9 Player Moves to: 1
-
-Conservative Banker Rolls: 9 Player Moves to: 10
-6
-Risk Taker Rolls: 7 Player Moves to: 10
-
-Opportunistic Trader Rolls: 8 Player Moves to: 17
-
-Aggressive Investor Rolls: 4 Player Moves to: 5
-
-Conservative Banker Rolls: 8 Player Moves to: 18
-7
-Risk Taker Rolls: 6 Player Moves to: 16
-
-Opportunistic Trader Rolls: 5 Player Moves to: 22
-
-Aggressive Investor Rolls: 11 Player Moves to: 16
-
-Conservative Banker Rolls: 6 Player Moves to: 24
-8
-Risk Taker Rolls: 12 Player Moves to: 28
+Conservative Banker Rolls: 8 Player Moves to: 27
 
 Opportunistic Trader Rolls: 9 Player Moves to: 31
 
-Aggressive Investor Rolls: 3 Player Moves to: 19
+Risk Taker Rolls: 11 Player Moves to: 5
+
+Risk Taker has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 12304 
+
+Aggressive Investor Rolls: 11 Player Moves to: 22
+
+Conservative Banker Rolls: 12 Player Moves to: 0
+
+Opportunistic Trader Rolls: 3 Player Moves to: 34
+
+Risk Taker Rolls: 5 Player Moves to: 10
+
+Aggressive Investor Rolls: 8 Player Moves to: 30
+
+Conservative Banker Rolls: 6 Player Moves to: 6
+
+Conservative Banker has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 20300 
+
+Conservative Banker Purchased Bambalapitiya for LKR 2500.
+Remaining Balance : 17800
+
+Opportunistic Trader Rolls: 6 Player Moves to: 1
+
+Risk Taker Rolls: 8 Player Moves to: 18
+
+Aggressive Investor Rolls: 5 Player Moves to: 35
+
+Conservative Banker Rolls: 8 Player Moves to: 14
+
+Opportunistic Trader Rolls: 4 Player Moves to: 5
+
+Opportunistic Trader has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 38000 
+
+Risk Taker Rolls: 9 Player Moves to: 27
+
+Aggressive Investor Rolls: 8 Player Moves to: 4
+
+Conservative Banker Rolls: 10 Player Moves to: 24
+
+Opportunistic Trader Rolls: 2 Player Moves to: 7
+
+Risk Taker Rolls: 8 Player Moves to: 35
+
+Aggressive Investor Rolls: 7 Player Moves to: 11
+
+Aggressive Investor has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 5400 
 
 Conservative Banker Rolls: 7 Player Moves to: 31
-9
-Risk Taker Rolls: 9 Player Moves to: 37
 
-Opportunistic Trader Rolls: 7 Player Moves to: 38
+Opportunistic Trader Rolls: 7 Player Moves to: 14
 
-Aggressive Investor Rolls: 4 Player Moves to: 23
+Risk Taker Rolls: 9 Player Moves to: 5
 
-Conservative Banker Rolls: 2 Player Moves to: 33
-10
-Risk Taker Rolls: 6 Player Moves to: 4
+Risk Taker has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 14304 
 
-Opportunistic Trader Rolls: 7 Player Moves to: 6
+Aggressive Investor Rolls: 11 Player Moves to: 22
 
-Aggressive Investor Rolls: 8 Player Moves to: 31
+Conservative Banker Rolls: 6 Player Moves to: 37
 
-Conservative Banker Rolls: 7 Player Moves to: 1
-11
-Risk Taker Rolls: 4 Player Moves to: 8
+Opportunistic Trader Rolls: 12 Player Moves to: 26
 
-Opportunistic Trader Rolls: 5 Player Moves to: 11
-
-Aggressive Investor Rolls: 2 Player Moves to: 33
-
-Conservative Banker Rolls: 7 Player Moves to: 8
-12
-Risk Taker Rolls: 11 Player Moves to: 19
-
-Opportunistic Trader Rolls: 6 Player Moves to: 17
-
-Aggressive Investor Rolls: 9 Player Moves to: 3
-
-Conservative Banker Rolls: 6 Player Moves to: 14
-13
-Risk Taker Rolls: 7 Player Moves to: 26
-
-Opportunistic Trader Rolls: 10 Player Moves to: 27
-
-Aggressive Investor Rolls: 7 Player Moves to: 10
-
-Conservative Banker Rolls: 12 Player Moves to: 26
-14
-Risk Taker Rolls: 6 Player Moves to: 32
-
-Opportunistic Trader Rolls: 11 Player Moves to: 38
-
-Aggressive Investor Rolls: 7 Player Moves to: 17
-
-Conservative Banker Rolls: 8 Player Moves to: 34
-15
-Risk Taker Rolls: 4 Player Moves to: 36
-
-Opportunistic Trader Rolls: 3 Player Moves to: 2
-
-Aggressive Investor Rolls: 7 Player Moves to: 24
-
-Conservative Banker Rolls: 10 Player Moves to: 5
-16
-Risk Taker Rolls: 8 Player Moves to: 5
-
-Opportunistic Trader Rolls: 3 Player Moves to: 5
-
-Aggressive Investor Rolls: 8 Player Moves to: 32
-
-Conservative Banker Rolls: 2 Player Moves to: 7
-17
 Risk Taker Rolls: 8 Player Moves to: 13
 
-Opportunistic Trader Rolls: 8 Player Moves to: 13
+Risk Taker Purchased Maharagama for LKR 3800.
+Remaining Balance : 10504
 
-Aggressive Investor Rolls: 8 Player Moves to: 1
+Aggressive Investor Rolls: 7 Player Moves to: 29
 
-Conservative Banker Rolls: 7 Player Moves to: 14
-18
-Risk Taker Rolls: 3 Player Moves to: 16
+Conservative Banker Rolls: 4 Player Moves to: 2
 
-Opportunistic Trader Rolls: 6 Player Moves to: 19
+Opportunistic Trader Rolls: 6 Player Moves to: 32
 
-Aggressive Investor Rolls: 11 Player Moves to: 12
+Risk Taker Rolls: 9 Player Moves to: 22
 
-Conservative Banker Rolls: 4 Player Moves to: 18
-19
-Risk Taker Rolls: 7 Player Moves to: 23
+Aggressive Investor Rolls: 9 Player Moves to: 38
 
-Opportunistic Trader Rolls: 6 Player Moves to: 25
+Conservative Banker Rolls: 4 Player Moves to: 6
 
-Aggressive Investor Rolls: 5 Player Moves to: 17
+Conservative Banker has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 19800 
 
-Conservative Banker Rolls: 10 Player Moves to: 28
-20
-Risk Taker Rolls: 9 Player Moves to: 32
+Conservative Banker Purchased Bambalapitiya for LKR 2500.
+Remaining Balance : 17300
 
-Opportunistic Trader Rolls: 6 Player Moves to: 31
+Opportunistic Trader Rolls: 10 Player Moves to: 3
 
-Aggressive Investor Rolls: 8 Player Moves to: 25
+Risk Taker Rolls: 8 Player Moves to: 30
 
-Conservative Banker Rolls: 10 Player Moves to: 38
-21
-Risk Taker Rolls: 8 Player Moves to: 1
+Aggressive Investor Rolls: 10 Player Moves to: 9
 
-Opportunistic Trader Rolls: 10 Player Moves to: 2
+Aggressive Investor has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 7400 
 
-Aggressive Investor Rolls: 9 Player Moves to: 34
+Conservative Banker Rolls: 11 Player Moves to: 17
 
-Conservative Banker Rolls: 10 Player Moves to: 9
-22
-Risk Taker Rolls: 10 Player Moves to: 11
+Opportunistic Trader Rolls: 6 Player Moves to: 9
 
-Opportunistic Trader Rolls: 7 Player Moves to: 9
-
-Aggressive Investor Rolls: 6 Player Moves to: 1
-
-Conservative Banker Rolls: 5 Player Moves to: 14
-23
-Risk Taker Rolls: 8 Player Moves to: 19
-
-Opportunistic Trader Rolls: 6 Player Moves to: 15
-
-Aggressive Investor Rolls: 5 Player Moves to: 6
-
-Conservative Banker Rolls: 9 Player Moves to: 23
-24
-Risk Taker Rolls: 9 Player Moves to: 28
-
-Opportunistic Trader Rolls: 2 Player Moves to: 17
-
-Aggressive Investor Rolls: 8 Player Moves to: 14
-
-Conservative Banker Rolls: 7 Player Moves to: 30
-25
-Risk Taker Rolls: 9 Player Moves to: 37
-
-Opportunistic Trader Rolls: 2 Player Moves to: 19
-
-Aggressive Investor Rolls: 7 Player Moves to: 21
-
-Conservative Banker Rolls: 5 Player Moves to: 35
-26
-Risk Taker Rolls: 6 Player Moves to: 4
-
-Opportunistic Trader Rolls: 6 Player Moves to: 25
-
-Aggressive Investor Rolls: 9 Player Moves to: 30
-
-Conservative Banker Rolls: 2 Player Moves to: 37
-27
-Risk Taker Rolls: 11 Player Moves to: 15
-
-Opportunistic Trader Rolls: 7 Player Moves to: 32
-
-Aggressive Investor Rolls: 4 Player Moves to: 34
-
-Conservative Banker Rolls: 7 Player Moves to: 5
-28
-Risk Taker Rolls: 6 Player Moves to: 21
-
-Opportunistic Trader Rolls: 12 Player Moves to: 5
-
-Aggressive Investor Rolls: 7 Player Moves to: 2
-
-Conservative Banker Rolls: 3 Player Moves to: 8
-29
+Opportunistic Trader has Passed Go.
+Collected LKR 2,000.
+Current Balance LKR : 40000 

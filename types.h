@@ -2,6 +2,8 @@
 #define TYPES_H
 
 #define Total_Players 4
+#define Probability_Of_Landing (1/40)
+
 
 
 
@@ -15,16 +17,18 @@ typedef enum {
     Red,
     Yellow,
     Green,
-    Dark_Blue}Property_Group_Type;
+    Dark_Blue,
+    Other}Property_Group_Type;
 
 typedef enum {
 
-    Owner_None,
-    Owner_Bank,
+   
     Owner_Aggressive_Investor,
     Owner_Conservative_Banker,
     Owner_Risk_Taker,
-    Owner_Opportunistic_Trader
+    Owner_Opportunistic_Trader,
+    Owner_None,
+    Owner_Bank,
 
 }Owners_Property;
 
@@ -172,6 +176,23 @@ typedef enum{
     Passed_Go,
 }Player_Go;
 
+typedef enum{
+
+    Couldnt_Buy = -2,
+    Didnt_Buy,
+    Bought,
+}Player_Buy;
+
+typedef enum{
+
+    No = -1,
+    Yes,
+}Player_Choice;
+
+typedef enum{
+    Recession,
+    Normal
+}Economic;
 
 typedef struct{
 
@@ -203,6 +224,8 @@ typedef struct{
     Owners_Property Railway_Owner;
     Mortgage_Status Mortgage;
     int Mortgage_Value;
+    int Base_Price;
+    int Base_Rental;
 
 }Railway_Stations;
 
@@ -213,6 +236,8 @@ typedef struct{
     Owners_Property Company_Owner;
     Mortgage_Status Mortgage;
     int Mortgage_Value;
+    int Base_Price;
+    int Base_Rental;
 
 }Utility_Companies;
 
@@ -240,7 +265,7 @@ typedef struct {
     
     char Player_Name[24];
     Player_Type Player_ID;
-    Square_ID Player_Owns[30];
+    //Square_ID Player_Owns[30];
     int Player_Cash;
     int Player_Assets;
     Player_Loan Loan_status;
@@ -248,6 +273,7 @@ typedef struct {
     short Player_Roll_Order;
     short Temp_Dice_Value;
     short Total_Dice_Value;
+    Property_Group_Type Has_Partial_Monopoly[9];
     Property_Group_Type Has_Monopoly[9];
     Player_Bankrupt Is_Bankrupt;
     Player_Jail Jail_Status;
@@ -263,7 +289,7 @@ void Board_Initialization(square board[]);
 void Player_Initialization(Players Player_List[]);
 int Dice_Roll(void);
 void Start_Game(void);
-
+Player_Buy Player_Buys_Property(Players player_list[], square board[], int player_id,Economic economic_status);
 
 
 

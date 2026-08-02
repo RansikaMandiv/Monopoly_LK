@@ -29,7 +29,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 100,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -63,7 +63,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 120,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -91,9 +91,11 @@ void Board_Initialization(square board[]){
         .Cell_Data = {
             .Railway = {
                 .Name = Colombo_Fort_Railway_Station,
-                .Railway_Owner = Owner_None,
+                .Railway_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Base_Price = 999,
+                .Base_Rental = 99 
             }
         },
         
@@ -111,7 +113,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 180,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -145,7 +147,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 200,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -170,7 +172,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 220,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -204,7 +206,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 260,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -225,9 +227,11 @@ void Board_Initialization(square board[]){
         .Cell_Data ={
             .Utility = {
                 .Company = CEB,
-                .Company_Owner = Owner_None,
+                .Company_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Base_Price = 999,
+                .Base_Rental = 99 
 
             }
         },
@@ -247,7 +251,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 280,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -273,7 +277,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 300,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -294,9 +298,11 @@ void Board_Initialization(square board[]){
         .Cell_Data = {
             .Railway = {
                 .Name = Kandy_Railway_Station,
-                .Railway_Owner = Owner_None,
+                .Railway_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Base_Price = 999,
+                .Base_Rental = 99 
             }
         },
         
@@ -315,7 +321,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 350,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -349,7 +355,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 370,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -375,7 +381,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 400,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -409,7 +415,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 450,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -444,7 +450,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 480,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -470,7 +476,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 500,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -491,9 +497,11 @@ void Board_Initialization(square board[]){
         .Cell_Data = {
             .Railway = {
                 .Name = Galle_Railway_Station,
-                .Railway_Owner = Owner_None,
+                .Railway_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Base_Price = 999,
+                .Base_Rental = 99 
             }
         },
         
@@ -512,7 +520,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 600,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -538,7 +546,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 620,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -559,9 +567,11 @@ void Board_Initialization(square board[]){
         .Cell_Data ={
             .Utility = {
                 .Company = NWSDB,
-                .Company_Owner = Owner_None,
+                .Company_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Base_Price = 999,
+                .Base_Rental = 99 
 
             }
         },
@@ -581,7 +591,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 650,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -615,7 +625,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 750,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -641,7 +651,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 780,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -676,7 +686,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 800,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -697,9 +707,11 @@ void Board_Initialization(square board[]){
         .Cell_Data = {
             .Railway = {
                 .Name = Jaffna_Railway_Station,
-                .Railway_Owner = Owner_None,
+                .Railway_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Base_Price = 999,
+                .Base_Rental = 99 
             }
         },
         
@@ -726,7 +738,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 1000,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
@@ -760,7 +772,7 @@ void Board_Initialization(square board[]){
                 .Base_Rental = 1200,
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
-                .Property_Owner = Owner_None,
+                .Property_Owner = Owner_Bank,
                 .Number_of_Buildings = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
