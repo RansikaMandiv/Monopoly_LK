@@ -7,7 +7,8 @@
 
 
 
-void Board_Initialization(square board[]){
+void Board_Initialization(square board[])
+{
 
     board[SQ_GO] = (square){
         .Square_Name = "GO",
@@ -30,7 +31,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -64,7 +66,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -114,7 +117,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -148,7 +152,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -173,7 +178,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -207,7 +213,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -252,7 +259,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -278,7 +286,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -322,7 +331,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -356,7 +366,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -382,7 +393,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -416,7 +428,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -451,7 +464,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -477,7 +491,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -521,7 +536,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -547,7 +563,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -592,7 +609,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -626,7 +644,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -652,7 +671,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -687,7 +707,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -739,7 +760,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -773,7 +795,8 @@ void Board_Initialization(square board[]){
                 .House_Construction_Cost = 0,
                 .Hotel_Construction_Cost = 0,
                 .Property_Owner = Owner_Bank,
-                .Number_of_Buildings = 0,
+                .Number_of_Hotels = 0,
+                .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0
             }
@@ -784,7 +807,7 @@ void Board_Initialization(square board[]){
             .Package = Not_Insured
         }
     };
-};
+}
 
   
 

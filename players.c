@@ -19,6 +19,7 @@ void Player_Initialization(Players Player_List[])
         Player_List[i].Player_Cash = 30000;
         Player_List[i].Player_Assets = 0;
         Player_List[i].Loan_status = No_Loans;
+        Player_List[i].Player_Loan = 0;
         Player_List[i].Player_Position = SQ_GO;
         Player_List[i].Player_Roll_Order = -1;
         Player_List[i].Temp_Dice_Value = 0;
@@ -37,6 +38,7 @@ void Player_Initialization(Players Player_List[])
 
 
 Player_Buy Player_Buys_Property(Players player_list[], square board[], int player_id,Economic economic_status)
+
 {
     Player_Choice Willing_to_Buy = No;
     Property_Group_Type Prioritized = None;
@@ -135,7 +137,7 @@ Player_Buy Player_Buys_Property(Players player_list[], square board[], int playe
             case Opportunistic_Trader:
             {
                 //calculating possible income for next 20 rounds assuming player builds a hotel right after buying
-                int Possible_Income = (board[Current_Pos].Cell_Data.Properties.Base_Rental * 10 * Probability_Of_Landing * Total_Players * 20);
+                int Possible_Income = (board[Current_Pos].Cell_Data.Properties.Base_Rental * 10 * Probability_Of_Landing * Total_Players * Rounds_ROI);
                 int Possible_Expense = (board[Current_Pos].Cell_Data.Properties.Base_Price + (board[Current_Pos].Cell_Data.Properties.House_Construction_Cost * 4) + board[Current_Pos].Cell_Data.Properties.Hotel_Construction_Cost);
                 if((Possible_Income > Possible_Expense) &&
                  (board[Current_Pos].Cell_Data.Properties.Property_Owner == Owner_Bank) &&
@@ -214,7 +216,7 @@ Player_Buy Player_Buys_Property(Players player_list[], square board[], int playe
             case Opportunistic_Trader:
             {
                 //calculating average rental income of train station for 20 rounds to evaluate ROI
-                int Possible_Income = board[Current_Pos].Cell_Data.Railway.Base_Rental * Total_Players * Probability_Of_Landing * 20;
+                int Possible_Income = board[Current_Pos].Cell_Data.Railway.Base_Rental * Total_Players * Probability_Of_Landing * Rounds_ROI;
                 int Possible_Expense = board[Current_Pos].Cell_Data.Railway.Base_Price;
 
                 if((Possible_Income > Possible_Expense) &&
@@ -292,7 +294,7 @@ Player_Buy Player_Buys_Property(Players player_list[], square board[], int playe
             case Opportunistic_Trader:
             {
                  //calculating average rental income of utility for 50 rounds to evaluate ROI assuming players lands on have maximum dice value
-                int Possible_Income = 4 * 12 * Total_Players * Probability_Of_Landing * 50;
+                int Possible_Income = 4 * 12 * Total_Players * Probability_Of_Landing * Rounds_ROI;
                 int Possible_Expense = board[Current_Pos].Cell_Data.Utility.Base_Price;
 
                 if((Possible_Income > Possible_Expense &&
@@ -372,4 +374,104 @@ Player_Buy Player_Buys_Property(Players player_list[], square board[], int playe
     }
     }
     return Didnt_Buy;
+}
+
+
+void Player_Pays_Rent(Players player_list[],square board[],int player_id)
+
+{
+    int Current_Pos = player_list[player_id].Player_Position;
+    Square_type Prop_Type = board[Current_Pos].Cell_Type;
+    
+
+
+    switch (Prop_Type)
+    {
+    case SQ_Type_Property:
+    {
+        Owners_Property Prop_Owner = board[Current_Pos].Cell_Data.Properties.Property_Owner;
+
+        if((Prop_Owner != player_id) &&
+            (Prop_Owner != Owner_Bank))
+        {
+            player_list[player_id].Player_Cash -= board[Current_Pos].Cell_Data.Properties.Base_Rental;
+            player_list[Prop_Owner].Player_Cash += board[Current_Pos].Cell_Data.Properties.Base_Rental;
+            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,board[Current_Pos].Cell_Data.Properties.Base_Rental,player_list[Prop_Owner].Player_Name);
+        }
+        break;
+    }
+
+    case SQ_Type_Railway:
+    {
+        Owners_Property Prop_Owner = board[Current_Pos].Cell_Data.Railway.Railway_Owner;
+
+        if((Prop_Owner != player_id) &&
+            (Prop_Owner != Owner_Bank))
+        {
+            player_list[player_id].Player_Cash -= board[Current_Pos].Cell_Data.Railway.Base_Rental;
+            player_list[Prop_Owner].Player_Cash += board[Current_Pos].Cell_Data.Railway.Base_Rental;
+            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,board[Current_Pos].Cell_Data.Railway.Base_Rental,player_list[Prop_Owner].Player_Name);
+        }
+        
+        break;
+    }
+
+    case SQ_Type_Utility:
+    {
+        Owners_Property Prop_Owner = board[Current_Pos].Cell_Data.Utility.Company_Owner;
+
+        if((Prop_Owner != player_id) &&
+            (Prop_Owner != Owner_Bank))
+        {
+            player_list[player_id].Player_Cash -= board[Current_Pos].Cell_Data.Utility.Base_Rental;
+            player_list[Prop_Owner].Player_Cash += board[Current_Pos].Cell_Data.Utility.Base_Rental;
+            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,board[Current_Pos].Cell_Data.Utility.Base_Rental,player_list[Prop_Owner].Player_Name);
+        }
+        
+        break;
+        
+    }
+    }
+}
+
+
+Player_Status Player_Assessing(Players player_list[],square board[],int player_id)
+{
+    Player_Status Status_Return;
+    player_list[player_id].Player_Assets = 0;
+    Status_Return.Total_No_Prop_Owned = 0;
+    Status_Return.No_of_Hotels = 0;
+    Status_Return.Outstanding_Loan = player_list[player_id].Player_Loan;
+    
+
+    for(int i = 0; i < SQ_Board_Size; i++)
+    {
+        if((board[i].Cell_Type == SQ_Type_Property) &&
+            (board[i].Cell_Data.Properties.Property_Owner == player_id))
+        {
+            
+            player_list[player_id].Player_Assets += board[i].Cell_Data.Properties.Base_Price;
+            Status_Return.Total_No_Prop_Owned++;
+            Status_Return.No_of_Hotels += board[i].Cell_Data.Properties.Number_of_Hotels;
+        }
+        
+        if((board[i].Cell_Type == SQ_Type_Railway) &&
+            (board[i].Cell_Data.Railway.Railway_Owner == player_id))
+        {
+            player_list[player_id].Player_Assets += board[i].Cell_Data.Railway.Base_Price;
+            Status_Return.Total_No_Prop_Owned++;
+        }
+
+        if((board[i].Cell_Type == SQ_Type_Utility) &&
+            (board[i].Cell_Data.Utility.Company_Owner == player_id))
+        {
+            player_list[player_id].Player_Assets += board[i].Cell_Data.Utility.Base_Price;
+            Status_Return.Total_No_Prop_Owned++;
+        }
+    }
+
+    Status_Return.Net_Worth = (player_list[player_id].Player_Cash + player_list[player_id].Player_Assets);
+
+    return Status_Return;
+
 }

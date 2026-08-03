@@ -16,7 +16,7 @@ int Dice_Roll(void)
 };
 
 
-int Round_Counter(Players player_list[],short *Round_Count)
+int Round_Counter(Players player_list[],short *Round_Count,square board[],int player_id)
 {
     for (int i = 0; i < Total_Players; i++)
     {
@@ -33,6 +33,24 @@ int Round_Counter(Players player_list[],short *Round_Count)
     if((player_list[Aggressive_Investor].Player_Passed_Go == Passed_Go) && (player_list[Opportunistic_Trader].Player_Passed_Go == Passed_Go) && (player_list[Risk_Taker].Player_Passed_Go == Passed_Go) && (player_list[Conservative_Banker].Player_Passed_Go == Passed_Go))
     {
         (*Round_Count)++;
+
+        //Printing Round Summary
+        
+
+        printf("=============================================\nRound %d Summary\n=============================================",(*Round_Count));
+        
+        for(int i = 0; i < Total_Players; i++)
+        {
+            Player_Status Status_of_Players = Player_Assessing(player_list,board,i);
+
+            printf("\n%s\n",player_list[i].Player_Name);
+            printf("\nCash : LKR %d\n",player_list[i].Player_Cash);
+            printf("\nNet Worth : LKR %d\n",Status_of_Players.Net_Worth);
+            printf("\nProperties : %d\n",Status_of_Players.Total_No_Prop_Owned);
+            printf("\nHotels : %d\n",Status_of_Players.No_of_Hotels);
+            printf("\nOutstanding Loan : LKR %d\n",Status_of_Players.Outstanding_Loan);
+            printf("\n---------------------------------------------\n");
+        }
        
         for (int i = 0; i < Total_Players; i++)
         {
@@ -50,7 +68,7 @@ void Player_Moves(Players player_list[],int Player_Id_Input)
 {
 
     player_list[Player_Id_Input].Temp_Dice_Value = Dice_Roll();
-    player_list[Player_Id_Input].Player_Position = (player_list[Player_Id_Input].Player_Position + player_list[Player_Id_Input].Temp_Dice_Value) % 39;
+    player_list[Player_Id_Input].Player_Position = (player_list[Player_Id_Input].Player_Position + player_list[Player_Id_Input].Temp_Dice_Value) % SQ_Board_Size;
     player_list[Player_Id_Input].Total_Dice_Value += player_list[Player_Id_Input].Temp_Dice_Value;
     printf("\n%s Rolls: %d Player Moves to: %d\n",player_list[Player_Id_Input].Player_Name,player_list[Player_Id_Input].Temp_Dice_Value,player_list[Player_Id_Input].Player_Position);
     
@@ -127,6 +145,7 @@ short Round_Count = 0;
 int Turn_Count = 0;
 Economic Economy_Status = Normal;
 
+
 square Board[SQ_Board_Size];
 Board_Initialization(Board);
 
@@ -177,19 +196,21 @@ for (int j = 0; j < Total_Players; j++)
 //
 
     
-while(Round_Count < 5)
+while(Round_Count < 50)
 {
     
 
     for(int i = 0; i < Total_Players; i++)
     {
         int Id_Input = Final_Order[i];
+
         Player_Moves(Player_List,Id_Input);
         
-        Round_Counter(Player_List,&Round_Count);
+        Round_Counter(Player_List,&Round_Count,Board,Id_Input);
 
         Player_Buys_Property(Player_List,Board,Id_Input,Economy_Status);
         
+        Player_Pays_Rent(Player_List,Board,Id_Input);
     }
     Turn_Count++;
    // printf("%d",Turn_Count);

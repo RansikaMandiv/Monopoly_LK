@@ -2,7 +2,8 @@
 #define TYPES_H
 
 #define Total_Players 4
-#define Probability_Of_Landing (1/40)
+#define Probability_Of_Landing (1.0/40.0)
+#define Rounds_ROI 50
 
 
 
@@ -203,7 +204,8 @@ typedef struct{
     int House_Construction_Cost;
     int Hotel_Construction_Cost;
     Owners_Property Property_Owner;
-    short Number_of_Buildings;
+    short Number_of_Houses;
+    short Number_of_Hotels;
     Mortgage_Status Mortgage;
     int Mortgage_Value;
 
@@ -269,6 +271,7 @@ typedef struct {
     int Player_Cash;
     int Player_Assets;
     Player_Loan Loan_status;
+    int Player_Loan;
     Square_ID Player_Position;
     short Player_Roll_Order;
     short Temp_Dice_Value;
@@ -283,6 +286,15 @@ typedef struct {
 
 }Players;
 
+typedef struct {
+
+    int Total_No_Prop_Owned;
+    int Net_Worth;
+    int No_of_Hotels;
+    int Outstanding_Loan;
+
+}Player_Status;
+
 
 void Board_Initialization(square board[]);
 //void Value_Sort(int arr[],int size);
@@ -290,8 +302,8 @@ void Player_Initialization(Players Player_List[]);
 int Dice_Roll(void);
 void Start_Game(void);
 Player_Buy Player_Buys_Property(Players player_list[], square board[], int player_id,Economic economic_status);
-
-
+void Player_Pays_Rent(Players player_list[],square board[],int player_id);
+Player_Status Player_Assessing(Players player_list[],square board[],int player_id);
 
 
 
