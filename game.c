@@ -144,6 +144,7 @@ void Start_Game(void)
 short Round_Count = 0;
 int Turn_Count = 0;
 Economic Economy_Status = Normal;
+Government_Regulations Cureent_Gov_Regulations = Housing_Subsidy;
 
 
 square Board[SQ_Board_Size];
@@ -196,7 +197,7 @@ for (int j = 0; j < Total_Players; j++)
 //
 
     
-while(Round_Count < 50)
+while(Round_Count < 500)
 {
     
 
@@ -211,6 +212,10 @@ while(Round_Count < 50)
         Player_Buys_Property(Player_List,Board,Id_Input,Economy_Status);
         
         Player_Pays_Rent(Player_List,Board,Id_Input);
+
+        Player_Monopoly_Count(Player_List,Board); 
+        
+        Player_Builds(Player_List,Board,Id_Input,Economy_Status,Cureent_Gov_Regulations);
     }
     Turn_Count++;
    // printf("%d",Turn_Count);

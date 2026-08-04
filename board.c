@@ -98,7 +98,7 @@ void Board_Initialization(square board[])
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0,
                 .Base_Price = 999,
-                .Base_Rental = 99 
+                .Base_Rental = 250 
             }
         },
         
@@ -311,7 +311,7 @@ void Board_Initialization(square board[])
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0,
                 .Base_Price = 999,
-                .Base_Rental = 99 
+                .Base_Rental = 250 
             }
         },
         
@@ -516,7 +516,7 @@ void Board_Initialization(square board[])
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0,
                 .Base_Price = 999,
-                .Base_Rental = 99 
+                .Base_Rental = 250 
             }
         },
         
@@ -732,7 +732,7 @@ void Board_Initialization(square board[])
                 .Mortgage = Unmortgaged,
                 .Mortgage_Value = 0,
                 .Base_Price = 999,
-                .Base_Rental = 99 
+                .Base_Rental = 250 
             }
         },
         

@@ -390,13 +390,52 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id)
     case SQ_Type_Property:
     {
         Owners_Property Prop_Owner = board[Current_Pos].Cell_Data.Properties.Property_Owner;
+        int Rent_to_Pay = board[Current_Pos].Cell_Data.Properties.Base_Rental;
+
+        switch (board[Current_Pos].Cell_Data.Properties.Number_of_Houses)
+        {
+        case 0:
+        {
+            if(board[Current_Pos].Cell_Data.Properties.Number_of_Hotels == 1)
+            {
+                Rent_to_Pay = Rent_to_Pay * 10;
+            }
+            break;
+        }
+
+        case 1:
+        {
+            Rent_to_Pay = Rent_to_Pay * 1;
+            break;
+        }
+
+        case 2:
+        {
+            Rent_to_Pay = Rent_to_Pay * 2;
+            break;
+        }
+
+        case 3:
+        {
+            Rent_to_Pay = Rent_to_Pay * 5;
+            break;
+        }
+
+        case 4:
+        {
+            Rent_to_Pay = Rent_to_Pay * 7;
+            break;
+        }
+
+        }
 
         if((Prop_Owner != player_id) &&
-            (Prop_Owner != Owner_Bank))
+            (Prop_Owner != Owner_Bank) &&
+                (Prop_Owner < Total_Players))
         {
-            player_list[player_id].Player_Cash -= board[Current_Pos].Cell_Data.Properties.Base_Rental;
-            player_list[Prop_Owner].Player_Cash += board[Current_Pos].Cell_Data.Properties.Base_Rental;
-            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,board[Current_Pos].Cell_Data.Properties.Base_Rental,player_list[Prop_Owner].Player_Name);
+            player_list[player_id].Player_Cash -= Rent_to_Pay;
+            player_list[Prop_Owner].Player_Cash += Rent_to_Pay;
+            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,Rent_to_Pay,player_list[Prop_Owner].Player_Name);
         }
         break;
     }
@@ -404,13 +443,43 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id)
     case SQ_Type_Railway:
     {
         Owners_Property Prop_Owner = board[Current_Pos].Cell_Data.Railway.Railway_Owner;
+        Player_Status Temp_Values = Player_Assessing(player_list,board,Prop_Owner);
+        int Rent_to_Pay = board[Current_Pos].Cell_Data.Railway.Base_Rental;
+
+        switch (Temp_Values.Railways_Owned)
+        {
+        case 1:
+        {
+            Rent_to_Pay = Rent_to_Pay * 1;
+            break;
+        }
+        
+        case 2:
+        {
+            Rent_to_Pay = Rent_to_Pay * 2;
+            break;
+        }
+
+        case 3:
+        {
+            Rent_to_Pay = Rent_to_Pay * 4;
+            break;
+        }
+
+        case 4:
+        {
+            Rent_to_Pay = Rent_to_Pay * 8;
+            break;
+        }
+        
+        }
 
         if((Prop_Owner != player_id) &&
             (Prop_Owner != Owner_Bank))
         {
-            player_list[player_id].Player_Cash -= board[Current_Pos].Cell_Data.Railway.Base_Rental;
-            player_list[Prop_Owner].Player_Cash += board[Current_Pos].Cell_Data.Railway.Base_Rental;
-            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,board[Current_Pos].Cell_Data.Railway.Base_Rental,player_list[Prop_Owner].Player_Name);
+            player_list[player_id].Player_Cash -= Rent_to_Pay;
+            player_list[Prop_Owner].Player_Cash += Rent_to_Pay;
+            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,Rent_to_Pay,player_list[Prop_Owner].Player_Name);
         }
         
         break;
@@ -419,13 +488,24 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id)
     case SQ_Type_Utility:
     {
         Owners_Property Prop_Owner = board[Current_Pos].Cell_Data.Utility.Company_Owner;
+        int Rent_to_Pay = player_list[player_id].Temp_Dice_Value;
+        
+        if((board[SQ_NWSDB].Cell_Data.Utility.Company_Owner == Prop_Owner) &&
+            (board[SQ_CEB].Cell_Data.Utility.Company_Owner == Prop_Owner))
+        {
+            Rent_to_Pay = Rent_to_Pay * 10;
+        }
+        else
+        {
+            Rent_to_Pay = Rent_to_Pay * 4;
+        }
 
         if((Prop_Owner != player_id) &&
             (Prop_Owner != Owner_Bank))
         {
-            player_list[player_id].Player_Cash -= board[Current_Pos].Cell_Data.Utility.Base_Rental;
-            player_list[Prop_Owner].Player_Cash += board[Current_Pos].Cell_Data.Utility.Base_Rental;
-            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,board[Current_Pos].Cell_Data.Utility.Base_Rental,player_list[Prop_Owner].Player_Name);
+            player_list[player_id].Player_Cash -= Rent_to_Pay;
+            player_list[Prop_Owner].Player_Cash += Rent_to_Pay;
+            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,Rent_to_Pay,player_list[Prop_Owner].Player_Name);
         }
         
         break;
@@ -436,11 +516,13 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id)
 
 
 Player_Status Player_Assessing(Players player_list[],square board[],int player_id)
+
 {
     Player_Status Status_Return;
     player_list[player_id].Player_Assets = 0;
     Status_Return.Total_No_Prop_Owned = 0;
     Status_Return.No_of_Hotels = 0;
+    Status_Return.Railways_Owned = 0;
     Status_Return.Outstanding_Loan = player_list[player_id].Player_Loan;
     
 
@@ -460,6 +542,7 @@ Player_Status Player_Assessing(Players player_list[],square board[],int player_i
         {
             player_list[player_id].Player_Assets += board[i].Cell_Data.Railway.Base_Price;
             Status_Return.Total_No_Prop_Owned++;
+            Status_Return.Railways_Owned++;
         }
 
         if((board[i].Cell_Type == SQ_Type_Utility) &&
@@ -474,4 +557,366 @@ Player_Status Player_Assessing(Players player_list[],square board[],int player_i
 
     return Status_Return;
 
+}
+
+
+void Player_Builds(Players player_list[],square board[],int player_id,Economic economic_status,Government_Regulations current_regulations)
+{   
+    int Curr_Pos = player_list[player_id].Player_Position;
+
+    if(board[Curr_Pos].Cell_Type != SQ_Type_Property)
+    {
+        return;
+    }
+
+    
+    int Cash_Reserve_House = player_list[player_id].Player_Cash - board[Curr_Pos].Cell_Data.Properties.House_Construction_Cost;
+    int Cash_Reserve_Hotel = player_list[player_id].Player_Cash - board[Curr_Pos].Cell_Data.Properties.Hotel_Construction_Cost;
+    Property_Group_Type Player_Has_Monopoly = None;
+    int Is_Eligible_to_Build_House = false;
+    int Is_Eligible_to_Build_Hotel = true;
+    int Min_Houses = 10;
+    int If_Building_House = false;
+    int If_Building_Hotel = false;
+
+    for (int i = 0; i < 9; i++)
+    {
+        if(player_list[player_id].Has_Monopoly[i] == board[Curr_Pos].Cell_Data.Properties.Group)  
+        {
+            Player_Has_Monopoly = board[Curr_Pos].Cell_Data.Properties.Group;
+        }
+    }
+
+    if(Player_Has_Monopoly == None)
+    {
+        return;
+    }
+
+   
+    for(int i = 0; i < SQ_Board_Size; i++)
+    {   
+        
+        if((board[i].Cell_Type == SQ_Type_Property) &&
+            (Player_Has_Monopoly != None) &&
+            (board[i].Cell_Data.Properties.Group == Player_Has_Monopoly))
+        {
+           if(board[i].Cell_Data.Properties.Number_of_Houses < Min_Houses)
+           {
+                Min_Houses = board[i].Cell_Data.Properties.Number_of_Houses;
+           }
+
+           if((board[i].Cell_Data.Properties.Number_of_Houses < 4) &&
+                (board[i].Cell_Data.Properties.Number_of_Hotels == 0))
+           {
+                Is_Eligible_to_Build_Hotel = false;
+           }
+           
+        } 
+    }
+
+    Is_Eligible_to_Build_House = (board[Curr_Pos].Cell_Data.Properties.Number_of_Houses == Min_Houses);
+
+    //Building Houses
+
+    if((board[Curr_Pos].Cell_Data.Properties.Number_of_Houses) < 4 &&
+        (Is_Eligible_to_Build_House == true) &&
+            (Cash_Reserve_House >= 0) && 
+                board[Curr_Pos].Cell_Data.Properties.Number_of_Hotels == 0)
+
+    {
+        switch (player_id)
+        {
+        case Aggressive_Investor:
+        {
+            If_Building_House = true;
+            break;
+        }
+
+        case Conservative_Banker:
+        {
+            if(economic_status != Recession)
+            {
+                If_Building_House = true;
+            }
+            break;
+        }
+
+        case Risk_Taker:
+        {
+           If_Building_House = true;
+           break;
+        }
+
+        case Opportunistic_Trader:
+        {
+            if(economic_status != Inflation ||
+                current_regulations == Housing_Subsidy)
+            {
+                If_Building_House =true;
+            }
+            break;
+        }
+        
+        }
+    }
+    
+
+  //Building Hotels
+
+    if((Is_Eligible_to_Build_Hotel == true) &&
+        (Cash_Reserve_Hotel > 0))
+    {
+        switch (player_id)
+        {
+        case Aggressive_Investor:
+        {
+            If_Building_Hotel = true;
+            
+            break;
+        }
+
+        case Conservative_Banker:
+        {
+            if(player_list[player_id].Loan_status == No_Loans)
+            {
+                If_Building_Hotel = true;
+            }
+            break;
+        }
+
+        case Risk_Taker:
+        {
+            If_Building_Hotel = true;
+
+            break;
+        }
+        
+        case Opportunistic_Trader:
+        {
+            if(economic_status != Inflation ||
+                current_regulations == Housing_Subsidy)
+            {
+                If_Building_Hotel = true;
+            }
+            break;
+        }
+        }
+    }
+ 
+    //printing
+
+    if(If_Building_House == true)
+    {
+        player_list[player_id].Player_Cash -= board[Curr_Pos].Cell_Data.Properties.House_Construction_Cost;
+        board[Curr_Pos].Cell_Data.Properties.Number_of_Houses++;
+
+        printf("%s constructed one house on %s",player_list[player_id].Player_Name,board[Curr_Pos].Square_Name);
+    }
+
+    if(If_Building_Hotel == true)
+    {
+        player_list[player_id].Player_Cash -= board[Curr_Pos].Cell_Data.Properties.Hotel_Construction_Cost;
+        board[Curr_Pos].Cell_Data.Properties.Number_of_Hotels++;
+        board[Curr_Pos].Cell_Data.Properties.Number_of_Houses = 0;
+
+        printf("\n%s upgraded %s to a Hotel.\n",player_list[player_id].Player_Name,board[Curr_Pos].Square_Name);
+    }
+ 
+}
+
+
+void Player_Monopoly_Count(Players player_list[],square board[])
+{
+    Property_Group_Type Monopoly_Groups[8] = {Brown,Light_Blue,Pink,Orange,Red,Yellow,Green,Dark_Blue};
+
+    for(int i = 0; i < Total_Players; i++)
+    {
+
+       for(int j = 0; j < 9; j++)
+       {
+            player_list[i].Has_Monopoly[j] = None;
+            player_list[i].Has_Partial_Monopoly[j] = None;
+            
+       }
+
+       int Monopoly_Count = 0;
+       int Partial_Count = 0;
+
+       for (int k = 0; k < 8; k++)
+       {
+            switch (Monopoly_Groups[k])
+            {
+            case Brown:
+            {
+                int Brown_Count = 0;
+
+                if(board[SQ_PETTAH].Cell_Data.Properties.Property_Owner == i) Brown_Count++;
+                if(board[SQ_MARADANA].Cell_Data.Properties.Property_Owner == i) Brown_Count++;
+
+                if(Brown_Count == 2)
+                {
+                    player_list[i].Has_Monopoly[Monopoly_Count++] = Brown;   
+                }
+                else if(Brown_Count < 3 && Brown_Count != 0)
+                {
+                    player_list[i].Has_Partial_Monopoly[Partial_Count++] = Brown;
+                }
+
+                break;
+            }
+
+            case Light_Blue:
+            {
+                int Light_Blue_Count = 0;
+
+                if(board[SQ_BAMBALAPITIYA].Cell_Data.Properties.Property_Owner == i) Light_Blue_Count++;
+                if(board[SQ_Wellawatte].Cell_Data.Properties.Property_Owner == i) Light_Blue_Count++;
+                if(board[SQ_Mount_Lavinia].Cell_Data.Properties.Property_Owner == i) Light_Blue_Count++;
+
+                if(Light_Blue_Count == 3)
+                {
+                    player_list[i].Has_Monopoly[Monopoly_Count++] = Light_Blue;   
+                }
+                else if(Light_Blue_Count < 3 && Light_Blue_Count != 0)
+                {
+                    player_list[i].Has_Partial_Monopoly[Partial_Count++] = Light_Blue;
+                }
+
+                break;
+            }
+
+            case Pink:
+            {
+                int Pink_Count = 0;
+
+                if(board[SQ_Maharagama].Cell_Data.Properties.Property_Owner == i) Pink_Count++;
+                if(board[SQ_Nugegoda].Cell_Data.Properties.Property_Owner == i) Pink_Count++;
+                if(board[SQ_Kottawa].Cell_Data.Properties.Property_Owner == i) Pink_Count++;
+
+                if(Pink_Count == 3)
+                {
+                    player_list[i].Has_Monopoly[Monopoly_Count++] = Pink;   
+                }
+                else if(Pink_Count < 3 && Pink_Count != 0)
+                {
+                    player_list[i].Has_Partial_Monopoly[Partial_Count++] = Pink;
+                }
+
+                break;
+            }
+
+            case Orange:
+            {
+                int Orange_Count = 0;
+
+                if(board[SQ_Negombo].Cell_Data.Properties.Property_Owner == i) Orange_Count++;
+                if(board[SQ_Katunayake].Cell_Data.Properties.Property_Owner == i) Orange_Count++;
+                if(board[SQ_Ja_Ela].Cell_Data.Properties.Property_Owner == i) Orange_Count++;
+
+                if(Orange_Count == 3)
+                {
+                    player_list[i].Has_Monopoly[Monopoly_Count++] = Orange;   
+                }
+                else if(Orange_Count < 3 && Orange_Count != 0)
+                {
+                    player_list[i].Has_Partial_Monopoly[Partial_Count++] = Orange;
+                }
+
+                break;
+            }
+
+            case Red:
+            {
+                int Red_Count = 0;
+
+                if(board[SQ_Kandy_City].Cell_Data.Properties.Property_Owner == i) Red_Count++;
+                if(board[SQ_Peradeniya].Cell_Data.Properties.Property_Owner == i) Red_Count++;
+                if(board[SQ_Katugastota].Cell_Data.Properties.Property_Owner == i) Red_Count++;
+
+                if(Red_Count == 3)
+                {
+                    player_list[i].Has_Monopoly[Monopoly_Count++] = Red;   
+                }
+                else if(Red_Count < 3 && Red_Count != 0)
+                {
+                    player_list[i].Has_Partial_Monopoly[Partial_Count++] = Red;
+                }
+                
+                break;
+
+            }
+
+            case Yellow:
+            {
+                int Yellow_Count = 0;
+
+                if(board[SQ_Galle_Fort].Cell_Data.Properties.Property_Owner == i) Yellow_Count++;
+                if(board[SQ_Unawatuna].Cell_Data.Properties.Property_Owner == i) Yellow_Count++;
+                if(board[SQ_Hikkaduwa].Cell_Data.Properties.Property_Owner == i) Yellow_Count++;
+
+                if(Yellow_Count == 3)
+                {
+                    player_list[i].Has_Monopoly[Monopoly_Count++] = Yellow;   
+                }
+                else if(Yellow_Count < 3 && Yellow_Count != 0)
+                {
+                    player_list[i].Has_Partial_Monopoly[Partial_Count++] = Yellow;
+                }
+
+                break;
+            }
+
+            case Green:
+            {
+                int Green_Count = 0;
+
+                if(board[SQ_Jaffna_Town].Cell_Data.Properties.Property_Owner == i) Green_Count++;
+                if(board[SQ_Nallur].Cell_Data.Properties.Property_Owner == i) Green_Count++;
+                if(board[SQ_Trincomalee].Cell_Data.Properties.Property_Owner == i) Green_Count++;
+
+                if(Green_Count == 3)
+                {
+                    player_list[i].Has_Monopoly[Monopoly_Count++] = Green;   
+                }
+                else if(Green_Count < 3 && Green_Count != 0)
+                {
+                    player_list[i].Has_Partial_Monopoly[Partial_Count++] = Green;
+                }
+                break;
+            }
+
+            case Dark_Blue:
+            {
+                int Dark_Blue_Count = 0;
+
+                if(board[SQ_Nuwara_Eliya].Cell_Data.Properties.Property_Owner == i) Dark_Blue_Count++;
+                if(board[SQ_Galle_Face].Cell_Data.Properties.Property_Owner == i) Dark_Blue_Count++;
+                
+                if(Dark_Blue_Count == 2)
+                {
+                    player_list[i].Has_Monopoly[Monopoly_Count++] = Dark_Blue;   
+                }
+                else if(Dark_Blue_Count < 3 && Dark_Blue_Count != 0)
+                {
+                    player_list[i].Has_Partial_Monopoly[Partial_Count++] = Dark_Blue;
+                }
+
+                break;
+            }
+            }
+       }
+    }
+
+}
+
+
+void Player_In_Jail(Players player_list[],square board[],int player_id)
+{
+    int Curr_Pos = player_list[player_id].Player_Position;
+
+    if(Curr_Pos == SQ_Go_To_Jail)
+    {
+        player_list[player_id].Jail_Status = In_Jail;
+        player_list[player_id].Player_Position = SQ_Jail;
+    }
 }

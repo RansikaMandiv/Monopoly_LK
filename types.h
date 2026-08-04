@@ -3,8 +3,9 @@
 
 #define Total_Players 4
 #define Probability_Of_Landing (1.0/40.0)
-#define Rounds_ROI 50
-
+#define Rounds_ROI 20
+#define true 1
+#define false 0
 
 
 
@@ -192,8 +193,13 @@ typedef enum{
 
 typedef enum{
     Recession,
+    Inflation,
     Normal
 }Economic;
+
+typedef enum{
+    Housing_Subsidy,
+}Government_Regulations;
 
 typedef struct{
 
@@ -292,6 +298,7 @@ typedef struct {
     int Net_Worth;
     int No_of_Hotels;
     int Outstanding_Loan;
+    int Railways_Owned;
 
 }Player_Status;
 
@@ -304,7 +311,8 @@ void Start_Game(void);
 Player_Buy Player_Buys_Property(Players player_list[], square board[], int player_id,Economic economic_status);
 void Player_Pays_Rent(Players player_list[],square board[],int player_id);
 Player_Status Player_Assessing(Players player_list[],square board[],int player_id);
-
+void Player_Builds(Players player_list[],square board[],int player_id,Economic economic_status,Government_Regulations current_regulations);
+void Player_Monopoly_Count(Players player_list[],square board[]);
 
 
 
