@@ -6,13 +6,23 @@
 
 
 
-int Dice_Roll(void)
+Dice_Type Dice_Roll(void)
 {
-    
+    Dice_Type returning_values;
+    returning_values.Dice_Sum = 0;
+    returning_values.Is_Double = false;
+
     int Dice_1 = (rand() % 6 + 1);
     int Dice_2 = (rand() % 6 + 1);
 
-    return (Dice_1 + Dice_2);
+    if(Dice_1 == Dice_2)
+    {
+        returning_values.Is_Double = true;
+    }
+
+    returning_values.Dice_Sum = Dice_1 + Dice_2;
+
+    return returning_values;
 };
 
 
@@ -64,10 +74,10 @@ int Round_Counter(Players player_list[],short *Round_Count,square board[],int pl
 
 
 
-void Player_Moves(Players player_list[],int Player_Id_Input)
+void Player_Moves(Players player_list[],int Player_Id_Input,Dice_Type Dice_Values)
 {
 
-    player_list[Player_Id_Input].Temp_Dice_Value = Dice_Roll();
+    player_list[Player_Id_Input].Temp_Dice_Value = Dice_Values.Dice_Sum;
     player_list[Player_Id_Input].Player_Position = (player_list[Player_Id_Input].Player_Position + player_list[Player_Id_Input].Temp_Dice_Value) % SQ_Board_Size;
     player_list[Player_Id_Input].Total_Dice_Value += player_list[Player_Id_Input].Temp_Dice_Value;
     printf("\n%s Rolls: %d Player Moves to: %d\n",player_list[Player_Id_Input].Player_Name,player_list[Player_Id_Input].Temp_Dice_Value,player_list[Player_Id_Input].Player_Position);
@@ -116,7 +126,7 @@ void Determine_Order(Players Players_Arr[],int No_Of_Players)
                 {
                     if (Players_Arr[j].Temp_Dice_Value == Tied_Value)
                     {
-                        Players_Arr[j].Temp_Dice_Value = Dice_Roll();
+                        Players_Arr[j].Temp_Dice_Value = Dice_Roll().Dice_Sum;
                         printf("Player %s Re-Rolled and got: %d\n",Players_Arr[j].Player_Name,Players_Arr[j].Temp_Dice_Value);
                     }
                 }
@@ -145,6 +155,8 @@ short Round_Count = 0;
 int Turn_Count = 0;
 Economic Economy_Status = Normal;
 Government_Regulations Cureent_Gov_Regulations = Housing_Subsidy;
+double Income_Tax_Rate = 0.15;
+Auction Auction_Status = None;
 
 
 square Board[SQ_Board_Size];
@@ -160,7 +172,7 @@ int count = 0;
 
 for (int i = 0; i < Total_Players; i++)
 {
-    Player_List[i].Temp_Dice_Value = Dice_Roll();
+    Player_List[i].Temp_Dice_Value = Dice_Roll().Dice_Sum;
     printf("\n%s Rolled:\t%d\n",Player_List[i].Player_Name,Player_List[i].Temp_Dice_Value);
 }
 
@@ -205,17 +217,30 @@ while(Round_Count < 500)
     {
         int Id_Input = Final_Order[i];
 
-        Player_Moves(Player_List,Id_Input);
-        
+        Dice_Type Dice_Values = Dice_Roll();
+
+        int Can_Move = Player_In_Jail(Player_List,Board,Id_Input,&Turn_Count,Dice_Values);
+
+        if(Can_Move)
+        {
+            Player_Moves(Player_List,Id_Input,Dice_Values);
+        }
+      
         Round_Counter(Player_List,&Round_Count,Board,Id_Input);
 
-        Player_Buys_Property(Player_List,Board,Id_Input,Economy_Status);
+        Auction_Status = Player_Buys_Property(Player_List,Board,Id_Input,Economy_Status);
+
+        Property_Auctions(Player_List,Board,Id_Input,Auction_Status,Final_Order,Economy_Status);
         
         Player_Pays_Rent(Player_List,Board,Id_Input);
+
+        Player_Pays_Tax(Player_List,Board,Id_Input,Income_Tax_Rate);
 
         Player_Monopoly_Count(Player_List,Board); 
         
         Player_Builds(Player_List,Board,Id_Input,Economy_Status,Cureent_Gov_Regulations);
+
+        
     }
     Turn_Count++;
    // printf("%d",Turn_Count);

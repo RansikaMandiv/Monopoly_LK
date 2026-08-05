@@ -182,8 +182,11 @@ typedef enum{
 
     Couldnt_Buy = -2,
     Didnt_Buy,
+    No_Auctions,
     Bought,
-}Player_Buy;
+    Bank
+
+}Auction;
 
 typedef enum{
 
@@ -200,6 +203,15 @@ typedef enum{
 typedef enum{
     Housing_Subsidy,
 }Government_Regulations;
+
+typedef enum{
+
+    Not_Bidding,
+    Bidding
+
+}Player_Bid;
+
+
 
 typedef struct{
 
@@ -286,6 +298,8 @@ typedef struct {
     Property_Group_Type Has_Monopoly[9];
     Player_Bankrupt Is_Bankrupt;
     Player_Jail Jail_Status;
+    Player_Bid Bidding_Status;
+    int Jail_Counter;
     Player_Go Player_Passed_Go;
     
 
@@ -302,21 +316,28 @@ typedef struct {
 
 }Player_Status;
 
+typedef struct{
+
+    int Dice_Sum;
+    int Is_Double;
+}Dice_Type;
+
 
 void Board_Initialization(square board[]);
 //void Value_Sort(int arr[],int size);
 void Player_Initialization(Players Player_List[]);
-int Dice_Roll(void);
+Dice_Type Dice_Roll(void);
 void Start_Game(void);
-Player_Buy Player_Buys_Property(Players player_list[], square board[], int player_id,Economic economic_status);
+Auction Player_Buys_Property(Players player_list[], square board[], int player_id,Economic economic_status);
 void Player_Pays_Rent(Players player_list[],square board[],int player_id);
 Player_Status Player_Assessing(Players player_list[],square board[],int player_id);
 void Player_Builds(Players player_list[],square board[],int player_id,Economic economic_status,Government_Regulations current_regulations);
 void Player_Monopoly_Count(Players player_list[],square board[]);
-
-
-
-
+int Player_In_Jail(Players player_list[],square board[],int player_id,int *turn_count,Dice_Type dice);
+void Player_Pays_Tax(Players player_list[],square board[],int player_id,double income_tax_rate);
+int Round_Off(double value);
+int Players_Bid(Players player_list[],square bidding_property,int player_id,int *highest_bid,Economic econ_status);
+void Property_Auctions(Players player_list[],square board[],int player_id,int auction_status,short final_order[],Economic Econ_Status);
 
 
 

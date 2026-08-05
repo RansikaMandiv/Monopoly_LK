@@ -26,6 +26,8 @@ void Player_Initialization(Players Player_List[])
         Player_List[i].Total_Dice_Value = 0;
         Player_List[i].Is_Bankrupt = Not_Bankrupt;
         Player_List[i].Jail_Status = Not_In_Jail;
+        Player_List[i].Bidding_Status = Bidding;
+        Player_List[i].Jail_Counter = 0;
         Player_List[i].Player_Passed_Go = Not_Passed;
 
         for (int j = 0; j < 9; j++)
@@ -37,13 +39,35 @@ void Player_Initialization(Players Player_List[])
 };
 
 
-Player_Buy Player_Buys_Property(Players player_list[], square board[], int player_id,Economic economic_status)
+Auction Player_Buys_Property(Players player_list[], square board[], int player_id,Economic economic_status) 
 
 {
     Player_Choice Willing_to_Buy = No;
     Property_Group_Type Prioritized = None;
     int Current_Pos = player_list[player_id].Player_Position;
     Square_type Prop_Type = board[Current_Pos].Cell_Type;
+
+    if(Prop_Type == SQ_Type_Property || Prop_Type == SQ_Type_Railway || Prop_Type == SQ_Type_Utility)
+    {
+        Owners_Property Owner;
+
+        if(Prop_Type == SQ_Type_Property)
+        {
+            Owner = board[Current_Pos].Cell_Data.Properties.Property_Owner;
+        }
+        else if(Prop_Type == SQ_Type_Utility)
+        {
+            Owner = board[Current_Pos].Cell_Data.Utility.Company_Owner;
+        }
+        else{
+            Owner = board[Current_Pos].Cell_Data.Railway.Railway_Owner;
+        }
+
+        if(Owner != Owner_Bank && Owner != Owner_None)
+        {
+            return No_Auctions;
+        }
+    }
 
     if (Prop_Type == SQ_Type_Property || Prop_Type == SQ_Type_Railway || Prop_Type == SQ_Type_Utility)
     {
@@ -443,46 +467,52 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id)
     case SQ_Type_Railway:
     {
         Owners_Property Prop_Owner = board[Current_Pos].Cell_Data.Railway.Railway_Owner;
-        Player_Status Temp_Values = Player_Assessing(player_list,board,Prop_Owner);
-        int Rent_to_Pay = board[Current_Pos].Cell_Data.Railway.Base_Rental;
 
-        switch (Temp_Values.Railways_Owned)
-        {
-        case 1:
-        {
-            Rent_to_Pay = Rent_to_Pay * 1;
-            break;
-        }
+       if(Prop_Owner < Total_Players)
+       {
+            
+            Player_Status Temp_Values = Player_Assessing(player_list,board,Prop_Owner);
+            int Rent_to_Pay = board[Current_Pos].Cell_Data.Railway.Base_Rental;
+
+            switch (Temp_Values.Railways_Owned)
+            {
+            case 1:
+            {
+                Rent_to_Pay = Rent_to_Pay * 1;
+                break;
+            }
         
-        case 2:
-        {
-            Rent_to_Pay = Rent_to_Pay * 2;
-            break;
-        }
+            case 2:
+            {
+                Rent_to_Pay = Rent_to_Pay * 2;
+                break;
+            }
 
-        case 3:
-        {
-            Rent_to_Pay = Rent_to_Pay * 4;
-            break;
-        }
+            case 3:
+            {
+                Rent_to_Pay = Rent_to_Pay * 4;
+                break;
+            }
 
-        case 4:
-        {
-            Rent_to_Pay = Rent_to_Pay * 8;
-            break;
-        }
+            case 4:
+            {
+                Rent_to_Pay = Rent_to_Pay * 8;
+                break;
+            }
         
-        }
+            }
 
-        if((Prop_Owner != player_id) &&
-            (Prop_Owner != Owner_Bank))
-        {
-            player_list[player_id].Player_Cash -= Rent_to_Pay;
-            player_list[Prop_Owner].Player_Cash += Rent_to_Pay;
-            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,Rent_to_Pay,player_list[Prop_Owner].Player_Name);
-        }
+            if((Prop_Owner != player_id) &&
+            (Prop_Owner != Owner_Bank) &&
+                (Prop_Owner != Owner_None))
+            {
+                player_list[player_id].Player_Cash -= Rent_to_Pay;
+                player_list[Prop_Owner].Player_Cash += Rent_to_Pay;
+                printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,Rent_to_Pay,player_list[Prop_Owner].Player_Name);
+            }
         
-        break;
+            break;
+       }
     }
 
     case SQ_Type_Utility:
@@ -664,7 +694,8 @@ void Player_Builds(Players player_list[],square board[],int player_id,Economic e
   //Building Hotels
 
     if((Is_Eligible_to_Build_Hotel == true) &&
-        (Cash_Reserve_Hotel > 0))
+        (Cash_Reserve_Hotel > 0) &&
+            (board[Curr_Pos].Cell_Data.Properties.Number_of_Hotels == 0))
     {
         switch (player_id)
         {
@@ -716,7 +747,7 @@ void Player_Builds(Players player_list[],square board[],int player_id,Economic e
     if(If_Building_Hotel == true)
     {
         player_list[player_id].Player_Cash -= board[Curr_Pos].Cell_Data.Properties.Hotel_Construction_Cost;
-        board[Curr_Pos].Cell_Data.Properties.Number_of_Hotels++;
+        board[Curr_Pos].Cell_Data.Properties.Number_of_Hotels = 1;
         board[Curr_Pos].Cell_Data.Properties.Number_of_Houses = 0;
 
         printf("\n%s upgraded %s to a Hotel.\n",player_list[player_id].Player_Name,board[Curr_Pos].Square_Name);
@@ -910,13 +941,428 @@ void Player_Monopoly_Count(Players player_list[],square board[])
 }
 
 
-void Player_In_Jail(Players player_list[],square board[],int player_id)
+int Player_In_Jail(Players player_list[],square board[],int player_id,int *turn_count,Dice_Type dice)
 {
     int Curr_Pos = player_list[player_id].Player_Position;
+    int Player_Cash = player_list[player_id].Player_Cash;
 
-    if(Curr_Pos == SQ_Go_To_Jail)
+    if((Curr_Pos == SQ_Go_To_Jail) &&
+        (player_list[player_id].Jail_Status == Not_In_Jail))
     {
         player_list[player_id].Jail_Status = In_Jail;
         player_list[player_id].Player_Position = SQ_Jail;
+        player_list[player_id].Jail_Counter = (*turn_count);
+        printf("%s has Been Moved to Jail.",player_list[player_id].Player_Name);
+
+        return 0;
     }
+
+    
+
+    if(player_list[player_id].Jail_Status == In_Jail)
+    {
+        if(((*turn_count) - player_list[player_id].Jail_Counter) >= 3)
+        {
+        player_list[player_id].Jail_Status = Not_In_Jail;
+        printf("3 Turns Have Passed, %s Moved Out of Jail",player_list[player_id].Player_Name);
+        return 1;
+        }
+
+        if(dice.Is_Double == 1)
+        {
+            player_list[player_id].Jail_Status = Not_In_Jail;
+            printf("%s Rolled a Double Moved Out From Jail",player_list[player_id].Player_Name);
+
+            return 1;
+        }
+
+        switch (player_id)
+        {
+        case Aggressive_Investor:
+        {
+            if(Player_Cash >= 300)
+            {
+                player_list[player_id].Player_Cash -= 300;
+                player_list[player_id].Jail_Status = Not_In_Jail;
+                printf("%s Paid LKR 300 And Moved Out From Jail",player_list[player_id].Player_Name);
+
+                return 1;
+            }
+            break;
+        }
+        
+        case Risk_Taker:
+        {
+            if(Player_Cash >= 300)
+            {
+                player_list[player_id].Player_Cash -= 300;
+                player_list[player_id].Jail_Status = Not_In_Jail;
+                printf("%s Paid LKR 300 And Moved Out From Jail",player_list[player_id].Player_Name);
+
+                return 1;
+            }
+            break;
+        }
+        
+        case Opportunistic_Trader:
+        {
+            if(Player_Cash >= 300)
+            {
+                player_list[player_id].Player_Cash -= 300;
+                player_list[player_id].Jail_Status = Not_In_Jail;
+                printf("%s Paid LKR 300 And Moved Out From Jail",player_list[player_id].Player_Name);
+
+                return 1;
+            }
+            break;
+        }
+
+        return 0;
+        }
+
+        return 0;
+
+    }
+    return 1;
+}
+
+
+void Player_Pays_Tax(Players player_list[],square board[],int player_id,double income_tax_rate)
+
+{
+    int income_tax = Round_Off((double)player_list[player_id].Player_Cash * income_tax_rate);
+    
+
+    if((player_list[player_id].Player_Position == board[SQ_INCOME_TAX].Location_ID) &&
+        (player_list[player_id].Player_Cash) >= income_tax)
+    {
+        player_list[player_id].Player_Cash -= income_tax;
+        printf("\n%s Has paid Income Tax : LKR %d\n",player_list[player_id].Player_Name,income_tax);
+    }
+}
+
+
+void Property_Auctions(Players player_list[],square board[],int player_id,int auction_status,short final_order[],Economic Econ_Status)
+{
+    square location = board[player_list[player_id].Player_Position];
+
+    int Highest_Bid = 0;
+
+    if(location.Cell_Type == SQ_Type_Property)
+    {
+        Highest_Bid = (location.Cell_Data.Properties.Base_Price * 0.5);
+    }
+    else if(location.Cell_Type == SQ_Type_Utility)
+    {
+        Highest_Bid = (location.Cell_Data.Utility.Base_Price * 0.5);
+    }
+    else if(location.Cell_Type == SQ_Type_Railway)
+    {
+        Highest_Bid = (location.Cell_Data.Railway.Base_Price * 0.5);
+    }
+    else{
+        return;
+    }
+
+    switch (auction_status)
+    {
+    case Didnt_Buy:
+    {
+        for(int i = 0; i < Total_Players; i++)
+        {
+            player_list[i].Bidding_Status = Bidding;
+        }
+
+        int active = Total_Players;
+
+        while(active > 1)
+        {
+            active = 0;
+            
+            for(int i = 0; i < Total_Players; i++)
+            {
+                if((player_list[final_order[i]].Bidding_Status == Bidding) &&
+                    (Players_Bid(player_list,location,final_order[i],&Highest_Bid,Econ_Status)))
+                {
+                    active++;
+                }
+            }
+        }
+
+        int winner = -1;
+
+        for(int i = 0; i < Total_Players; i++)
+        {
+            if(player_list[i].Bidding_Status == Bidding)
+            {
+                winner = i;
+                break;
+            }
+        }
+
+        if(winner != -1)
+        {
+            player_list[winner].Player_Cash -= Highest_Bid;
+
+            if(location.Cell_Type == SQ_Type_Property)
+            {
+                board[location.Location_ID].Cell_Data.Properties.Property_Owner = winner;
+            }
+            else if(location.Cell_Type == SQ_Type_Railway)
+            {
+                board[location.Location_ID].Cell_Data.Railway.Railway_Owner = winner;
+            }
+            else if(location.Cell_Type == SQ_Type_Utility)
+            {
+                board[location.Location_ID].Cell_Data.Utility.Company_Owner = winner;
+            }
+
+            printf("\n%s wins the auction.\n",player_list[winner].Player_Name);
+            printf("\n%s purchased %s for LKR %d.\n",player_list[winner].Player_Name,location.Square_Name,Highest_Bid);
+            printf("\nRemaining Balance : LKR %d.\n",player_list[winner].Player_Cash);
+        }
+
+        for(int i = 0; i < Total_Players; i++)
+        {
+            player_list[i].Bidding_Status = Bidding;
+        }
+
+        break;
+
+    }
+        
+    
+    default:
+        break;
+    }
+}
+
+
+int Players_Bid(Players player_list[],square bidding_property,int player_id,int *highest_bid,Economic econ_status)
+{
+    int player_cash_reserve = (player_list[player_id].Player_Cash > ((*highest_bid) + 250));
+    int Eligible_to_Bid = (player_list[player_id].Bidding_Status == Bidding); 
+
+    switch (bidding_property.Cell_Type)
+    {
+    case SQ_Type_Property:
+    {
+        switch (player_id)
+        {
+        case Aggressive_Investor:
+        {
+            int cash_threshold = Round_Off((double)bidding_property.Cell_Data.Properties.Base_Price * 1.2); 
+
+            if(((bidding_property.Location_ID == SQ_Galle_Face) || (bidding_property.Location_ID == SQ_Nuwara_Eliya)) && 
+                (player_cash_reserve) && Eligible_to_Bid)
+            {
+                (*highest_bid) += 250;
+            }
+
+            else if((player_cash_reserve) &&
+                    (Eligible_to_Bid) && 
+                    ((*highest_bid) < cash_threshold))
+            {
+                (*highest_bid) += 250;
+            }
+
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding;
+            }
+            break;
+        }
+
+        case Conservative_Banker:
+        {
+            if((econ_status != Recession) &&
+                (player_cash_reserve) &&
+                (Eligible_to_Bid) &&
+                ( (*highest_bid) < bidding_property.Cell_Data.Properties.Base_Price))
+            {
+                (*highest_bid) += 250;
+            }
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding;
+            }
+            break;
+        }
+
+        case Risk_Taker:
+        {
+            if((player_cash_reserve) &&
+                (Eligible_to_Bid))
+            {
+                (*highest_bid) += 250;
+            }
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding; 
+            }
+            break;
+        }
+
+        case Opportunistic_Trader:
+        {
+            if((player_cash_reserve) &&
+                ((*highest_bid) < bidding_property.Cell_Data.Properties.Base_Price) &&
+                (Eligible_to_Bid))
+            {
+                (*highest_bid) += 250;
+            }
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding;
+            }
+            break;
+        }
+        
+        break;
+        } 
+        break;
+    }
+
+    case SQ_Type_Railway:
+    {  
+        switch (player_id)
+        {
+        case Aggressive_Investor:
+        {
+            int cash_threshold = Round_Off((double)bidding_property.Cell_Data.Railway.Base_Price * 1.2); 
+
+            if((player_cash_reserve) &&
+                    (Eligible_to_Bid) && 
+                    ((*highest_bid) < cash_threshold))
+            {
+                (*highest_bid) += 250;
+            }
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding;
+            }
+            break;
+        }
+
+        case Conservative_Banker:
+        {
+            if((econ_status != Recession) &&
+                (player_cash_reserve) &&
+                (Eligible_to_Bid) &&
+                ( (*highest_bid) < bidding_property.Cell_Data.Railway.Base_Price))
+            {
+                (*highest_bid) += 250;
+            }
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding;
+            }
+            break;
+        }
+
+        case Risk_Taker:
+        {
+            if((player_cash_reserve) &&
+                (Eligible_to_Bid))
+            {
+                (*highest_bid) += 250;
+            }
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding; 
+            }
+            break;
+        }
+
+        case Opportunistic_Trader:
+        {
+            if((player_cash_reserve) &&
+                ((*highest_bid) < bidding_property.Cell_Data.Railway.Base_Price) &&
+                (Eligible_to_Bid))
+            {
+                (*highest_bid) += 250;
+            }
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding;
+            }
+            break;
+        }
+        
+        break;
+        } 
+        break;
+    }
+
+    case SQ_Type_Utility:
+    {
+        switch (player_id)
+        {
+        case Aggressive_Investor:
+        {
+            int cash_threshold = Round_Off((double)bidding_property.Cell_Data.Utility.Base_Price * 1.2); 
+
+            if((player_cash_reserve) &&
+                    (Eligible_to_Bid) && 
+                    ((*highest_bid) < cash_threshold))
+            {
+                (*highest_bid) += 250;
+            }
+
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding;
+            }
+            break;
+        }
+
+        case Conservative_Banker:
+        {
+            if((econ_status != Recession) &&
+                (player_cash_reserve) &&
+                (Eligible_to_Bid) &&
+                ( (*highest_bid) < bidding_property.Cell_Data.Utility.Base_Price))
+            {
+                (*highest_bid) += 250;
+            }
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding;
+            }
+            break;
+        }
+
+        case Risk_Taker:
+        {
+            if((player_cash_reserve) &&
+                (Eligible_to_Bid))
+            {
+                (*highest_bid) += 250;
+            }
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding; 
+            }
+            break;
+        }
+
+        case Opportunistic_Trader:
+        {
+            if((player_cash_reserve) &&
+                ((*highest_bid) < bidding_property.Cell_Data.Utility.Base_Price) &&
+                (Eligible_to_Bid))
+            {
+                (*highest_bid) += 250;
+            }
+            else{
+                player_list[player_id].Bidding_Status = Not_Bidding;
+            }
+            break;
+        }
+        
+            break;
+        } 
+        break;
+    }
+    }
+
+    if(player_list[player_id].Bidding_Status == Bidding)
+    {
+        printf("\n%s bids LKR %d.\n",player_list[player_id].Player_Name,(*highest_bid));
+        return 1;
+    }
+    else{
+        printf("\n%s withdraws.\n",player_list[player_id].Player_Name);
+        return 0;
+    }
+
 }
