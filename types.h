@@ -184,6 +184,7 @@ typedef enum{
     Didnt_Buy,
     No_Auctions,
     Bought,
+    Player_Selling,
     Bank
 
 }Auction;
@@ -290,6 +291,7 @@ typedef struct {
     int Player_Assets;
     Player_Loan Loan_status;
     int Player_Loan;
+    int Player_Tax_Due;
     Square_ID Player_Position;
     short Player_Roll_Order;
     short Temp_Dice_Value;
@@ -329,7 +331,7 @@ void Player_Initialization(Players Player_List[]);
 Dice_Type Dice_Roll(void);
 void Start_Game(void);
 Auction Player_Buys_Property(Players player_list[], square board[], int player_id,Economic economic_status);
-void Player_Pays_Rent(Players player_list[],square board[],int player_id);
+void Player_Pays_Rent(Players player_list[],square board[],int player_id,Auction *auction_status,short final_order[],Economic econ_status);
 Player_Status Player_Assessing(Players player_list[],square board[],int player_id);
 void Player_Builds(Players player_list[],square board[],int player_id,Economic economic_status,Government_Regulations current_regulations);
 void Player_Monopoly_Count(Players player_list[],square board[]);
@@ -338,7 +340,7 @@ void Player_Pays_Tax(Players player_list[],square board[],int player_id,double i
 int Round_Off(double value);
 int Players_Bid(Players player_list[],square bidding_property,int player_id,int *highest_bid,Economic econ_status);
 void Property_Auctions(Players player_list[],square board[],int player_id,int auction_status,short final_order[],Economic Econ_Status);
-
+int Game_Over_Check(Players player_list[],int *game_winner);
 
 
 

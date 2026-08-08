@@ -40,10 +40,25 @@ int Round_Counter(Players player_list[],short *Round_Count,square board[],int pl
         }
     }
 
-    if((player_list[Aggressive_Investor].Player_Passed_Go == Passed_Go) && (player_list[Opportunistic_Trader].Player_Passed_Go == Passed_Go) && (player_list[Risk_Taker].Player_Passed_Go == Passed_Go) && (player_list[Conservative_Banker].Player_Passed_Go == Passed_Go))
+    int Active_Passed_Go = 0;
+    int Active_Players = 0;
+
+    for(int i = 0; i < Total_Players; i++)
+    {
+        if(player_list[i].Is_Bankrupt != Bankrupt)
+        {
+            Active_Players++;
+            if(player_list[i].Player_Passed_Go == Passed_Go)
+            {
+                Active_Passed_Go++;
+            }
+        }
+    }
+
+    if(Active_Players != 0 && Active_Passed_Go == Active_Players)
     {
         (*Round_Count)++;
-
+    
         //Printing Round Summary
         
 
@@ -157,6 +172,7 @@ Economic Economy_Status = Normal;
 Government_Regulations Cureent_Gov_Regulations = Housing_Subsidy;
 double Income_Tax_Rate = 0.15;
 Auction Auction_Status = None;
+int Game_Winner = -1;
 
 
 square Board[SQ_Board_Size];
@@ -211,7 +227,10 @@ for (int j = 0; j < Total_Players; j++)
     
 while(Round_Count < 500)
 {
-    
+    if(Game_Over_Check(Player_List,&Game_Winner))
+    {
+        break;
+    }
 
     for(int i = 0; i < Total_Players; i++)
     {
@@ -220,6 +239,11 @@ while(Round_Count < 500)
         Dice_Type Dice_Values = Dice_Roll();
 
         int Can_Move = Player_In_Jail(Player_List,Board,Id_Input,&Turn_Count,Dice_Values);
+
+        if(Player_List[Id_Input].Is_Bankrupt == Bankrupt)
+        {
+            continue;
+        }
 
         if(Can_Move)
         {
@@ -232,7 +256,7 @@ while(Round_Count < 500)
 
         Property_Auctions(Player_List,Board,Id_Input,Auction_Status,Final_Order,Economy_Status);
         
-        Player_Pays_Rent(Player_List,Board,Id_Input);
+        Player_Pays_Rent(Player_List,Board,Id_Input,&Auction_Status,Final_Order,Economy_Status);
 
         Player_Pays_Tax(Player_List,Board,Id_Input,Income_Tax_Rate);
 
@@ -246,6 +270,19 @@ while(Round_Count < 500)
    // printf("%d",Turn_Count);
 
 }
+
+for(int i = 0; i < Total_Players; i++)
+{
+    
+}
+
+
+printf("\n=============================================\n");
+printf("\nGame Over\n");
+printf("\nWinner\n%s\nTotal Cash\nLKR %d\n",Player_List[Game_Winner].Player_Name,Player_List[Game_Winner].Player_Cash);
+printf("\nTotal Property Value\nLKR %d\n",Player_List[Game_Winner].Player_Assets);
+printf("\nOutstanding Loans\n%d\n",Player_List[Game_Winner].Loan_status);
+printf("\nNet Worth\nLKR %d\n",Player_Assessing(Player_List,Board,Game_Winner).Net_Worth);
 }
 
 

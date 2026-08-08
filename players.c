@@ -20,6 +20,7 @@ void Player_Initialization(Players Player_List[])
         Player_List[i].Player_Assets = 0;
         Player_List[i].Loan_status = No_Loans;
         Player_List[i].Player_Loan = 0;
+        Player_List[i].Player_Tax_Due = 0;
         Player_List[i].Player_Position = SQ_GO;
         Player_List[i].Player_Roll_Order = -1;
         Player_List[i].Temp_Dice_Value = 0;
@@ -85,7 +86,7 @@ Auction Player_Buys_Property(Players player_list[], square board[], int player_i
                 for (int i = 0; i < SQ_Board_Size; i++)
                 {
                     if ((board[i].Cell_Type == SQ_Type_Property) &&
-                        (board[i].Cell_Data.Properties.Property_Owner != player_id) &&
+                        (board[i].Cell_Data.Properties.Property_Owner != (Owners_Property)player_id) &&
                         (board[i].Cell_Data.Properties.Property_Owner != Owner_Bank))
                     {
                         if (board[i].Cell_Data.Properties.Base_Rental > Max_Rent)
@@ -401,7 +402,7 @@ Auction Player_Buys_Property(Players player_list[], square board[], int player_i
 }
 
 
-void Player_Pays_Rent(Players player_list[],square board[],int player_id)
+void Player_Pays_Rent(Players player_list[],square board[],int player_id,Auction *auction_status,short final_order[],Economic econ_status)
 
 {
     int Current_Pos = player_list[player_id].Player_Position;
@@ -453,13 +454,45 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id)
 
         }
 
-        if((Prop_Owner != player_id) &&
+        if((Prop_Owner != (Owners_Property)player_id) &&
             (Prop_Owner != Owner_Bank) &&
                 (Prop_Owner < Total_Players))
         {
+            int player_cash = player_list[player_id].Player_Cash - Rent_to_Pay;
+
+            if(player_cash < 0)
+            {
+                (*auction_status) = Player_Selling;
+
+                while(player_cash < 0)
+                {
+                    int before = player_list[player_id].Player_Cash;
+
+                    Property_Auctions(player_list,board,player_id,*auction_status,final_order,econ_status);
+
+                    if(player_list[player_id].Player_Cash == before)
+                    {
+                        break;
+                    }
+
+                    player_cash = player_list[player_id].Player_Cash - Rent_to_Pay;
+                }
+
+                
+
+                if(player_cash < 0)
+                {
+                    player_list[player_id].Is_Bankrupt = Bankrupt;
+                    printf("%s has been declared bankrupt.",player_list[player_id].Player_Name);
+                }
+
+                (*auction_status) = No_Auctions;
+            }
+
             player_list[player_id].Player_Cash -= Rent_to_Pay;
             player_list[Prop_Owner].Player_Cash += Rent_to_Pay;
-            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,Rent_to_Pay,player_list[Prop_Owner].Player_Name);
+            
+
         }
         break;
     }
@@ -502,17 +535,50 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id)
         
             }
 
-            if((Prop_Owner != player_id) &&
+           if((Prop_Owner != (Owners_Property)player_id) &&
             (Prop_Owner != Owner_Bank) &&
-                (Prop_Owner != Owner_None))
+                (Prop_Owner < Total_Players))
             {
+                int player_cash = player_list[player_id].Player_Cash - Rent_to_Pay;
+
+                if(player_cash < 0)
+                {
+                    (*auction_status) = Player_Selling;
+
+                    while(player_cash < 0)
+                    {
+                        int before = player_list[player_id].Player_Cash;
+
+                        Property_Auctions(player_list,board,player_id,*auction_status,final_order,econ_status);
+                    
+                        if(player_list[player_id].Player_Cash == before)
+                        {
+                            break;
+                        }
+
+                        player_cash = player_list[player_id].Player_Cash - Rent_to_Pay;
+                    }
+
+                    player_cash = player_list[player_id].Player_Cash - Rent_to_Pay;
+
+                    if(player_cash < 0)
+                    {
+                        player_list[player_id].Is_Bankrupt = Bankrupt;
+                        printf("%s has been declared bankrupt.",player_list[player_id].Player_Name);
+                    }
+
+                    (*auction_status) = No_Auctions;
+                }
+
                 player_list[player_id].Player_Cash -= Rent_to_Pay;
                 player_list[Prop_Owner].Player_Cash += Rent_to_Pay;
-                printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,Rent_to_Pay,player_list[Prop_Owner].Player_Name);
-            }
-        
-            break;
+                
+                    
+
+        }
+            
        }
+       break;
     }
 
     case SQ_Type_Utility:
@@ -531,11 +597,44 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id)
         }
 
         if((Prop_Owner != player_id) &&
-            (Prop_Owner != Owner_Bank))
+            (Prop_Owner != Owner_Bank) &&
+                (Prop_Owner < Total_Players))
         {
+            int player_cash = player_list[player_id].Player_Cash - Rent_to_Pay;
+
+            if(player_cash < 0)
+            {
+                (*auction_status) = Player_Selling;
+
+                while(player_cash < 0)
+                {
+                    int before = player_list[player_id].Player_Cash;
+
+                    Property_Auctions(player_list,board,player_id,*auction_status,final_order,econ_status);
+                
+                    if(player_list[player_id].Player_Cash == before)
+                    {
+                        break;
+                    }
+
+                    player_cash = player_list[player_id].Player_Cash - Rent_to_Pay;
+                }
+
+                player_cash = player_list[player_id].Player_Cash - Rent_to_Pay;
+
+                if(player_cash < 0)
+                {
+                    player_list[player_id].Is_Bankrupt = Bankrupt;
+                    printf("%s has been declared bankrupt.",player_list[player_id].Player_Name);
+                }
+
+                (*auction_status) = No_Auctions;
+            }
+
             player_list[player_id].Player_Cash -= Rent_to_Pay;
             player_list[Prop_Owner].Player_Cash += Rent_to_Pay;
-            printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOWner : %s.\n",player_list[player_id].Player_Name,board[Current_Pos].Square_Name,Rent_to_Pay,player_list[Prop_Owner].Player_Name);
+            
+
         }
         
         break;
@@ -559,7 +658,7 @@ Player_Status Player_Assessing(Players player_list[],square board[],int player_i
     for(int i = 0; i < SQ_Board_Size; i++)
     {
         if((board[i].Cell_Type == SQ_Type_Property) &&
-            (board[i].Cell_Data.Properties.Property_Owner == player_id))
+            (board[i].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id))
         {
             
             player_list[player_id].Player_Assets += board[i].Cell_Data.Properties.Base_Price;
@@ -568,7 +667,7 @@ Player_Status Player_Assessing(Players player_list[],square board[],int player_i
         }
         
         if((board[i].Cell_Type == SQ_Type_Railway) &&
-            (board[i].Cell_Data.Railway.Railway_Owner == player_id))
+            (board[i].Cell_Data.Railway.Railway_Owner == (Owners_Property)player_id))
         {
             player_list[player_id].Player_Assets += board[i].Cell_Data.Railway.Base_Price;
             Status_Return.Total_No_Prop_Owned++;
@@ -576,14 +675,20 @@ Player_Status Player_Assessing(Players player_list[],square board[],int player_i
         }
 
         if((board[i].Cell_Type == SQ_Type_Utility) &&
-            (board[i].Cell_Data.Utility.Company_Owner == player_id))
+            (board[i].Cell_Data.Utility.Company_Owner == (Owners_Property)player_id))
         {
             player_list[player_id].Player_Assets += board[i].Cell_Data.Utility.Base_Price;
             Status_Return.Total_No_Prop_Owned++;
         }
     }
 
-    Status_Return.Net_Worth = (player_list[player_id].Player_Cash + player_list[player_id].Player_Assets);
+    Status_Return.Net_Worth = (player_list[player_id].Player_Cash + player_list[player_id].Player_Assets - player_list[player_id].Player_Loan - player_list[player_id].Player_Tax_Due);
+
+    if(Status_Return.Net_Worth < 0 && player_list[player_id].Is_Bankrupt != Bankrupt)
+    {
+        player_list[player_id].Is_Bankrupt = Bankrupt;
+        printf("%s has been declared bankrupt.",player_list[player_id].Player_Name);
+    }
 
     return Status_Return;
 
@@ -1031,43 +1136,56 @@ void Player_Pays_Tax(Players player_list[],square board[],int player_id,double i
 
 {
     int income_tax = Round_Off((double)player_list[player_id].Player_Cash * income_tax_rate);
-    
+    int debt = player_list[player_id].Player_Tax_Due;
+    int payable = debt + income_tax;
+
+    if(player_list[player_id].Player_Position != SQ_INCOME_TAX)
+    {
+        return;
+    }
 
     if((player_list[player_id].Player_Position == board[SQ_INCOME_TAX].Location_ID) &&
-        (player_list[player_id].Player_Cash) >= income_tax)
+        (player_list[player_id].Player_Cash) >= payable)
     {
-        player_list[player_id].Player_Cash -= income_tax;
-        printf("\n%s Has paid Income Tax : LKR %d\n",player_list[player_id].Player_Name,income_tax);
+        player_list[player_id].Player_Cash -= payable;
+        player_list[player_id].Player_Tax_Due = 0;
+        printf("\n%s Has paid Income Tax : LKR %d\n",player_list[player_id].Player_Name,payable);
+    }
+    else{
+        player_list[player_id].Player_Tax_Due += income_tax;
+        printf("\n%s Has Income Tax Due: LKR %d\n",player_list[player_id].Player_Name,payable);
     }
 }
 
 
 void Property_Auctions(Players player_list[],square board[],int player_id,int auction_status,short final_order[],Economic Econ_Status)
 {
-    square location = board[player_list[player_id].Player_Position];
-
-    int Highest_Bid = 0;
-
-    if(location.Cell_Type == SQ_Type_Property)
-    {
-        Highest_Bid = (location.Cell_Data.Properties.Base_Price * 0.5);
-    }
-    else if(location.Cell_Type == SQ_Type_Utility)
-    {
-        Highest_Bid = (location.Cell_Data.Utility.Base_Price * 0.5);
-    }
-    else if(location.Cell_Type == SQ_Type_Railway)
-    {
-        Highest_Bid = (location.Cell_Data.Railway.Base_Price * 0.5);
-    }
-    else{
-        return;
-    }
+    
 
     switch (auction_status)
     {
     case Didnt_Buy:
     {
+        square location = board[player_list[player_id].Player_Position];
+
+        int Highest_Bid = 0;
+
+        if(location.Cell_Type == SQ_Type_Property)
+        {
+            Highest_Bid = (location.Cell_Data.Properties.Base_Price * 0.5);
+        }
+        else if(location.Cell_Type == SQ_Type_Utility)
+        {
+            Highest_Bid = (location.Cell_Data.Utility.Base_Price * 0.5);
+        }
+        else if(location.Cell_Type == SQ_Type_Railway)
+        {
+            Highest_Bid = (location.Cell_Data.Railway.Base_Price * 0.5);
+        }
+        else{
+            return;
+        }
+        
         for(int i = 0; i < Total_Players; i++)
         {
             player_list[i].Bidding_Status = Bidding;
@@ -1130,7 +1248,137 @@ void Property_Auctions(Players player_list[],square board[],int player_id,int au
         break;
 
     }
-        
+    
+    case Player_Selling:
+    {
+        square location = board[SQ_GO];
+        int Highest_Bid = 0;
+        int min = 10000000;
+        int found = 0;
+
+
+        for(int i = 0; i < SQ_Board_Size; i++)
+        {
+            
+            if((board[i].Cell_Type == SQ_Type_Property) &&
+                (board[i].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id) &&
+                (board[i].Cell_Data.Properties.Mortgage == Unmortgaged))
+            {
+                
+
+                if(board[i].Cell_Data.Properties.Base_Price < min)
+                {
+                    location = board[i];
+                }
+            }
+            else if((board[i].Cell_Type == SQ_Type_Railway) &&
+                (board[i].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id) &&
+                (board[i].Cell_Data.Properties.Mortgage == Unmortgaged))
+            {
+                if(board[i].Cell_Data.Properties.Base_Price < min)
+                {
+                    location = board[i];
+                }
+            }
+            else if((board[i].Cell_Type == SQ_Type_Utility) &&
+                (board[i].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id) &&
+                (board[i].Cell_Data.Properties.Mortgage == Unmortgaged))
+            {
+                 if(board[i].Cell_Data.Properties.Base_Price < min)
+                {
+                    location = board[i];
+                }
+            }
+                
+            if(location.Location_ID == board[SQ_GO].Location_ID)
+            {
+                //bankrupt
+                return;
+            }
+        }
+
+        if(location.Cell_Type == SQ_Type_Property)
+        {
+            Highest_Bid = (location.Cell_Data.Properties.Base_Price * 0.5);
+        }
+        else if(location.Cell_Type == SQ_Type_Utility)
+        {
+            Highest_Bid = (location.Cell_Data.Utility.Base_Price * 0.5);
+        }
+        else if(location.Cell_Type == SQ_Type_Railway)
+        {
+            Highest_Bid = (location.Cell_Data.Railway.Base_Price * 0.5);
+        }
+        else{
+            return;
+        }
+
+
+        for(int i = 0; i < Total_Players; i++)
+        {
+            player_list[i].Bidding_Status = Bidding;
+        }
+
+        //removing the selling player
+        player_list[player_id].Bidding_Status = Not_Bidding;
+
+        int active = Total_Players;
+
+        while(active > 1)
+        {
+            active = 0;
+
+            for(int i = 0; i < Total_Players; i++)
+            {
+                 if((player_list[final_order[i]].Bidding_Status == Bidding) &&
+                    (Players_Bid(player_list,location,final_order[i],&Highest_Bid,Econ_Status)))
+                {
+                    active++;
+                }
+            }
+        }
+
+        int winner = -1;
+
+        for(int i = 0; i < Total_Players; i++)
+        {
+            if(player_list[i].Bidding_Status == Bidding)
+            {
+                winner = i;
+                break;
+            }
+        }
+
+        if(winner != -1)
+        {
+            player_list[winner].Player_Cash -= Highest_Bid;
+            player_list[player_id].Player_Cash += Highest_Bid;
+
+            if(location.Cell_Type == SQ_Type_Property)
+            {
+                board[location.Location_ID].Cell_Data.Properties.Property_Owner = winner;
+            }
+            else if(location.Cell_Type == SQ_Type_Railway)
+            {
+                board[location.Location_ID].Cell_Data.Railway.Railway_Owner = winner;
+            }
+            else if(location.Cell_Type == SQ_Type_Utility)
+            {
+                board[location.Location_ID].Cell_Data.Utility.Company_Owner = winner;
+            }
+
+            printf("\n%s wins the auction.\n",player_list[winner].Player_Name);
+            printf("\n%s purchased %s for LKR %d.\n",player_list[winner].Player_Name,location.Square_Name,Highest_Bid);
+            printf("\nRemaining Balance : LKR %d.\n",player_list[winner].Player_Cash);
+        }
+
+        for(int i = 0; i < Total_Players; i++)
+        {
+            player_list[i].Bidding_Status = Bidding;
+        }
+
+        break;
+    }
     
     default:
         break;
@@ -1365,4 +1613,27 @@ int Players_Bid(Players player_list[],square bidding_property,int player_id,int 
         return 0;
     }
 
+}
+
+
+int Game_Over_Check(Players player_list[],int *game_winner)
+{
+    int Active_Players = 0;
+
+    for (int i = 0; i < Total_Players; i++)
+    {
+        if(player_list[i].Is_Bankrupt != Bankrupt)
+        {
+            Active_Players++;
+            (*game_winner) = i;
+        }
+    }
+
+    if(Active_Players == 1)
+    {
+        return 1;
+    }
+    else{
+        return 0;
+    }
 }
