@@ -96,8 +96,8 @@ void Board_Initialization(square board[])
                 .Name = Colombo_Fort_Railway_Station,
                 .Railway_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0,
-                .Base_Price = 999,
+                .Mortgage_Value = 750,
+                .Base_Price = 1500,
                 .Base_Rental = 250 
             }
         },
@@ -236,9 +236,9 @@ void Board_Initialization(square board[])
                 .Company = CEB,
                 .Company_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0,
-                .Base_Price = 999,
-                .Base_Rental = 99 
+                .Mortgage_Value = 750,
+                .Base_Price = 1500,
+                .Base_Rental = 0 
 
             }
         },
@@ -309,8 +309,8 @@ void Board_Initialization(square board[])
                 .Name = Kandy_Railway_Station,
                 .Railway_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0,
-                .Base_Price = 999,
+                .Mortgage_Value = 750,
+                .Base_Price = 1500,
                 .Base_Rental = 250 
             }
         },
@@ -484,12 +484,12 @@ void Board_Initialization(square board[])
         .Cell_Type = SQ_Type_Property,
         .Cell_Data = {
             .Properties = {
-                .Group = Light_Blue,
+                .Group = Red,
                 .Base_Price = 6000,
                 .Market_Price = 0,
                 .Base_Rental = 500,
-                .House_Construction_Cost = 750,
-                .Hotel_Construction_Cost = 3000,
+                .House_Construction_Cost = 1500,
+                .Hotel_Construction_Cost = 6000,
                 .Property_Owner = Owner_Bank,
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
@@ -514,8 +514,8 @@ void Board_Initialization(square board[])
                 .Name = Galle_Railway_Station,
                 .Railway_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0,
-                .Base_Price = 999,
+                .Mortgage_Value = 750,
+                .Base_Price = 1500,
                 .Base_Rental = 250 
             }
         },
@@ -586,9 +586,9 @@ void Board_Initialization(square board[])
                 .Company = NWSDB,
                 .Company_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0,
-                .Base_Price = 999,
-                .Base_Rental = 99 
+                .Mortgage_Value = 750,
+                .Base_Price = 1500,
+                .Base_Rental = 0 
 
             }
         },
@@ -730,8 +730,8 @@ void Board_Initialization(square board[])
                 .Name = Jaffna_Railway_Station,
                 .Railway_Owner = Owner_Bank,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0,
-                .Base_Price = 999,
+                .Mortgage_Value = 750,
+                .Base_Price = 1500,
                 .Base_Rental = 250 
             }
         },

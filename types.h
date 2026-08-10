@@ -185,7 +185,7 @@ typedef enum{
     No_Auctions,
     Bought,
     Player_Selling,
-    Bank
+    Bank_Foreclosure
 
 }Auction;
 
@@ -326,21 +326,22 @@ typedef struct{
 
 
 void Board_Initialization(square board[]);
-//void Value_Sort(int arr[],int size);
 void Player_Initialization(Players Player_List[]);
 Dice_Type Dice_Roll(void);
 void Start_Game(void);
 Auction Player_Buys_Property(Players player_list[], square board[], int player_id,Economic economic_status);
 void Player_Pays_Rent(Players player_list[],square board[],int player_id,Auction *auction_status,short final_order[],Economic econ_status);
-Player_Status Player_Assessing(Players player_list[],square board[],int player_id);
+Player_Status Player_Assessing(Players player_list[],square board[],int player_id,Auction *auction_status,short final_order[],Economic econ_status);
 void Player_Builds(Players player_list[],square board[],int player_id,Economic economic_status,Government_Regulations current_regulations);
 void Player_Monopoly_Count(Players player_list[],square board[]);
-int Player_In_Jail(Players player_list[],square board[],int player_id,int *turn_count,Dice_Type dice);
+int Player_In_Jail(Players player_list[],int player_id,int *turn_count,Dice_Type dice);
 void Player_Pays_Tax(Players player_list[],square board[],int player_id,double income_tax_rate);
 int Round_Off(double value);
 int Players_Bid(Players player_list[],square bidding_property,int player_id,int *highest_bid,Economic econ_status);
-void Property_Auctions(Players player_list[],square board[],int player_id,int auction_status,short final_order[],Economic Econ_Status);
-int Game_Over_Check(Players player_list[],int *game_winner);
+void Property_Auctions(Players player_list[],square board[],int player_id,int auction_status,short final_order[],square *foreclosure,Economic Econ_Status);
+int Game_Over_Check(Players player_list[],square board[],Auction *auction_status,short final_order[],Economic econ_status,int *game_winner);
+void Building_Destroy(square *location);
+int Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status);
 
 
 

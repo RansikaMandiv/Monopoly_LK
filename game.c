@@ -26,19 +26,8 @@ Dice_Type Dice_Roll(void)
 };
 
 
-int Round_Counter(Players player_list[],short *Round_Count,square board[],int player_id)
+int Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status)
 {
-    for (int i = 0; i < Total_Players; i++)
-    {
-        if(player_list[i].Total_Dice_Value > 39)
-        {
-            player_list[i].Player_Passed_Go = Passed_Go;
-            player_list[i].Player_Cash += 2000;
-            printf("\n%s has Passed Go.\nCollected LKR 2,000.\nCurrent Balance LKR : %d \n",player_list[i].Player_Name,player_list[i].Player_Cash);
-            
-            player_list[i].Total_Dice_Value = (player_list[i].Total_Dice_Value) % (SQ_Board_Size);
-        }
-    }
 
     int Active_Passed_Go = 0;
     int Active_Players = 0;
@@ -66,7 +55,13 @@ int Round_Counter(Players player_list[],short *Round_Count,square board[],int pl
         
         for(int i = 0; i < Total_Players; i++)
         {
-            Player_Status Status_of_Players = Player_Assessing(player_list,board,i);
+
+            if(player_list[i].Is_Bankrupt == Bankrupt)
+            {
+                continue;
+            }
+
+            Player_Status Status_of_Players = Player_Assessing(player_list,board,i,auction_status,final_order,econ_status);
 
             printf("\n%s\n",player_list[i].Player_Name);
             printf("\nCash : LKR %d\n",player_list[i].Player_Cash);
@@ -91,18 +86,27 @@ int Round_Counter(Players player_list[],short *Round_Count,square board[],int pl
 
 void Player_Moves(Players player_list[],int Player_Id_Input,Dice_Type Dice_Values)
 {
+    int Old_Position = player_list[Player_Id_Input].Player_Position;
 
     player_list[Player_Id_Input].Temp_Dice_Value = Dice_Values.Dice_Sum;
     player_list[Player_Id_Input].Player_Position = (player_list[Player_Id_Input].Player_Position + player_list[Player_Id_Input].Temp_Dice_Value) % SQ_Board_Size;
     player_list[Player_Id_Input].Total_Dice_Value += player_list[Player_Id_Input].Temp_Dice_Value;
     printf("\n%s Rolls: %d Player Moves to: %d\n",player_list[Player_Id_Input].Player_Name,player_list[Player_Id_Input].Temp_Dice_Value,player_list[Player_Id_Input].Player_Position);
+
+    if((Old_Position + player_list[Player_Id_Input].Temp_Dice_Value) >= SQ_Board_Size)
+    {
+        player_list[Player_Id_Input].Player_Passed_Go = Passed_Go;
+        player_list[Player_Id_Input].Player_Cash += 2000;
+        printf("\n%s has Passed Go.\nCollected LKR 2,000.\nCurrent Balance LKR : %d \n",player_list[Player_Id_Input].Player_Name,player_list[Player_Id_Input].Player_Cash);
+            
+    }
     
 }
 
 
 //Determining Player Order//
 
-void Determine_Order(Players Players_Arr[],int No_Of_Players)
+void Determine_Order(Players Players_Arr[])
 {
     int Tie_Found;
 
@@ -184,7 +188,7 @@ Player_Initialization(Player_List);
 //Determining Player Turning Orders//
 
 short Final_Order[Total_Players];
-int count = 0;
+
 
 for (int i = 0; i < Total_Players; i++)
 {
@@ -192,7 +196,7 @@ for (int i = 0; i < Total_Players; i++)
     printf("\n%s Rolled:\t%d\n",Player_List[i].Player_Name,Player_List[i].Temp_Dice_Value);
 }
 
-Determine_Order(Player_List, Total_Players);
+Determine_Order(Player_List);
 
 for (int i = 0; i < Total_Players; i++)
 {
@@ -225,9 +229,10 @@ for (int j = 0; j < Total_Players; j++)
 //
 
     
-while(Round_Count < 500)
+while((Round_Count < 500) || 
+        (Game_Over_Check(Player_List,Board,&Auction_Status,Final_Order,Economy_Status,&Game_Winner)))
 {
-    if(Game_Over_Check(Player_List,&Game_Winner))
+    if(Game_Over_Check(Player_List,Board,&Auction_Status,Final_Order,Economy_Status,&Game_Winner))
     {
         break;
     }
@@ -238,7 +243,7 @@ while(Round_Count < 500)
 
         Dice_Type Dice_Values = Dice_Roll();
 
-        int Can_Move = Player_In_Jail(Player_List,Board,Id_Input,&Turn_Count,Dice_Values);
+        int Can_Move = Player_In_Jail(Player_List,Id_Input,&Turn_Count,Dice_Values);
 
         if(Player_List[Id_Input].Is_Bankrupt == Bankrupt)
         {
@@ -250,11 +255,11 @@ while(Round_Count < 500)
             Player_Moves(Player_List,Id_Input,Dice_Values);
         }
       
-        Round_Counter(Player_List,&Round_Count,Board,Id_Input);
+        Round_Counter(Player_List,&Round_Count,Board,&Auction_Status,Final_Order,Economy_Status);
 
         Auction_Status = Player_Buys_Property(Player_List,Board,Id_Input,Economy_Status);
 
-        Property_Auctions(Player_List,Board,Id_Input,Auction_Status,Final_Order,Economy_Status);
+        Property_Auctions(Player_List,Board,Id_Input,Auction_Status,Final_Order,&Board[SQ_GO],Economy_Status);
         
         Player_Pays_Rent(Player_List,Board,Id_Input,&Auction_Status,Final_Order,Economy_Status);
 
@@ -271,18 +276,25 @@ while(Round_Count < 500)
 
 }
 
-for(int i = 0; i < Total_Players; i++)
+if(Game_Winner < 0)
 {
-    
+    Game_Winner = 0;
+    for(int i = 0; i < Total_Players; i++)
+    {
+        if(Player_List[i].Is_Bankrupt != Bankrupt)
+        {
+            Game_Winner = i;
+            break;
+        }
+    }
 }
-
 
 printf("\n=============================================\n");
 printf("\nGame Over\n");
 printf("\nWinner\n%s\nTotal Cash\nLKR %d\n",Player_List[Game_Winner].Player_Name,Player_List[Game_Winner].Player_Cash);
 printf("\nTotal Property Value\nLKR %d\n",Player_List[Game_Winner].Player_Assets);
 printf("\nOutstanding Loans\n%d\n",Player_List[Game_Winner].Loan_status);
-printf("\nNet Worth\nLKR %d\n",Player_Assessing(Player_List,Board,Game_Winner).Net_Worth);
+printf("\nNet Worth\nLKR %d\n",Player_Assessing(Player_List,Board,Game_Winner,&Auction_Status,Final_Order,Economy_Status).Net_Worth);
 }
 
 
