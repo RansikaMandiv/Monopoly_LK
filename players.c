@@ -19,7 +19,9 @@ void Player_Initialization(Players Player_List[])
         Player_List[i].Player_Cash = 30000;
         Player_List[i].Player_Assets = 0;
         Player_List[i].Loan_status = No_Loans;
-        Player_List[i].Player_Loan = 0;
+        Player_List[i].Player_Loan_Amount = 0;
+        Player_List[i].Player_Loan_Start = 0;
+        Player_List[i].Player_Loan_Previous = 0;
         Player_List[i].Player_Tax_Due = 0;
         Player_List[i].Player_Position = SQ_GO;
         Player_List[i].Player_Roll_Order = -1;
@@ -684,7 +686,7 @@ Player_Status Player_Assessing(Players player_list[],square board[],int player_i
     Status_Return.Total_No_Prop_Owned = 0;
     Status_Return.No_of_Hotels = 0;
     Status_Return.Railways_Owned = 0;
-    Status_Return.Outstanding_Loan = player_list[player_id].Player_Loan;
+    Status_Return.Outstanding_Loan = player_list[player_id].Player_Loan_Amount;
     
 
     for(int i = 0; i < SQ_Board_Size; i++)
@@ -714,7 +716,7 @@ Player_Status Player_Assessing(Players player_list[],square board[],int player_i
         }
     }
 
-    Status_Return.Net_Worth = (player_list[player_id].Player_Cash + player_list[player_id].Player_Assets - player_list[player_id].Player_Loan - player_list[player_id].Player_Tax_Due);
+    Status_Return.Net_Worth = (player_list[player_id].Player_Cash + player_list[player_id].Player_Assets - player_list[player_id].Player_Loan_Amount - player_list[player_id].Player_Tax_Due);
 
     if(Status_Return.Net_Worth < 0 && player_list[player_id].Is_Bankrupt != Bankrupt)
     {
@@ -747,6 +749,7 @@ Player_Status Player_Assessing(Players player_list[],square board[],int player_i
 
     (*auction_status) = No_Auctions;
     return Status_Return;
+
 
 }
 
@@ -1545,7 +1548,12 @@ void Property_Auctions(Players player_list[],square board[],int player_id,int au
             }
         }
 
-        if (winner == -1)
+        if((winner == -1) &&
+            (last_bidder == -1))
+        {
+            printf("\nNO Bidders.%s not foreclosed.\n",location.Square_Name);
+        }
+        else if (winner == -1)
         {
             winner = last_bidder;
         }
@@ -1864,14 +1872,355 @@ void Building_Destroy(square *location)
         location->Cell_Data.Properties.Number_of_Hotels = 0;
         location->Cell_Data.Properties.Number_of_Houses = 0;
         location->Cell_Data.Properties.Property_Owner = Owner_Bank;
+        location->Cell_Data.Properties.Mortgage = Unmortgaged;
     }
     else if(location->Cell_Type == SQ_Type_Railway)
     {
         location->Cell_Data.Railway.Railway_Owner = Owner_Bank;
+        location->Cell_Data.Railway.Mortgage = Unmortgaged;
     }
     else if(location->Cell_Type == SQ_Type_Utility)
     {
         location->Cell_Data.Utility.Company_Owner = Owner_Bank;
+        location->Cell_Data.Utility.Mortgage = Unmortgaged;
     }
     
+}
+
+
+void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int loan_interest_rate,int round_count,int *auction_status,Economic econ_status,short final_order[])
+{
+    if((player_list[player_id].Loan_status == Have_Loans) &&
+        (round_count - player_list[player_id].Player_Loan_Start) >= 20)
+    {
+        int foreclosed_count = 0;
+
+        printf("\n%s has defaulted.\nCollateral has been foreclosed.\nOutstanding debt cleared.\n",player_list[player_id].Player_Name);
+
+        for(int i = 0; i < SQ_Board_Size; i++)
+        {
+            if((board[i].Cell_Type == SQ_Type_Property) &&
+                (board[i].Cell_Data.Properties.Property_Owner == player_id) &&
+                    (board[i].Cell_Data.Properties.Mortgage == Mortgaged))
+            {
+                (*auction_status) = Bank_Foreclosure;
+                Property_Auctions(player_list,board,player_id,*auction_status,final_order,&board[i],econ_status);
+                foreclosed_count++;
+                (*auction_status) = No_Auctions;
+
+            }
+            else if((board[i].Cell_Type == SQ_Type_Railway) &&
+                (board[i].Cell_Data.Railway.Railway_Owner == player_id) &&
+                    (board[i].Cell_Data.Railway.Mortgage == Mortgaged))
+            {
+
+                (*auction_status) = Bank_Foreclosure;
+                Property_Auctions(player_list,board,player_id,*auction_status,final_order,&board[i],econ_status);
+                foreclosed_count++;
+                (*auction_status) = No_Auctions;
+            }
+            else if((board[i].Cell_Type == SQ_Type_Utility) &&
+                (board[i].Cell_Data.Utility.Company_Owner == player_id) &&
+                (board[i].Cell_Data.Utility.Mortgage == Mortgaged))
+            {
+
+                (*auction_status) = Bank_Foreclosure;
+                Property_Auctions(player_list,board,player_id,*auction_status,final_order,&board[i],econ_status);
+                foreclosed_count++;
+                (*auction_status) = No_Auctions;
+            }
+
+            
+            
+        }
+        player_list[player_id].Loan_status = No_Loans;
+        player_list[player_id].Player_Loan_Amount = 0;
+       
+    }
+    else if(player_list[player_id].Loan_status == Have_Loans)
+    {
+        if(player_list[player_id].Player_Loan_Previous == (round_count - 1))
+        {
+            player_list[player_id].Player_Loan_Amount = Round_Off(((double)(player_list[player_id].Player_Loan_Amount) * (double)(100 + loan_interest_rate)/100));
+            player_list[player_id].Player_Loan_Previous++;
+        }
+    }
+
+
+    if(player_list[player_id].Player_Position != SQ_Bank_of_Ceylon)
+    {
+        return;
+    }
+
+
+    if(player_list[player_id].Loan_status == No_Loans)
+    {
+        int Obtaining_Loan = 0;
+
+        switch (player_id)
+        {
+
+        case Aggressive_Investor:
+        {
+            for(int i = 0; i < SQ_Board_Size; i++)
+            {
+                if((board[i].Cell_Type == SQ_Type_Property) &&
+                    (board[i].Cell_Data.Properties.Property_Owner == Owner_Bank))
+                {
+                    Obtaining_Loan = 1;
+                    break;
+                }
+                else if((board[i].Cell_Type == SQ_Type_Railway) &&
+                    (board[i].Cell_Data.Railway.Railway_Owner == Owner_Bank))
+                {
+                    Obtaining_Loan = 1;
+                    break;
+                }
+                else if((board[i].Cell_Type == SQ_Type_Utility) &&
+                    (board[i].Cell_Data.Utility.Company_Owner == Owner_Bank))
+                {
+                    Obtaining_Loan = 1;
+                    break;
+                }
+            }
+
+
+            break;
+        }
+            
+        
+        case Conservative_Banker:
+        {
+            int max_rent = 0; 
+
+            for(int i = 0; i < SQ_Board_Size; i++)
+            {
+                if((board[i].Cell_Type == SQ_Type_Property) &&
+                    (board[i].Cell_Data.Properties.Property_Owner != player_id) &&
+                    (board[i].Cell_Data.Properties.Base_Rental > max_rent))
+                {
+                    max_rent = board[i].Cell_Data.Properties.Base_Rental;
+                }
+            }
+
+            max_rent = max_rent * 10;
+
+            if(player_list[player_id].Player_Cash < max_rent)
+            {
+                Obtaining_Loan = 1;
+            }
+            break;
+        }
+
+        case Risk_Taker:
+        {
+            Obtaining_Loan = 1;
+            break;
+        }
+
+        case Opportunistic_Trader:
+        {
+            int Obtainable_Properties = 0;
+
+            for(int i = 0; i < SQ_Board_Size; i++)
+            {
+                if((board[i].Cell_Type == SQ_Type_Property) &&
+                    (board[i].Cell_Data.Properties.Property_Owner == Owner_Bank))
+                {
+                    Obtainable_Properties++;
+                }
+                else if((board[i].Cell_Type == SQ_Type_Railway) &&
+                    (board[i].Cell_Data.Railway.Railway_Owner == Owner_Bank))
+                {
+                    Obtainable_Properties++;
+                }
+                else if((board[i].Cell_Type == SQ_Type_Utility) &&
+                    (board[i].Cell_Data.Utility.Company_Owner == Owner_Bank))
+                {
+                    Obtainable_Properties++;
+                }
+            }
+
+            if (Obtainable_Properties >= 5)
+            {
+                Obtaining_Loan = 1;
+            }
+            break;
+        }
+            
+        }
+
+        if(Obtaining_Loan == 1)
+        {
+            int max_loan_approved = 0;
+
+            for(int i = 0; i < SQ_Board_Size; i++)
+            {
+                if((board[i].Cell_Type == SQ_Type_Property) &&
+                    (board[i].Cell_Data.Properties.Property_Owner) == player_id && 
+                    (board[i].Cell_Data.Properties.Mortgage == Unmortgaged))
+                {
+                    max_loan_approved += Round_Off(((double)board[i].Cell_Data.Properties.Base_Price * 75) / 100);
+                    board[i].Cell_Data.Properties.Mortgage = Mortgaged;
+                }
+                else if((board[i].Cell_Type == SQ_Type_Railway) &&
+                    (board[i].Cell_Data.Railway.Railway_Owner) == player_id && 
+                    (board[i].Cell_Data.Railway.Mortgage == Unmortgaged))
+                {
+                    max_loan_approved += Round_Off(((double)board[i].Cell_Data.Railway.Base_Price * 75) / 100);
+                    board[i].Cell_Data.Railway.Mortgage = Mortgaged;
+                }
+                else if((board[i].Cell_Type == SQ_Type_Utility) &&
+                    (board[i].Cell_Data.Utility.Company_Owner) == player_id && 
+                    (board[i].Cell_Data.Utility.Mortgage == Unmortgaged))
+                {
+                    max_loan_approved += Round_Off(((double)board[i].Cell_Data.Utility.Base_Price * 75) / 100);
+                    board[i].Cell_Data.Utility.Mortgage = Mortgaged;
+                }
+            }
+
+            if(max_loan_approved != 0)
+            {
+                player_list[player_id].Loan_status = Have_Loans;
+                player_list[player_id].Player_Loan_Start = round_count;
+                player_list[player_id].Player_Loan_Previous = round_count;
+                player_list[player_id].Player_Loan_Amount += max_loan_approved;
+                player_list[player_id].Player_Cash += max_loan_approved;
+                printf("\n%s obtained a secured loan.\n",player_list[player_id].Player_Name);
+                printf("Loan Amount : LKR %d.",max_loan_approved);
+                printf("\nCollateral:\n");
+                
+                for(int i = 0; i < SQ_Board_Size; i++)
+                {
+                    if((board[i].Cell_Type == SQ_Type_Property) &&
+                    (board[i].Cell_Data.Properties.Property_Owner) == player_id && 
+                    (board[i].Cell_Data.Properties.Mortgage == Mortgaged))
+                    {
+                        printf("%s\n",board[i].Square_Name);
+                    }
+                    else if((board[i].Cell_Type == SQ_Type_Railway) &&
+                        (board[i].Cell_Data.Railway.Railway_Owner) == player_id && 
+                        (board[i].Cell_Data.Railway.Mortgage == Mortgaged))
+                    {
+                        printf("%s\n",board[i].Square_Name);
+                    }
+                    else if((board[i].Cell_Type == SQ_Type_Utility) &&
+                        (board[i].Cell_Data.Utility.Company_Owner) == player_id && 
+                        (board[i].Cell_Data.Utility.Mortgage == Mortgaged))
+                    {
+                        printf("%s\n",board[i].Square_Name);
+                    }
+                }
+
+                printf("\nInterest Rate : %d\n",loan_interest_rate);
+                printf("\nDuration : 20 Rounds\n");
+            }
+        }
+    }
+    else if(player_list[player_id].Loan_status == Have_Loans)
+    {
+        int payable_amount = player_list[player_id].Player_Loan_Amount;
+        int player_pays = 0;
+
+        switch (player_id)
+        {
+        case Aggressive_Investor:
+        {
+            if(player_list[player_id].Player_Cash > (payable_amount * 2))
+            {
+                player_pays = 1;
+            }
+
+            break;
+        }
+            
+        case Conservative_Banker:
+        {
+            if(player_list[player_id].Player_Cash >= payable_amount)
+            {
+                player_pays = 1;
+            }
+            break;
+        }
+
+        case Risk_Taker:
+        {
+            for(int i = 0; i < SQ_Board_Size; i++)
+            {
+                 if((board[i].Cell_Type == SQ_Type_Property) &&
+                    (board[i].Cell_Data.Properties.Property_Owner) == player_id && 
+                    (board[i].Cell_Data.Properties.Mortgage == Unmortgaged))
+                {
+                    player_list[player_id].Loan_status = No_Loans;
+                    Player_Obtains_Loans(player_list,board,player_id,loan_interest_rate,round_count,auction_status,econ_status,final_order);
+                    break;
+                }
+                else if((board[i].Cell_Type == SQ_Type_Railway) &&
+                    (board[i].Cell_Data.Railway.Railway_Owner) == player_id && 
+                    (board[i].Cell_Data.Utility.Mortgage == Unmortgaged))
+                {
+                    player_list[player_id].Loan_status = No_Loans;
+                    Player_Obtains_Loans(player_list,board,player_id,loan_interest_rate,round_count,auction_status,econ_status,final_order);
+                    break;
+                }
+                else if((board[i].Cell_Type == SQ_Type_Utility) &&
+                    (board[i].Cell_Data.Utility.Company_Owner) == player_id && 
+                    (board[i].Cell_Data.Utility.Mortgage == Unmortgaged))
+                {
+                    player_list[player_id].Loan_status = No_Loans;
+                    Player_Obtains_Loans(player_list,board,player_id,loan_interest_rate,round_count,auction_status,econ_status,final_order);
+                    break;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            break;
+        }
+
+        case Opportunistic_Trader:
+        {
+           if(player_list[player_id].Player_Cash > (payable_amount * 2))
+            {
+                player_pays = 1;
+            }
+
+            break;
+        }
+        }
+
+        if(player_pays == 1)
+        {
+            player_list[player_id].Player_Cash -= payable_amount;
+            player_list[player_id].Player_Loan_Amount = 0;
+            player_list[player_id].Loan_status = No_Loans;
+
+            for(int i = 0; i < SQ_Board_Size; i++)
+            {
+                if((board[i].Cell_Type == SQ_Type_Property) &&
+                    (board[i].Cell_Data.Properties.Property_Owner == player_id) &&
+                    (board[i].Cell_Data.Properties.Mortgage == Mortgaged))
+                {
+                    board[i].Cell_Data.Properties.Mortgage = Unmortgaged;
+                }
+                else if((board[i].Cell_Type == SQ_Type_Railway) &&
+                    (board[i].Cell_Data.Railway.Railway_Owner == player_id) &&
+                    (board[i].Cell_Data.Railway.Mortgage == Mortgaged))
+                {
+                    board[i].Cell_Data.Railway.Mortgage = Unmortgaged;
+                }
+                else if((board[i].Cell_Type == SQ_Type_Utility) &&
+                    (board[i].Cell_Data.Utility.Company_Owner == player_id) &&
+                    (board[i].Cell_Data.Utility.Mortgage == Mortgaged))
+                {
+                    board[i].Cell_Data.Utility.Mortgage = Unmortgaged;
+                }
+
+            }
+            printf("\n%s repaid LKR %d.\n",player_list[player_id].Player_Name,payable_amount);
+            printf("\nCollaterals Released.\n");
+        }
+    }
 }

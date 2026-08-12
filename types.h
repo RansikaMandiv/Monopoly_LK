@@ -290,7 +290,9 @@ typedef struct {
     int Player_Cash;
     int Player_Assets;
     Player_Loan Loan_status;
-    int Player_Loan;
+    int Player_Loan_Amount;
+    int Player_Loan_Start;
+    int Player_Loan_Previous;
     int Player_Tax_Due;
     Square_ID Player_Position;
     short Player_Roll_Order;
@@ -341,7 +343,8 @@ int Players_Bid(Players player_list[],square bidding_property,int player_id,int 
 void Property_Auctions(Players player_list[],square board[],int player_id,int auction_status,short final_order[],square *foreclosure,Economic Econ_Status);
 int Game_Over_Check(Players player_list[],square board[],Auction *auction_status,short final_order[],Economic econ_status,int *game_winner);
 void Building_Destroy(square *location);
-int Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status);
+void Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status);
+void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int loan_interest_rate,int round_count,int *auction_status,Economic econ_status,short final_order[]);
 
 
 

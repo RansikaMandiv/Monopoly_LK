@@ -26,7 +26,7 @@ Dice_Type Dice_Roll(void)
 };
 
 
-int Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status)
+void Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status)
 {
 
     int Active_Passed_Go = 0;
@@ -177,6 +177,7 @@ Government_Regulations Cureent_Gov_Regulations = Housing_Subsidy;
 double Income_Tax_Rate = 0.15;
 Auction Auction_Status = None;
 int Game_Winner = -1;
+int Loan_Interest_Rate = 8;
 
 
 square Board[SQ_Board_Size];
@@ -269,6 +270,8 @@ while((Round_Count < 500) ||
         
         Player_Builds(Player_List,Board,Id_Input,Economy_Status,Cureent_Gov_Regulations);
 
+        Player_Obtains_Loans(Player_List,Board,Id_Input,Loan_Interest_Rate,Round_Count,&Auction_Status,Economy_Status,Final_Order);
+
         
     }
     Turn_Count++;
@@ -293,7 +296,7 @@ printf("\n=============================================\n");
 printf("\nGame Over\n");
 printf("\nWinner\n%s\nTotal Cash\nLKR %d\n",Player_List[Game_Winner].Player_Name,Player_List[Game_Winner].Player_Cash);
 printf("\nTotal Property Value\nLKR %d\n",Player_List[Game_Winner].Player_Assets);
-printf("\nOutstanding Loans\n%d\n",Player_List[Game_Winner].Loan_status);
+printf("\nOutstanding Loans\n%d\n",Player_List[Game_Winner].Player_Loan_Amount);
 printf("\nNet Worth\nLKR %d\n",Player_Assessing(Player_List,Board,Game_Winner,&Auction_Status,Final_Order,Economy_Status).Net_Worth);
 }
 
