@@ -47,6 +47,8 @@ void Round_Counter(Players player_list[],short *Round_Count,square board[],Aucti
     if(Active_Players != 0 && Active_Passed_Go == Active_Players)
     {
         (*Round_Count)++;
+        Inflation_Rate_Calculator(&econ_status,board,(*Round_Count));
+
     
         //Printing Round Summary
         
@@ -238,6 +240,7 @@ while((Round_Count < 500) ||
         break;
     }
 
+    
     for(int i = 0; i < Total_Players; i++)
     {
         int Id_Input = Final_Order[i];

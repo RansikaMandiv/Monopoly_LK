@@ -198,6 +198,7 @@ typedef enum{
 typedef enum{
     Recession,
     Inflation,
+    Deflation,
     Normal
 }Economic;
 
@@ -345,7 +346,7 @@ int Game_Over_Check(Players player_list[],square board[],Auction *auction_status
 void Building_Destroy(square *location);
 void Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status);
 void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int loan_interest_rate,int round_count,int *auction_status,Economic econ_status,short final_order[]);
-
+void Inflation_Rate_Calculator(Economic *economic_status,square board[],int round_count);
 
 
 
