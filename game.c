@@ -23,7 +23,7 @@ Dice_Type Dice_Roll(void)
     returning_values.Dice_Sum = Dice_1 + Dice_2;
 
     return returning_values;
-};
+}
 
 
 void Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status,int *loan_interest)
@@ -240,8 +240,8 @@ for (int j = 0; j < Total_Players; j++)
 //
 
     
-while((Round_Count < 500) || 
-        (Game_Over_Check(Player_List,Board,&Auction_Status,Final_Order,Economy_Status,&Game_Winner)))
+while((Round_Count < 500) && 
+        (!Game_Over_Check(Player_List,Board,&Auction_Status,Final_Order,Economy_Status,&Game_Winner)))
 {
     if(Game_Over_Check(Player_List,Board,&Auction_Status,Final_Order,Economy_Status,&Game_Winner))
     {
@@ -285,7 +285,7 @@ while((Round_Count < 500) ||
 
         National_Event_Cards(Board,Player_List,Id_Input,&Drawn_National_Card,Round_Count,&Economy_Status);
 
-        National_Event_Card_Reset(Board,Player_List,Id_Input,&Drawn_National_Card,Round_Count,&Economy_Status);
+        National_Event_Card_Reset(Board,Player_List,Id_Input,Round_Count);
         
     }
     Turn_Count++;

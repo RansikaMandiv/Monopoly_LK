@@ -34,6 +34,15 @@ void Player_Initialization(Players Player_List[])
         Player_List[i].Player_Passed_Go = Not_Passed;
         Player_List[i].Previous_Data.Player_Loan_Previous = 0;
         National_Event_Initialization(Player_List[i].Player_Card_Stack);
+        Player_List[i].Current_Boost = (Player_Temp_Boosts){
+            
+            .Closed_Property = Property_Open,
+            .Insurance_Dis_Value = 1.0,
+            .Property_Boost = 1,
+            .Railway_Boost = 1,
+            .Random_Group = None,
+            .utility_Boost = 1.0,
+        };
 
         for (int j = 0; j < 9; j++)
         {
@@ -41,7 +50,7 @@ void Player_Initialization(Players Player_List[])
             Player_List[i].Has_Monopoly[j] = None;
         }
     }
-};
+}
 
 
 Auction Player_Buys_Property(Players player_list[], square board[], int player_id,Economic economic_status) 
@@ -166,7 +175,7 @@ Auction Player_Buys_Property(Players player_list[], square board[], int player_i
             case Opportunistic_Trader:
             {
                 //calculating possible income for next 20 rounds assuming player builds a hotel right after buying
-                int Possible_Income = (board[Current_Pos].Cell_Data.Properties.Base_Rental * 10 * Probability_Of_Landing * Total_Players * Rounds_ROI);
+                int Possible_Income = Round_Off(board[Current_Pos].Cell_Data.Properties.Base_Rental * 10 * Probability_Of_Landing * Total_Players * Rounds_ROI);
                 int Possible_Expense = (board[Current_Pos].Cell_Data.Properties.Base_Price + (board[Current_Pos].Cell_Data.Properties.House_Construction_Cost * 4) + board[Current_Pos].Cell_Data.Properties.Hotel_Construction_Cost);
                 if((Possible_Income > Possible_Expense) &&
                  (board[Current_Pos].Cell_Data.Properties.Property_Owner == Owner_Bank) &&
@@ -341,6 +350,10 @@ Auction Player_Buys_Property(Players player_list[], square board[], int player_i
             break;
         }
 
+        default:
+        {
+            break;
+        }
         break;
         }
     }
@@ -398,6 +411,11 @@ Auction Player_Buys_Property(Players player_list[], square board[], int player_i
         }
 
         return Didnt_Buy;
+        break;
+    }
+
+    default:
+    {
         break;
     }
     }
@@ -474,7 +492,7 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id,Auction
                 (player_list[Prop_Owner].Current_Boost.Property_Boost == 50) &&
                     (board[Current_Pos].Cell_Data.Properties.Number_of_Hotels == 1))
             {
-                Rent_to_Pay = Rent_to_Pay * 1.5;
+                Rent_to_Pay = Round_Off((double)Rent_to_Pay * 1.5);
             }  
         }
 
@@ -711,6 +729,11 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id,Auction
         
         break;
         
+    }
+
+    default:
+    {
+        break;
     }
     }
 }
@@ -1142,6 +1165,11 @@ void Player_Monopoly_Count(Players player_list[],square board[])
                     player_list[i].Has_Partial_Monopoly[Partial_Count++] = Dark_Blue;
                 }
 
+                break;
+            }
+
+            default:
+            {
                 break;
             }
             }
@@ -1717,7 +1745,11 @@ int Players_Bid(Players player_list[],square bidding_property,int player_id,int 
             break;
         }
         
-        break;
+        default:
+        {
+            break;
+        }
+        
         } 
         break;
     }
@@ -1784,7 +1816,10 @@ int Players_Bid(Players player_list[],square bidding_property,int player_id,int 
             break;
         }
         
-        break;
+        default:
+        {
+            break;
+        }
         } 
         break;
     }
@@ -1852,8 +1887,16 @@ int Players_Bid(Players player_list[],square bidding_property,int player_id,int 
             break;
         }
         
+        default:
+        {
             break;
+        }    
         } 
+        break;
+    }
+
+    default:
+    {
         break;
     }
     }
@@ -1939,7 +1982,7 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
         for(int i = 0; i < SQ_Board_Size; i++)
         {
             if((board[i].Cell_Type == SQ_Type_Property) &&
-                (board[i].Cell_Data.Properties.Property_Owner == player_id) &&
+                (board[i].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id) &&
                     (board[i].Cell_Data.Properties.Mortgage == Mortgaged))
             {
                 (*auction_status) = Bank_Foreclosure;
@@ -1948,7 +1991,7 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
 
             }
             else if((board[i].Cell_Type == SQ_Type_Railway) &&
-                (board[i].Cell_Data.Railway.Railway_Owner == player_id) &&
+                (board[i].Cell_Data.Railway.Railway_Owner == (Owners_Property)player_id) &&
                     (board[i].Cell_Data.Railway.Mortgage == Mortgaged))
             {
 
@@ -1957,7 +2000,7 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
                 (*auction_status) = No_Auctions;
             }
             else if((board[i].Cell_Type == SQ_Type_Utility) &&
-                (board[i].Cell_Data.Utility.Company_Owner == player_id) &&
+                (board[i].Cell_Data.Utility.Company_Owner == (Owners_Property)player_id) &&
                 (board[i].Cell_Data.Utility.Mortgage == Mortgaged))
             {
 
@@ -2032,7 +2075,7 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
             for(int i = 0; i < SQ_Board_Size; i++)
             {
                 if((board[i].Cell_Type == SQ_Type_Property) &&
-                    (board[i].Cell_Data.Properties.Property_Owner != player_id) &&
+                    (board[i].Cell_Data.Properties.Property_Owner != (Owners_Property)player_id) &&
                     (board[i].Cell_Data.Properties.Base_Rental > max_rent))
                 {
                     max_rent = board[i].Cell_Data.Properties.Base_Rental;
@@ -2093,21 +2136,21 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
             for(int i = 0; i < SQ_Board_Size; i++)
             {
                 if((board[i].Cell_Type == SQ_Type_Property) &&
-                    (board[i].Cell_Data.Properties.Property_Owner) == player_id && 
+                    (board[i].Cell_Data.Properties.Property_Owner) == (Owners_Property)player_id && 
                     (board[i].Cell_Data.Properties.Mortgage == Unmortgaged))
                 {
                     max_loan_approved += Round_Off(((double)board[i].Cell_Data.Properties.Base_Price * 75) / 100);
                     board[i].Cell_Data.Properties.Mortgage = Mortgaged;
                 }
                 else if((board[i].Cell_Type == SQ_Type_Railway) &&
-                    (board[i].Cell_Data.Railway.Railway_Owner) == player_id && 
+                    (board[i].Cell_Data.Railway.Railway_Owner) == (Owners_Property)player_id && 
                     (board[i].Cell_Data.Railway.Mortgage == Unmortgaged))
                 {
                     max_loan_approved += Round_Off(((double)board[i].Cell_Data.Railway.Base_Price * 75) / 100);
                     board[i].Cell_Data.Railway.Mortgage = Mortgaged;
                 }
                 else if((board[i].Cell_Type == SQ_Type_Utility) &&
-                    (board[i].Cell_Data.Utility.Company_Owner) == player_id && 
+                    (board[i].Cell_Data.Utility.Company_Owner) == (Owners_Property)player_id && 
                     (board[i].Cell_Data.Utility.Mortgage == Unmortgaged))
                 {
                     max_loan_approved += Round_Off(((double)board[i].Cell_Data.Utility.Base_Price * 75) / 100);
@@ -2131,19 +2174,19 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
                 for(int i = 0; i < SQ_Board_Size; i++)
                 {
                     if((board[i].Cell_Type == SQ_Type_Property) &&
-                    (board[i].Cell_Data.Properties.Property_Owner) == player_id && 
+                    (board[i].Cell_Data.Properties.Property_Owner) == (Owners_Property)player_id && 
                     (board[i].Cell_Data.Properties.Mortgage == Mortgaged))
                     {
                         printf("%s\n",board[i].Square_Name);
                     }
                     else if((board[i].Cell_Type == SQ_Type_Railway) &&
-                        (board[i].Cell_Data.Railway.Railway_Owner) == player_id && 
+                        (board[i].Cell_Data.Railway.Railway_Owner) == (Owners_Property)player_id && 
                         (board[i].Cell_Data.Railway.Mortgage == Mortgaged))
                     {
                         printf("%s\n",board[i].Square_Name);
                     }
                     else if((board[i].Cell_Type == SQ_Type_Utility) &&
-                        (board[i].Cell_Data.Utility.Company_Owner) == player_id && 
+                        (board[i].Cell_Data.Utility.Company_Owner) == (Owners_Property)player_id && 
                         (board[i].Cell_Data.Utility.Mortgage == Mortgaged))
                     {
                         printf("%s\n",board[i].Square_Name);
@@ -2186,7 +2229,7 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
             for(int i = 0; i < SQ_Board_Size; i++)
             {
                  if((board[i].Cell_Type == SQ_Type_Property) &&
-                    (board[i].Cell_Data.Properties.Property_Owner) == player_id && 
+                    (board[i].Cell_Data.Properties.Property_Owner) == (Owners_Property)player_id && 
                     (board[i].Cell_Data.Properties.Mortgage == Unmortgaged))
                 {
                     player_list[player_id].Loan_status = No_Loans;
@@ -2194,7 +2237,7 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
                     break;
                 }
                 else if((board[i].Cell_Type == SQ_Type_Railway) &&
-                    (board[i].Cell_Data.Railway.Railway_Owner) == player_id && 
+                    (board[i].Cell_Data.Railway.Railway_Owner) == (Owners_Property)player_id && 
                     (board[i].Cell_Data.Utility.Mortgage == Unmortgaged))
                 {
                     player_list[player_id].Loan_status = No_Loans;
@@ -2202,7 +2245,7 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
                     break;
                 }
                 else if((board[i].Cell_Type == SQ_Type_Utility) &&
-                    (board[i].Cell_Data.Utility.Company_Owner) == player_id && 
+                    (board[i].Cell_Data.Utility.Company_Owner) == (Owners_Property)player_id && 
                     (board[i].Cell_Data.Utility.Mortgage == Unmortgaged))
                 {
                     player_list[player_id].Loan_status = No_Loans;
@@ -2238,19 +2281,19 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
             for(int i = 0; i < SQ_Board_Size; i++)
             {
                 if((board[i].Cell_Type == SQ_Type_Property) &&
-                    (board[i].Cell_Data.Properties.Property_Owner == player_id) &&
+                    (board[i].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id) &&
                     (board[i].Cell_Data.Properties.Mortgage == Mortgaged))
                 {
                     board[i].Cell_Data.Properties.Mortgage = Unmortgaged;
                 }
                 else if((board[i].Cell_Type == SQ_Type_Railway) &&
-                    (board[i].Cell_Data.Railway.Railway_Owner == player_id) &&
+                    (board[i].Cell_Data.Railway.Railway_Owner == (Owners_Property)player_id) &&
                     (board[i].Cell_Data.Railway.Mortgage == Mortgaged))
                 {
                     board[i].Cell_Data.Railway.Mortgage = Unmortgaged;
                 }
                 else if((board[i].Cell_Type == SQ_Type_Utility) &&
-                    (board[i].Cell_Data.Utility.Company_Owner == player_id) &&
+                    (board[i].Cell_Data.Utility.Company_Owner == (Owners_Property)player_id) &&
                     (board[i].Cell_Data.Utility.Mortgage == Mortgaged))
                 {
                     board[i].Cell_Data.Utility.Mortgage = Unmortgaged;

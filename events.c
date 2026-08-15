@@ -301,6 +301,8 @@ void National_Event_Cards(square board[],Players player_list[],int player_id,int
             player_list[player_id].Player_Card_Stack[Housing_Subsidy_Card].National_Card_Status = Card_Activated;
             player_list[player_id].Player_Card_Stack[Housing_Subsidy_Card].Ending_Round = round_count + 15;
             printf("\n%s Has Drawn %s National Event Card\n",player_list[player_id].Player_Name,player_list[player_id].Player_Card_Stack[Housing_Subsidy_Card].Card_Name);
+
+            break;
         }
 
         case Interest_Rate_Cut:
@@ -345,6 +347,8 @@ void National_Event_Cards(square board[],Players player_list[],int player_id,int
             player_list[player_id].Player_Card_Stack[Power_Failure].National_Card_Status = Card_Activated;
             player_list[player_id].Player_Card_Stack[Power_Failure].Ending_Round = round_count + 3;
             printf("\n%s Has Drawn %s National Event Card\n",player_list[player_id].Player_Name,player_list[player_id].Player_Card_Stack[Power_Failure].Card_Name);
+        
+            break;
         }
 
         case Foreign_Funding:
@@ -490,7 +494,7 @@ void National_Event_Cards(square board[],Players player_list[],int player_id,int
 } 
 
 
-void National_Event_Card_Reset(square board[],Players player_list[],int player_id,int *drawn_card,int round_count,Economic *economy_status)
+void National_Event_Card_Reset(square board[],Players player_list[],int player_id,int round_count)
 {
     for (int i = 0; i < 20; i++)
     {

@@ -70,6 +70,11 @@ void Inflation_Rate_Calculator(Economic *economic_status,square board[],int roun
                 board[i].Cell_Data.Utility.Base_Price = Round_Off((double)board[i].Cell_Data.Utility.Base_Price * Rate_For_Round);
                 break;
             }
+
+            default:
+            {
+                return;
+            }
                 
             }
         }

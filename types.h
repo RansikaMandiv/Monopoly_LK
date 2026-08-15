@@ -422,7 +422,7 @@ void Round_Counter(Players player_list[],short *Round_Count,square board[],Aucti
 void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int loan_interest_rate,int round_count,int *auction_status,Economic econ_status,short final_order[]);
 void Inflation_Rate_Calculator(Economic *economic_status,square board[],int round_count,int *loan_interest);
 void National_Event_Cards(square board[],Players player_list[],int player_id,int *drawn_card,int round_count,Economic *economy_status);
-void National_Event_Card_Reset(square board[],Players player_list[],int player_id,int *drawn_card,int round_count,Economic *economy_status);
+void National_Event_Card_Reset(square board[],Players player_list[],int player_id,int round_count);
 
 
 
