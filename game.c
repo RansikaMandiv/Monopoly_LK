@@ -26,6 +26,26 @@ Dice_Type Dice_Roll(void)
 }
 
 
+void Sort_Players(Players player_list[])
+{
+    Players temp;
+
+    for(int i = 0; i < Total_Players; i++)
+    {
+        for(int j = 0; j < Total_Players - 1; j++)
+        {
+            if(player_list[j].Temp_Dice_Value < player_list[j + 1].Temp_Dice_Value)
+            {
+                temp = player_list[j];
+                player_list[j] = player_list[j + 1];
+                player_list[j + 1] = temp;
+
+            }
+        }
+    }
+}
+
+
 void Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status,int *loan_interest)
 {
 
@@ -91,7 +111,6 @@ void Round_Counter(Players player_list[],short *Round_Count,square board[],Aucti
 }
 
 
-
 void Player_Moves(Players player_list[],int Player_Id_Input,Dice_Type Dice_Values)
 {
     int Old_Position = player_list[Player_Id_Input].Player_Position;
@@ -114,66 +133,61 @@ void Player_Moves(Players player_list[],int Player_Id_Input,Dice_Type Dice_Value
 
 //Determining Player Order//
 
-void Determine_Order(Players Players_Arr[])
+void Determine_Order(Players player_list[])
 {
-    int Tie_Found;
+    int Ordered_Players = 0;
+    int Tie_Count = 0;
 
-    do{
-        Tie_Found = 0;
-
-        Players* Sorted_Ptrs[Total_Players];
-        for (int i = 0; i < Total_Players; i++)
+    while(Ordered_Players < Total_Players)
+    {
+        for(int i = 0; i < Total_Players; i++)
         {
-            Sorted_Ptrs[i] = &Players_Arr[i];
-        }
-
-        for (int i = 0; i < Total_Players - 1; i++)
-        {
-            for (int j = 0; j < Total_Players -i -1; j++)
+            if(player_list[i].Player_Roll_Order == false)
             {
-                if (Sorted_Ptrs[j]->Temp_Dice_Value < Sorted_Ptrs[j+1]->Temp_Dice_Value)
-                {
-                    Players* Temp = Sorted_Ptrs[j];
-                    Sorted_Ptrs[j] = Sorted_Ptrs[j+1];
-                    Sorted_Ptrs[j + 1] = Temp; 
-                }
+                player_list[i].Temp_Dice_Value = Dice_Roll().Dice_Sum;
+                printf("\n%s rolls %d.\n",player_list[i].Player_Name,player_list[i].Temp_Dice_Value);
             }
         }
 
-        for (int i = 0; i < Total_Players - 1; i++)
+        Sort_Players(player_list);
+
+        for(int i = 0; i < Total_Players; i++)
         {
-            if (Sorted_Ptrs[i]->Temp_Dice_Value == Sorted_Ptrs[i + 1]->Temp_Dice_Value)
+            Tie_Count = 0;
+
+            if(player_list[i].Player_Roll_Order == false)
             {
-                Tie_Found = 1;
-
-                int Tied_Value = Sorted_Ptrs[i]->Temp_Dice_Value;
-                printf("\n[Tie Detected] Players Tied with a Roll of %d are Re Rolling\n",Tied_Value);
-
-                for (int j = 0; j < Total_Players; j++)
+                for(int j = 0; j < Total_Players; j++)
                 {
-                    if (Players_Arr[j].Temp_Dice_Value == Tied_Value)
+                    if((player_list[j].Player_Roll_Order == false) &&
+                        (player_list[i].Temp_Dice_Value == player_list[j].Temp_Dice_Value))
                     {
-                        Players_Arr[j].Temp_Dice_Value = Dice_Roll().Dice_Sum;
-                        printf("Player %s Re-Rolled and got: %d\n",Players_Arr[j].Player_Name,Players_Arr[j].Temp_Dice_Value);
+                        Tie_Count++;
                     }
                 }
-                break;
             }
-        }
 
-        if (!Tie_Found)
-        {
-            for(int rank = 0; rank < Total_Players; rank++)
+            if (Tie_Count > 1)
             {
-                Sorted_Ptrs[rank]->Player_Roll_Order = rank;
+                player_list[i].Player_Roll_Order = false;
+            }
+            else{
+                player_list[i].Player_Roll_Order = true;
+                
             }
         }
-    }while (Tie_Found);
 
-
-}
-
-
+        Ordered_Players = 0;
+        for(int i = 0; i < Total_Players; i++)
+        {
+            if(player_list[i].Player_Roll_Order == true)
+            {
+                Ordered_Players++;
+            }
+        }
+    }
+}   
+      
 
 void Start_Game(void)
 {
@@ -200,34 +214,29 @@ Player_Initialization(Player_List);
 
 short Final_Order[Total_Players];
 
+///Printing the Opening
 
-for (int i = 0; i < Total_Players; i++)
-{
-    Player_List[i].Temp_Dice_Value = Dice_Roll().Dice_Sum;
-    printf("\n%s Rolled:\t%d\n",Player_List[i].Player_Name,Player_List[i].Temp_Dice_Value);
-}
+printf("=============================================\nMONOPOLY-LK Simulation\n=============================================\n");
+printf("\nPlayer 1 : Aggressive Investor\n");
+printf("Player 2 : Conservative Banker\n");
+printf("Player 3 : Risk Taker\n");
+printf("Player 4 : Opportunistic Trader\n");
+printf("\nEach player begins with LKR 30,000.\n");
+
+
 
 Determine_Order(Player_List);
 
+printf("\n%s will begin the game.\n",Player_List[0].Player_Name);
+printf("\nTurn Order");
+
 for (int i = 0; i < Total_Players; i++)
 {
-    printf("\nFinal Player Roll Order is:\n%s:\t%d\n",Player_List[i].Player_Name,Player_List[i].Player_Roll_Order);
-
-   for (int j = 0; j < Total_Players; j++)
-    {
-        if (i == Player_List[j].Player_Roll_Order)
-        {
-            Final_Order[i] = Player_List[j].Player_ID;
-        }
-    }
-
+    Final_Order[i] = Player_List[i].Player_ID;
+    printf("\n%s.\n",Player_List[i].Player_Name);
 }
 
-printf("\nFinal Order is:\t\n");
-for (int j = 0; j < Total_Players; j++) 
-{
-    printf("\n%d Position is %s\n",j+1,Player_List[Final_Order[j]].Player_Name);
-}
+
 
 //Resetting Temp Dice Values
 

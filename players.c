@@ -24,7 +24,7 @@ void Player_Initialization(Players Player_List[])
         Player_List[i].Player_Loan_Start = 0;
         Player_List[i].Player_Tax_Due = 0;
         Player_List[i].Player_Position = SQ_GO;
-        Player_List[i].Player_Roll_Order = -1;
+        Player_List[i].Player_Roll_Order = false;
         Player_List[i].Temp_Dice_Value = 0;
         Player_List[i].Total_Dice_Value = 0;
         Player_List[i].Is_Bankrupt = Not_Bankrupt;
