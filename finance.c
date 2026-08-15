@@ -20,7 +20,8 @@ int Round_Off(double value)
     }
 }
 
-void Inflation_Rate_Calculator(Economic *economic_status,square board[],int round_count)
+
+void Inflation_Rate_Calculator(Economic *economic_status,square board[],int round_count,int * loan_interest)
 {
   
     if((round_count % 10) == 0)
@@ -39,6 +40,8 @@ void Inflation_Rate_Calculator(Economic *economic_status,square board[],int roun
         else{
             (*economic_status) = Deflation;
         }
+
+        (*loan_interest) = Round_Off((double)(*loan_interest) * Rate_For_Round);
 
         for(int i = 0; i < SQ_Board_Size; i++)
         {
@@ -74,3 +77,5 @@ void Inflation_Rate_Calculator(Economic *economic_status,square board[],int roun
         
     }
 }
+
+

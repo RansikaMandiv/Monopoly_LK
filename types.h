@@ -199,6 +199,7 @@ typedef enum{
     Recession,
     Inflation,
     Deflation,
+    Downturn,
     Normal
 }Economic;
 
@@ -212,6 +213,45 @@ typedef enum{
     Bidding
 
 }Player_Bid;
+
+typedef enum{
+
+    Tourism_Hype,
+    Fuel_Shortage,
+    Heavy_Floods,
+    Political_Rally,
+    Stock_Market_Rise,
+    Economic_Downturn,
+    Housing_Subsidy_Card,
+    Interest_Rate_Cut,
+    Interest_Rate_Increase,
+    Tax_Amnesty,
+    Power_Failure,
+    Foreign_Funding,
+    Port_Expansion,
+    Festival_Season,
+    Labour_Strike,
+    Insurance_Discount,
+    Property_Revaluation,
+    Currency_Depreciation,
+    Government_Grant,
+    National_Disaster
+
+}National_Event_Card_Deck;
+
+typedef enum{
+
+    Property_Closed,
+    Property_Open,
+
+}Property_Status;
+
+typedef enum{
+
+    Card_Deactivated,
+    Card_Activated,
+
+}Card_Status;
 
 
 
@@ -263,6 +303,35 @@ typedef struct{
 
 }Utility_Companies;
 
+typedef struct{
+
+    int Player_Previous_Round;
+    int Player_Loan_Previous;
+
+
+}Player_Previous_Round;
+
+typedef struct{
+
+    National_Event_Card_Deck Card_Type;
+    Card_Status National_Card_Status;
+    int Started_Round;
+    int Ending_Round;
+    char Card_Name[50];
+    
+}National_Event_Card;
+
+
+typedef struct{
+
+    int Property_Boost;
+    int Railway_Boost;
+    double utility_Boost;
+    double Insurance_Dis_Value;
+    int Closed_Property;
+    Property_Group_Type Random_Group;
+}Player_Temp_Boosts;
+
 
 
 
@@ -271,6 +340,7 @@ typedef struct{
     char Square_Name[50];
     Square_ID Location_ID;
     Square_type Cell_Type;
+    Property_Status Square_Status;
     
     union{
         Property Properties;
@@ -292,8 +362,8 @@ typedef struct {
     int Player_Assets;
     Player_Loan Loan_status;
     int Player_Loan_Amount;
+    int Player_Loan_Interest_Rate;
     int Player_Loan_Start;
-    int Player_Loan_Previous;
     int Player_Tax_Due;
     Square_ID Player_Position;
     short Player_Roll_Order;
@@ -306,6 +376,9 @@ typedef struct {
     Player_Bid Bidding_Status;
     int Jail_Counter;
     Player_Go Player_Passed_Go;
+    Player_Previous_Round Previous_Data;
+    National_Event_Card Player_Card_Stack[20];
+    Player_Temp_Boosts Current_Boost;
     
 
 
@@ -329,6 +402,7 @@ typedef struct{
 
 
 void Board_Initialization(square board[]);
+void National_Event_Initialization(National_Event_Card national_deck[]);
 void Player_Initialization(Players Player_List[]);
 Dice_Type Dice_Roll(void);
 void Start_Game(void);
@@ -344,10 +418,11 @@ int Players_Bid(Players player_list[],square bidding_property,int player_id,int 
 void Property_Auctions(Players player_list[],square board[],int player_id,int auction_status,short final_order[],square *foreclosure,Economic Econ_Status);
 int Game_Over_Check(Players player_list[],square board[],Auction *auction_status,short final_order[],Economic econ_status,int *game_winner);
 void Building_Destroy(square *location);
-void Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status);
+void Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status,int *loan_interest);
 void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int loan_interest_rate,int round_count,int *auction_status,Economic econ_status,short final_order[]);
-void Inflation_Rate_Calculator(Economic *economic_status,square board[],int round_count);
-
+void Inflation_Rate_Calculator(Economic *economic_status,square board[],int round_count,int *loan_interest);
+void National_Event_Cards(square board[],Players player_list[],int player_id,int *drawn_card,int round_count,Economic *economy_status);
+void National_Event_Card_Reset(square board[],Players player_list[],int player_id,int *drawn_card,int round_count,Economic *economy_status);
 
 
 

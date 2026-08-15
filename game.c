@@ -26,7 +26,7 @@ Dice_Type Dice_Roll(void)
 };
 
 
-void Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status)
+void Round_Counter(Players player_list[],short *Round_Count,square board[],Auction *auction_status,short final_order[],Economic econ_status,int *loan_interest)
 {
 
     int Active_Passed_Go = 0;
@@ -47,7 +47,13 @@ void Round_Counter(Players player_list[],short *Round_Count,square board[],Aucti
     if(Active_Players != 0 && Active_Passed_Go == Active_Players)
     {
         (*Round_Count)++;
-        Inflation_Rate_Calculator(&econ_status,board,(*Round_Count));
+
+        for (int i = 0; i < Total_Players; i++)
+        {
+            player_list[i].Previous_Data.Player_Previous_Round = (*Round_Count) - 1;
+        }
+
+        Inflation_Rate_Calculator(&econ_status,board,(*Round_Count),loan_interest);
 
     
         //Printing Round Summary
@@ -180,6 +186,7 @@ double Income_Tax_Rate = 0.15;
 Auction Auction_Status = None;
 int Game_Winner = -1;
 int Loan_Interest_Rate = 8;
+int Drawn_National_Card = 0;
 
 
 square Board[SQ_Board_Size];
@@ -187,6 +194,7 @@ Board_Initialization(Board);
 
 Players Player_List[Total_Players];
 Player_Initialization(Player_List);
+
 
 //Determining Player Turning Orders//
 
@@ -259,7 +267,7 @@ while((Round_Count < 500) ||
             Player_Moves(Player_List,Id_Input,Dice_Values);
         }
       
-        Round_Counter(Player_List,&Round_Count,Board,&Auction_Status,Final_Order,Economy_Status);
+        Round_Counter(Player_List,&Round_Count,Board,&Auction_Status,Final_Order,Economy_Status,&Loan_Interest_Rate);
 
         Auction_Status = Player_Buys_Property(Player_List,Board,Id_Input,Economy_Status);
 
@@ -275,6 +283,9 @@ while((Round_Count < 500) ||
 
         Player_Obtains_Loans(Player_List,Board,Id_Input,Loan_Interest_Rate,Round_Count,&Auction_Status,Economy_Status,Final_Order);
 
+        National_Event_Cards(Board,Player_List,Id_Input,&Drawn_National_Card,Round_Count,&Economy_Status);
+
+        National_Event_Card_Reset(Board,Player_List,Id_Input,&Drawn_National_Card,Round_Count,&Economy_Status);
         
     }
     Turn_Count++;

@@ -14,6 +14,7 @@ void Board_Initialization(square board[])
         .Square_Name = "GO",
         .Location_ID = SQ_GO,
         .Cell_Type = SQ_Type_Start,
+        .Square_Status = Property_Open,
         
     };
 
@@ -22,6 +23,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Pettah",
         .Location_ID = SQ_PETTAH,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Brown,
@@ -49,6 +51,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Community Development Fund",
         .Location_ID = SQ_COMMUNITY_DEVELOPMENT_FUND,
         .Cell_Type = SQ_Type_Event,
+        .Square_Status = Property_Open,
         
     };
 
@@ -57,6 +60,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Maradana",
         .Location_ID = SQ_MARADANA,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Brown,
@@ -83,6 +87,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Income_Tax",
         .Location_ID = SQ_INCOME_TAX,
         .Cell_Type = SQ_Type_Tax,
+        .Square_Status = Property_Open,
         
 
     };
@@ -91,6 +96,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Colombo Fort Railway Station",
         .Location_ID = SQ_COLOMBO_FORT_RAILWAY_STATION,
         .Cell_Type = SQ_Type_Railway,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Railway = {
                 .Name = Colombo_Fort_Railway_Station,
@@ -108,6 +114,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Bambalapitiya",
         .Location_ID = SQ_BAMBALAPITIYA,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Light_Blue,
@@ -135,6 +142,7 @@ void Board_Initialization(square board[])
         .Square_Name = "National Event Card",
         .Location_ID = SQ_NATIONAL_EVENT_CARD_1,
         .Cell_Type = SQ_Type_Event,
+        .Square_Status = Property_Open,
         
     };
 
@@ -143,6 +151,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Wellawatte",
         .Location_ID = SQ_Wellawatte,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Light_Blue,
@@ -169,6 +178,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Mount Lavinia",
         .Location_ID = SQ_Mount_Lavinia,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Light_Blue,
@@ -196,6 +206,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Jail / Just Visiting",
         .Location_ID = SQ_Jail,
         .Cell_Type = SQ_Type_Special,
+        .Square_Status = Property_Open,
         
     };
 
@@ -204,6 +215,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Nugegoda",
         .Location_ID = SQ_Nugegoda,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Pink,
@@ -231,6 +243,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Ceylon Electricity Board",
         .Location_ID = SQ_CEB,
         .Cell_Type = SQ_Type_Utility,
+        .Square_Status = Property_Open,
         .Cell_Data ={
             .Utility = {
                 .Company = CEB,
@@ -250,6 +263,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Maharagama",
         .Location_ID = SQ_Maharagama,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Pink,
@@ -277,6 +291,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Kottawa",
         .Location_ID = SQ_Kottawa,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Pink,
@@ -304,6 +319,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Kandy Railway Station",
         .Location_ID = SQ_Kandy_Railway_Station,
         .Cell_Type = SQ_Type_Railway,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Railway = {
                 .Name = Kandy_Railway_Station,
@@ -322,6 +338,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Negombo",
         .Location_ID = SQ_Negombo,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Orange,
@@ -349,6 +366,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Sri Lanka Insurance",
         .Location_ID = SQ_Sri_Lanka_Insurance,
         .Cell_Type = SQ_Type_Insurance,
+        .Square_Status = Property_Open,
         
     };
 
@@ -357,6 +375,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Katunayake",
         .Location_ID = SQ_Katunayake,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Orange,
@@ -384,6 +403,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Ja-Ela",
         .Location_ID = SQ_Ja_Ela,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Orange,
@@ -411,6 +431,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Free_Parking",
         .Location_ID = SQ_Free_Parking,
         .Cell_Type = SQ_Type_Special,
+        .Square_Status = Property_Open,
         
     };
 
@@ -419,6 +440,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Kandy City",
         .Location_ID = SQ_Kandy_City,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Red,
@@ -446,6 +468,7 @@ void Board_Initialization(square board[])
         .Square_Name = "National Event Card",
         .Location_ID = SQ_National_Event_Card_2,
         .Cell_Type = SQ_Type_Event,
+        .Square_Status = Property_Open,
         
 
     };
@@ -455,6 +478,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Peradeniya",
         .Location_ID = SQ_Peradeniya,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Red,
@@ -482,6 +506,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Katugastota",
         .Location_ID = SQ_Katugastota,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Red,
@@ -509,6 +534,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Galle Railway Station",
         .Location_ID = SQ_Galle_Railway_Station,
         .Cell_Type = SQ_Type_Railway,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Railway = {
                 .Name = Galle_Railway_Station,
@@ -527,6 +553,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Galle Fort",
         .Location_ID = SQ_Galle_Fort,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Yellow,
@@ -554,6 +581,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Unawatuna",
         .Location_ID = SQ_Unawatuna,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Yellow,
@@ -581,6 +609,7 @@ void Board_Initialization(square board[])
         .Square_Name = "National Water Supply And Drainage Board",
         .Location_ID = SQ_NWSDB,
         .Cell_Type = SQ_Type_Utility,
+        .Square_Status = Property_Open,
         .Cell_Data ={
             .Utility = {
                 .Company = NWSDB,
@@ -600,6 +629,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Hikkaduwa",
         .Location_ID = SQ_Hikkaduwa,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Yellow,
@@ -627,6 +657,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Go to Jail",
         .Location_ID = SQ_Go_To_Jail,
         .Cell_Type = SQ_Type_Special,
+        .Square_Status = Property_Open,
         
     };
 
@@ -635,6 +666,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Jaffna Town",
         .Location_ID = SQ_Jaffna_Town,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Green,
@@ -662,6 +694,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Nallur",
         .Location_ID = SQ_Nallur,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Green,
@@ -689,6 +722,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Ceylinco Insurance",
         .Location_ID = SQ_Ceylinco_Insurance,
         .Cell_Type = SQ_Type_Insurance,
+        .Square_Status = Property_Open,
         
         
     };
@@ -698,6 +732,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Trincomalee",
         .Location_ID = SQ_Trincomalee,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Green,
@@ -725,6 +760,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Jaffna Railway Station",
         .Location_ID = SQ_Jaffna_Railway_Station,
         .Cell_Type = SQ_Type_Railway,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Railway = {
                 .Name = Jaffna_Railway_Station,
@@ -743,6 +779,7 @@ void Board_Initialization(square board[])
         .Square_Name = "National Event Card",
         .Location_ID = SQ_National_Event_Card_3,
         .Cell_Type = SQ_Type_Special,
+        .Square_Status = Property_Open,
         
     };
 
@@ -751,6 +788,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Nuwara Eliya",
         .Location_ID = SQ_Nuwara_Eliya,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Dark_Blue,
@@ -778,6 +816,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Bank of Ceylon",
         .Location_ID = SQ_Bank_of_Ceylon,
         .Cell_Type = SQ_Type_Bank,
+        .Square_Status = Property_Open,
         
     };
 
@@ -786,6 +825,7 @@ void Board_Initialization(square board[])
         .Square_Name = "Galle Face",
         .Location_ID = SQ_Galle_Face,
         .Cell_Type = SQ_Type_Property,
+        .Square_Status = Property_Open,
         .Cell_Data = {
             .Properties = {
                 .Group = Dark_Blue,

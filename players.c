@@ -20,8 +20,8 @@ void Player_Initialization(Players Player_List[])
         Player_List[i].Player_Assets = 0;
         Player_List[i].Loan_status = No_Loans;
         Player_List[i].Player_Loan_Amount = 0;
+        Player_List[i].Player_Loan_Interest_Rate = 0;
         Player_List[i].Player_Loan_Start = 0;
-        Player_List[i].Player_Loan_Previous = 0;
         Player_List[i].Player_Tax_Due = 0;
         Player_List[i].Player_Position = SQ_GO;
         Player_List[i].Player_Roll_Order = -1;
@@ -32,6 +32,8 @@ void Player_Initialization(Players Player_List[])
         Player_List[i].Bidding_Status = Bidding;
         Player_List[i].Jail_Counter = 0;
         Player_List[i].Player_Passed_Go = Not_Passed;
+        Player_List[i].Previous_Data.Player_Loan_Previous = 0;
+        National_Event_Initialization(Player_List[i].Player_Card_Stack);
 
         for (int j = 0; j < 9; j++)
         {
@@ -461,9 +463,26 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id,Auction
 
         }
 
+        for(int i = 0; i < Total_Players; i++)
+        {
+            if((Prop_Owner == (Owners_Property)player_id) &&
+                (player_list[Prop_Owner].Current_Boost.Property_Boost == 2))
+            {
+                Rent_to_Pay = Rent_to_Pay * 2;
+
+            }else if((Prop_Owner == (Owners_Property)player_id) &&
+                (player_list[Prop_Owner].Current_Boost.Property_Boost == 50) &&
+                    (board[Current_Pos].Cell_Data.Properties.Number_of_Hotels == 1))
+            {
+                Rent_to_Pay = Rent_to_Pay * 1.5;
+            }  
+        }
+
+
         if((Prop_Owner != (Owners_Property)player_id) &&
             (Prop_Owner != Owner_Bank) &&
-                (Prop_Owner < Total_Players))
+                (Prop_Owner < Total_Players) &&
+                (board[Current_Pos].Square_Status != Property_Closed))
         {
             int player_cash = player_list[player_id].Player_Cash - Rent_to_Pay;
 
@@ -552,7 +571,17 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id,Auction
         
             }
 
-           if((Prop_Owner != (Owners_Property)player_id) &&
+            for(int i = 0; i < Total_Players; i++)
+            {
+                if((Prop_Owner == (Owners_Property)player_id) &&
+                    (player_list[Prop_Owner].Current_Boost.Railway_Boost == 2))
+                {
+                    Rent_to_Pay = Rent_to_Pay * 2;
+
+                }
+            }
+
+            if((Prop_Owner != (Owners_Property)player_id) &&
             (Prop_Owner != Owner_Bank) &&
                 (Prop_Owner < Total_Players))
             {
@@ -620,6 +649,15 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id,Auction
         {
             Rent_to_Pay = Rent_to_Pay * 4;
         }
+
+        for(int i = 0; i < Total_Players; i++)
+            {
+                if((Prop_Owner == (Owners_Property)player_id) &&
+                    (player_list[Prop_Owner].Current_Boost.utility_Boost == 0.5))
+                {
+                    Rent_to_Pay = Round_Off((double)Rent_to_Pay * 0.5);
+                }
+            }
 
         if((Prop_Owner != (Owners_Property)player_id) &&
             (Prop_Owner != Owner_Bank) &&
@@ -757,7 +795,7 @@ Player_Status Player_Assessing(Players player_list[],square board[],int player_i
 void Player_Builds(Players player_list[],square board[],int player_id,Economic economic_status,Government_Regulations current_regulations)
 {   
 
-    if(player_list[player_id].Is_Bankrupt == Bankrupt)
+    if((player_list[player_id].Is_Bankrupt == Bankrupt))
     {
         return;
     }
@@ -798,7 +836,8 @@ void Player_Builds(Players player_list[],square board[],int player_id,Economic e
         
         if((board[i].Cell_Type == SQ_Type_Property) &&
             (Player_Has_Monopoly != None) &&
-            (board[i].Cell_Data.Properties.Group == Player_Has_Monopoly))
+            (board[i].Cell_Data.Properties.Group == Player_Has_Monopoly) &&
+                (player_list[player_id].Current_Boost.Closed_Property != (Square_ID)i))
         {
            if(board[i].Cell_Data.Properties.Number_of_Houses < Min_Houses)
            {
@@ -834,7 +873,8 @@ void Player_Builds(Players player_list[],square board[],int player_id,Economic e
 
         case Conservative_Banker:
         {
-            if(economic_status != Recession)
+            if((economic_status != Recession) &&
+                (player_list[player_id].Player_Card_Stack[Currency_Depreciation].National_Card_Status != Card_Activated))
             {
                 If_Building_House = true;
             }
@@ -849,7 +889,7 @@ void Player_Builds(Players player_list[],square board[],int player_id,Economic e
 
         case Opportunistic_Trader:
         {
-            if(economic_status != Inflation ||
+            if(((economic_status != Inflation) && (player_list[player_id].Player_Card_Stack[Currency_Depreciation].National_Card_Status != Card_Activated)) ||
                 current_regulations == Housing_Subsidy)
             {
                 If_Building_House =true;
@@ -1893,7 +1933,6 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
     if((player_list[player_id].Loan_status == Have_Loans) &&
         (round_count - player_list[player_id].Player_Loan_Start) >= 20)
     {
-        int foreclosed_count = 0;
 
         printf("\n%s has defaulted.\nCollateral has been foreclosed.\nOutstanding debt cleared.\n",player_list[player_id].Player_Name);
 
@@ -1905,7 +1944,6 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
             {
                 (*auction_status) = Bank_Foreclosure;
                 Property_Auctions(player_list,board,player_id,*auction_status,final_order,&board[i],econ_status);
-                foreclosed_count++;
                 (*auction_status) = No_Auctions;
 
             }
@@ -1916,7 +1954,6 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
 
                 (*auction_status) = Bank_Foreclosure;
                 Property_Auctions(player_list,board,player_id,*auction_status,final_order,&board[i],econ_status);
-                foreclosed_count++;
                 (*auction_status) = No_Auctions;
             }
             else if((board[i].Cell_Type == SQ_Type_Utility) &&
@@ -1926,7 +1963,6 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
 
                 (*auction_status) = Bank_Foreclosure;
                 Property_Auctions(player_list,board,player_id,*auction_status,final_order,&board[i],econ_status);
-                foreclosed_count++;
                 (*auction_status) = No_Auctions;
             }
 
@@ -1939,10 +1975,10 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
     }
     else if(player_list[player_id].Loan_status == Have_Loans)
     {
-        if(player_list[player_id].Player_Loan_Previous == (round_count - 1))
+        if(player_list[player_id].Previous_Data.Player_Loan_Previous == (round_count - 1))
         {
-            player_list[player_id].Player_Loan_Amount = Round_Off(((double)(player_list[player_id].Player_Loan_Amount) * (double)(100 + loan_interest_rate)/100));
-            player_list[player_id].Player_Loan_Previous++;
+            player_list[player_id].Player_Loan_Amount = Round_Off(((double)(player_list[player_id].Player_Loan_Amount) * (double)(100 + player_list[player_id].Player_Loan_Interest_Rate)/100));
+            player_list[player_id].Previous_Data.Player_Loan_Previous++;
         }
     }
 
@@ -2003,7 +2039,7 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
                 }
             }
 
-            max_rent = max_rent * 10;
+            max_rent = max_rent * 10; //Cost for a Hotel Rent
 
             if(player_list[player_id].Player_Cash < max_rent)
             {
@@ -2083,9 +2119,11 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
             {
                 player_list[player_id].Loan_status = Have_Loans;
                 player_list[player_id].Player_Loan_Start = round_count;
-                player_list[player_id].Player_Loan_Previous = round_count;
+                player_list[player_id].Previous_Data.Player_Loan_Previous = round_count;
                 player_list[player_id].Player_Loan_Amount += max_loan_approved;
                 player_list[player_id].Player_Cash += max_loan_approved;
+                player_list[player_id].Player_Loan_Interest_Rate = loan_interest_rate;
+
                 printf("\n%s obtained a secured loan.\n",player_list[player_id].Player_Name);
                 printf("Loan Amount : LKR %d.",max_loan_approved);
                 printf("\nCollateral:\n");
@@ -2112,7 +2150,7 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
                     }
                 }
 
-                printf("\nInterest Rate : %d\n",loan_interest_rate);
+                printf("\nInterest Rate : %d\n",player_list[player_id].Player_Loan_Interest_Rate);
                 printf("\nDuration : 20 Rounds\n");
             }
         }
