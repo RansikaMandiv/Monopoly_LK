@@ -73,7 +73,7 @@ void Inflation_Rate_Calculator(Economic *economic_status,square board[],int roun
 
             default:
             {
-                return;
+                break;
             }
                 
             }

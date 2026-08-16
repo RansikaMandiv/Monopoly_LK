@@ -496,7 +496,7 @@ void National_Event_Cards(square board[],Players player_list[],int player_id,int
 
 void National_Event_Card_Reset(square board[],Players player_list[],int player_id,int round_count)
 {
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < Event_Cards; i++)
     {
         if(player_list[player_id].Player_Card_Stack[i].National_Card_Status == Card_Activated)
         {
@@ -552,11 +552,11 @@ void National_Event_Card_Reset(square board[],Players player_list[],int player_i
             {
                 if(player_list[player_id].Player_Card_Stack[Stock_Market_Rise].Ending_Round == round_count)
                 {
-                    for(int i = 0; i < SQ_Board_Size; i++)
+                    for(int j = 0; j < SQ_Board_Size; j++)
                     {
-                        if(board[i].Cell_Type == SQ_Type_Property)
+                        if(board[j].Cell_Type == SQ_Type_Property)
                         {
-                            board[i].Cell_Data.Properties.Base_Price = Round_Off((double)(board[i].Cell_Data.Properties.Base_Price) * 1.1);
+                            board[j].Cell_Data.Properties.Base_Price = Round_Off((double)(board[j].Cell_Data.Properties.Base_Price) * 1.1);
                         }
                     }
 
@@ -572,11 +572,11 @@ void National_Event_Card_Reset(square board[],Players player_list[],int player_i
             {
                 if(player_list[player_id].Player_Card_Stack[Economic_Downturn].Ending_Round == round_count)
                 {
-                    for(int i = 0; i < SQ_Board_Size; i++)
+                    for(int j = 0; j < SQ_Board_Size; j++)
                     {
-                        if(board[i].Cell_Type == SQ_Type_Property)
+                        if(board[j].Cell_Type == SQ_Type_Property)
                     {
-                        board[i].Cell_Data.Properties.Base_Price = Round_Off((double)(board[i].Cell_Data.Properties.Base_Price) * 1.15);
+                        board[j].Cell_Data.Properties.Base_Price = Round_Off((double)(board[j].Cell_Data.Properties.Base_Price) * 1.15);
                     }
                     }
                     printf("\n%s Drawned %s National Event Card Weared Off\n",player_list[player_id].Player_Name,player_list[player_id].Player_Card_Stack[Economic_Downturn].Card_Name);
@@ -588,12 +588,12 @@ void National_Event_Card_Reset(square board[],Players player_list[],int player_i
             {
                 if(player_list[player_id].Player_Card_Stack[Housing_Subsidy_Card].Ending_Round == round_count)
                 {
-                    for(int i = 0; i < SQ_Board_Size; i++)
+                    for(int j = 0; j < SQ_Board_Size; j++)
                     {
-                        if((board[i].Cell_Type == SQ_Type_Property) &&
-                            (board[i].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id))
+                        if((board[j].Cell_Type == SQ_Type_Property) &&
+                            (board[j].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id))
                         {
-                            board[i].Cell_Data.Properties.House_Construction_Cost = Round_Off((double)(board[i].Cell_Data.Properties.House_Construction_Cost) * 1.3);
+                            board[j].Cell_Data.Properties.House_Construction_Cost = Round_Off((double)(board[j].Cell_Data.Properties.House_Construction_Cost) * 1.3);
                         }
                     }
 
@@ -630,7 +630,6 @@ void National_Event_Card_Reset(square board[],Players player_list[],int player_i
             case Tax_Amnesty:
             {
                 printf("\n%s Drawned %s National Event Card Weared Off\n",player_list[player_id].Player_Name,player_list[player_id].Player_Card_Stack[Tax_Amnesty].Card_Name);
-                return;
                 break;
             }
 
@@ -656,12 +655,12 @@ void National_Event_Card_Reset(square board[],Players player_list[],int player_i
             {
                 if(player_list[player_id].Player_Card_Stack[Port_Expansion].Ending_Round == round_count)
                 {
-                    for(int i = 0; i < SQ_Board_Size; i++)
+                    for(int j = 0; j < SQ_Board_Size; j++)
                     {
-                        if((board[i].Cell_Type == SQ_Type_Railway) &&
-                        (board[i].Cell_Data.Railway.Railway_Owner) == (Owners_Property)player_id)
+                        if((board[j].Cell_Type == SQ_Type_Railway) &&
+                        (board[j].Cell_Data.Railway.Railway_Owner) == (Owners_Property)player_id)
                         {
-                            board[i].Cell_Data.Railway.Base_Price = Round_Off((double)(board[i].Cell_Data.Railway.Base_Price) * 0.8);
+                            board[j].Cell_Data.Railway.Base_Price = Round_Off((double)(board[j].Cell_Data.Railway.Base_Price) * 0.8);
                         }
                     }
                 }
@@ -710,12 +709,12 @@ void National_Event_Card_Reset(square board[],Players player_list[],int player_i
             {
                 if(player_list[player_id].Player_Card_Stack[Property_Revaluation].Ending_Round == round_count)
                 {
-                    for(int i = 0; i < SQ_Board_Size; i++)
+                    for(int j = 0; j < SQ_Board_Size; j++)
                     {
-                        if((board[i].Cell_Type == SQ_Type_Property) &&
-                            (board[i].Cell_Data.Properties.Group == player_list[player_id].Current_Boost.Random_Group))
+                        if((board[j].Cell_Type == SQ_Type_Property) &&
+                            (board[j].Cell_Data.Properties.Group == player_list[player_id].Current_Boost.Random_Group))
                         {
-                            board[i].Cell_Data.Properties.Base_Price = Round_Off((double)(board[i].Cell_Data.Properties.Base_Price) * 0.85);
+                            board[j].Cell_Data.Properties.Base_Price = Round_Off((double)(board[j].Cell_Data.Properties.Base_Price) * 0.85);
                         }
                     }
 
@@ -729,13 +728,13 @@ void National_Event_Card_Reset(square board[],Players player_list[],int player_i
             {
                 if(player_list[player_id].Player_Card_Stack[Currency_Depreciation].Ending_Round == round_count)
                 {
-                    for(int i = 0; i < SQ_Board_Size; i++)
+                    for(int j = 0; j < SQ_Board_Size; j++)
                     {
-                        if((board[i].Cell_Type == SQ_Type_Property) &&
-                            (board[i].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id))
+                        if((board[j].Cell_Type == SQ_Type_Property) &&
+                            (board[j].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id))
                         {
-                            board[i].Cell_Data.Properties.House_Construction_Cost = Round_Off((double)(board[i].Cell_Data.Properties.House_Construction_Cost) * 0.9);
-                            board[i].Cell_Data.Properties.Hotel_Construction_Cost = Round_Off((double)(board[i].Cell_Data.Properties.Hotel_Construction_Cost) * 0.9);
+                            board[j].Cell_Data.Properties.House_Construction_Cost = Round_Off((double)(board[j].Cell_Data.Properties.House_Construction_Cost) * 0.9);
+                            board[j].Cell_Data.Properties.Hotel_Construction_Cost = Round_Off((double)(board[j].Cell_Data.Properties.Hotel_Construction_Cost) * 0.9);
                         }
                     }
 
@@ -748,14 +747,12 @@ void National_Event_Card_Reset(square board[],Players player_list[],int player_i
             case Government_Grant:
             {
                 printf("\n%s Drawned %s National Event Card Weared Off\n",player_list[player_id].Player_Name,player_list[player_id].Player_Card_Stack[Government_Grant].Card_Name);
-                return;
                 break;
             }
 
             case National_Disaster:
             {
                 printf("\n%s Drawned %s National Event Card Weared Off\n",player_list[player_id].Player_Name,player_list[player_id].Player_Card_Stack[National_Disaster].Card_Name);
-                return;
                 break;
             }
             }
@@ -788,7 +785,7 @@ void Random_Disasters(square board[],Players player_list[],int round_count)
     board[random_prop].Square_Status = Property_Closed;
     board[random_prop].Insurance_Details.Is_Claimed = false;
 
-    if(board[random_prop].Cell_Data.Properties.Property_Owner == Risk_Taker)
+    if(board[random_prop].Cell_Data.Properties.Property_Owner == (Owners_Property)Risk_Taker)
     {
         player_list[Risk_Taker].Insurance_Trigger = true; //triggering for damage property
     }

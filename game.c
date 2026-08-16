@@ -123,13 +123,14 @@ void Player_Moves(Players player_list[],int Player_Id_Input,Dice_Type Dice_Value
     player_list[Player_Id_Input].Temp_Dice_Value = Dice_Values.Dice_Sum;
     player_list[Player_Id_Input].Player_Position = (player_list[Player_Id_Input].Player_Position + player_list[Player_Id_Input].Temp_Dice_Value) % SQ_Board_Size;
     player_list[Player_Id_Input].Total_Dice_Value += player_list[Player_Id_Input].Temp_Dice_Value;
-    printf("\n%s Rolls: %d Player Moves to: %d\n",player_list[Player_Id_Input].Player_Name,player_list[Player_Id_Input].Temp_Dice_Value,player_list[Player_Id_Input].Player_Position);
+    printf("\n%s Rolls: %d.\n",player_list[Player_Id_Input].Player_Name,player_list[Player_Id_Input].Temp_Dice_Value);
+    printf("%s moves from Square %d to Square %d.",player_list[Player_Id_Input].Player_Name,Old_Position,player_list[Player_Id_Input].Player_Position);
 
     if((Old_Position + player_list[Player_Id_Input].Temp_Dice_Value) >= SQ_Board_Size)
     {
         player_list[Player_Id_Input].Player_Passed_Go = Passed_Go;
         player_list[Player_Id_Input].Player_Cash += 2000;
-        printf("\n%s has Passed Go.\nCollected LKR 2,000.\nCurrent Balance LKR : %d \n",player_list[Player_Id_Input].Player_Name,player_list[Player_Id_Input].Player_Cash);
+        printf("\n\n%s has Passed Go.\nCollected LKR 2,000.\nCurrent Balance LKR : %d \n",player_list[Player_Id_Input].Player_Name,player_list[Player_Id_Input].Player_Cash);
             
     }
     
@@ -150,7 +151,7 @@ void Determine_Order(Players player_list[])
             if(player_list[i].Player_Roll_Order == false)
             {
                 player_list[i].Temp_Dice_Value = Dice_Roll().Dice_Sum;
-                printf("\n%s rolls %d.\n",player_list[i].Player_Name,player_list[i].Temp_Dice_Value);
+                printf("%s rolls %d.\n",player_list[i].Player_Name,player_list[i].Temp_Dice_Value);
             }
         }
 
@@ -225,19 +226,19 @@ printf("\nPlayer 1 : Aggressive Investor\n");
 printf("Player 2 : Conservative Banker\n");
 printf("Player 3 : Risk Taker\n");
 printf("Player 4 : Opportunistic Trader\n");
-printf("\nEach player begins with LKR 30,000.\n");
+printf("\nEach player begins with LKR 30,000.\n\n");
 
 
 
 Determine_Order(Player_List);
 
 printf("\n%s will begin the game.\n",Player_List[0].Player_Name);
-printf("\nTurn Order");
+printf("\nTurn Order\n");
 
 for (int i = 0; i < Total_Players; i++)
 {
     Final_Order[i] = Player_List[i].Player_ID;
-    printf("\n%s.\n",Player_List[i].Player_Name);
+    printf("%s.\n",Player_List[i].Player_Name);
 }
 
 
@@ -323,7 +324,9 @@ if(Game_Winner < 0)
 }
 
 printf("\n=============================================\n");
+printf("=============================================\n");
 printf("\nGame Over\n");
+printf("=============================================\n");
 printf("\nWinner\n%s\nTotal Cash\nLKR %d\n",Player_List[Game_Winner].Player_Name,Player_List[Game_Winner].Player_Cash);
 printf("\nTotal Property Value\nLKR %d\n",Player_List[Game_Winner].Player_Assets);
 printf("\nOutstanding Loans\n%d\n",Player_List[Game_Winner].Player_Loan_Amount);

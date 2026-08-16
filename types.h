@@ -6,6 +6,7 @@
 #define Rounds_ROI 20
 #define true 1
 #define false 0
+#define Event_Cards 20
 
 
 

@@ -550,6 +550,7 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id,Auction
             {
                 player_list[player_id].Player_Cash -= Rent_to_Pay;
                 player_list[Prop_Owner].Player_Cash += Rent_to_Pay;
+                printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOwner : %s.\n", player_list[player_id].Player_Name, board[Current_Pos].Square_Name, Rent_to_Pay, player_list[Prop_Owner].Player_Name);
             }
             
             
@@ -651,6 +652,7 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id,Auction
                 {
                     player_list[player_id].Player_Cash -= Rent_to_Pay;
                     player_list[Prop_Owner].Player_Cash += Rent_to_Pay;
+                    printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOwner : %s.\n", player_list[player_id].Player_Name, board[Current_Pos].Square_Name, Rent_to_Pay, player_list[Prop_Owner].Player_Name);
                 }
                     
 
@@ -729,6 +731,7 @@ void Player_Pays_Rent(Players player_list[],square board[],int player_id,Auction
             {
                 player_list[player_id].Player_Cash -= Rent_to_Pay;
                 player_list[Prop_Owner].Player_Cash += Rent_to_Pay;
+                printf("\n%s landed on %s.\nRent Paid : LKR %d.\nOwner : %s.\n", player_list[player_id].Player_Name, board[Current_Pos].Square_Name, Rent_to_Pay, player_list[Prop_Owner].Player_Name);
             }
             
 
@@ -763,7 +766,7 @@ Player_Status Player_Assessing(Players player_list[],square board[],int player_i
             (board[i].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id))
         {
             
-            player_list[player_id].Player_Assets += board[i].Cell_Data.Properties.Base_Price;
+            player_list[player_id].Player_Assets += Property_Value_Assess(board[i]);
             Status_Return.Total_No_Prop_Owned++;
             Status_Return.No_of_Hotels += board[i].Cell_Data.Properties.Number_of_Hotels;
         }
@@ -982,7 +985,9 @@ void Player_Builds(Players player_list[],square board[],int player_id,Economic e
         board[Curr_Pos].Cell_Data.Properties.Number_of_Houses++;
 
         printf("\n%s constructed one house on %s\n",player_list[player_id].Player_Name,board[Curr_Pos].Square_Name);
+        printf("Construction Cost : LKR %d\n",board[Curr_Pos].Cell_Data.Properties.House_Construction_Cost);
     }
+
 
     if(If_Building_Hotel == true)
     {
@@ -1328,6 +1333,8 @@ void Property_Auctions(Players player_list[],square board[],int player_id,int au
         else{
             return;
         }
+
+        printf("\n\nAuction Started.\n\nProperty :\n%s\n\nOpening Bid :\nLKR %d.\n", location.Square_Name, Highest_Bid);
         
         for(int i = 0; i < Total_Players; i++)
         {
@@ -1480,6 +1487,7 @@ void Property_Auctions(Players player_list[],square board[],int player_id,int au
             return;
         }
 
+        printf("\n\nAuction Started.\n\nProperty :\n%s\n\nOpening Bid :\nLKR %d.\n", location.Square_Name, Highest_Bid);
 
         for(int i = 0; i < Total_Players; i++)
         {
@@ -1584,7 +1592,8 @@ void Property_Auctions(Players player_list[],square board[],int player_id,int au
         else{
             return;
         }
-        
+
+        printf("\n\nAuction Started.\n\nProperty :\n%s\n\nOpening Bid :\nLKR %d.\n", location.Square_Name, Highest_Bid);        
         for(int i = 0; i < Total_Players; i++)
         {
             if(player_list[i].Is_Bankrupt != Bankrupt)
@@ -2174,7 +2183,7 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
                 player_list[player_id].Player_Cash += max_loan_approved;
                 player_list[player_id].Player_Loan_Interest_Rate = loan_interest_rate;
 
-                printf("\n%s obtained a secured loan.\n",player_list[player_id].Player_Name);
+                printf("\n\n%s obtained a secured loan.\n",player_list[player_id].Player_Name);
                 printf("Loan Amount : LKR %d.",max_loan_approved);
                 printf("\nCollateral:\n");
                 
@@ -2368,8 +2377,8 @@ void Player_Obtains_Insurance(Players player_list[],square board[],int player_id
 
             case Risk_Taker:
             {
-                if((board[i].Cell_Data.Properties.Number_of_Houses > 0) ||
-                    (board[i].Cell_Data.Properties.Number_of_Hotels == 1) &&
+                if(((board[i].Cell_Data.Properties.Number_of_Houses > 0) ||
+                    (board[i].Cell_Data.Properties.Number_of_Hotels == 1)) &&
                     (player_list[player_id].Insurance_Trigger != false))
                 {
                     chosen_package = Comprehensive_Insurance;
