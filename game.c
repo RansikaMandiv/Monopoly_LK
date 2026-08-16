@@ -34,7 +34,8 @@ void Sort_Players(Players player_list[])
     {
         for(int j = 0; j < Total_Players - 1; j++)
         {
-            if(player_list[j].Temp_Dice_Value < player_list[j + 1].Temp_Dice_Value)
+            if((player_list[j].Player_Roll_Order == false) &&
+                (player_list[j].Temp_Dice_Value < player_list[j + 1].Temp_Dice_Value))
             {
                 temp = player_list[j];
                 player_list[j] = player_list[j + 1];
@@ -173,7 +174,6 @@ void Determine_Order(Players player_list[])
             }
             else{
                 player_list[i].Player_Roll_Order = true;
-                
             }
         }
 
