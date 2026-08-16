@@ -765,3 +765,64 @@ void National_Event_Card_Reset(square board[],Players player_list[],int player_i
 }
 
 
+void Random_Disasters(square board[],Players player_list[],int round_count)
+{
+    if((round_count % 10) != 0)
+    {
+        return;
+    }
+
+    int random_prop = 0;
+
+    do{
+
+        random_prop = (rand() % 40);
+
+    }while((board[random_prop].Cell_Type != SQ_Type_Property) ||
+            (board[random_prop].Cell_Data.Properties.Property_Owner == Owner_Bank) ||
+            (board[random_prop].Cell_Data.Properties.Property_Damages != No_Damage));
+
+    Damage_Types random_disaster = (Damage_Types)(rand() % 7 + 1);
+
+    board[random_prop].Cell_Data.Properties.Property_Damages = random_disaster;
+    board[random_prop].Square_Status = Property_Closed;
+    board[random_prop].Insurance_Details.Is_Claimed = false;
+
+    if(board[random_prop].Cell_Data.Properties.Property_Owner == Risk_Taker)
+    {
+        player_list[Risk_Taker].Insurance_Trigger = true; //triggering for damage property
+    }
+    
+    if(random_disaster == Fire_Damage)
+    {
+        printf("\nFire Occured\n");
+    }
+    else if(random_disaster == Flood_Damage)
+    {
+        printf("\nFlood Occured\n");
+    }
+    else if(random_disaster == Riot_Damage)
+    {
+        printf("\nRiot Occured\n");
+    }
+    else if(random_disaster == Building_Collapsed_Damage)
+    {
+        printf("\nBuilding Collapsation Occured\n");
+    }
+    else if(random_disaster == Electrical_Failure_Damage)
+    {
+        printf("\nElectrical Failure Occured\n");
+    }
+    else if(random_disaster == Vandalism_Damage)
+    {
+        printf("\nVandalism Occured\n");
+    }
+    else if(random_disaster == Earthquake_Damage)
+    {
+        printf("\nEarthquake Occured\n");
+    }
+
+    printf("\nAffected Property :\n%s\n",board[random_prop].Square_Name);
+
+    Insurance_Claims(&board[random_prop],player_list);
+}

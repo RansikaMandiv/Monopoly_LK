@@ -36,7 +36,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -73,7 +74,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -127,7 +129,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -164,7 +167,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -191,7 +195,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -228,7 +233,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -276,7 +282,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -304,7 +311,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -351,7 +359,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -388,7 +397,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -416,7 +426,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -453,7 +464,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -491,7 +503,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -519,7 +532,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -566,7 +580,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -594,7 +609,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -642,7 +658,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -679,7 +696,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -707,7 +725,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -745,7 +764,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -801,7 +821,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 
@@ -838,7 +859,8 @@ void Board_Initialization(square board[])
                 .Number_of_Hotels = 0,
                 .Number_of_Houses = 0,
                 .Mortgage = Unmortgaged,
-                .Mortgage_Value = 0
+                .Mortgage_Value = 0,
+                .Property_Damages = No_Damage,
             }
         },
 

@@ -18,19 +18,24 @@ void Player_Initialization(Players Player_List[])
         Player_List[i].Player_ID = (Player_Type)i;
         Player_List[i].Player_Cash = 30000;
         Player_List[i].Player_Assets = 0;
+
         Player_List[i].Loan_status = No_Loans;
         Player_List[i].Player_Loan_Amount = 0;
         Player_List[i].Player_Loan_Interest_Rate = 0;
         Player_List[i].Player_Loan_Start = 0;
+
         Player_List[i].Player_Tax_Due = 0;
+
         Player_List[i].Player_Position = SQ_GO;
         Player_List[i].Player_Roll_Order = false;
         Player_List[i].Temp_Dice_Value = 0;
         Player_List[i].Total_Dice_Value = 0;
+
         Player_List[i].Is_Bankrupt = Not_Bankrupt;
         Player_List[i].Jail_Status = Not_In_Jail;
         Player_List[i].Bidding_Status = Bidding;
         Player_List[i].Jail_Counter = 0;
+
         Player_List[i].Player_Passed_Go = Not_Passed;
         Player_List[i].Previous_Data.Player_Loan_Previous = 0;
         National_Event_Initialization(Player_List[i].Player_Card_Stack);
@@ -43,6 +48,8 @@ void Player_Initialization(Players Player_List[])
             .Random_Group = None,
             .utility_Boost = 1.0,
         };
+
+        Player_List[i].Insurance_Trigger = false;
 
         for (int j = 0; j < 9; j++)
         {
@@ -2303,5 +2310,155 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
             printf("\n%s repaid LKR %d.\n",player_list[player_id].Player_Name,payable_amount);
             printf("\nCollaterals Released.\n");
         }
+    }
+}
+
+
+void Player_Obtains_Insurance(Players player_list[],square board[],int player_id,int round_count)
+{
+    if((player_list[player_id].Player_Position != SQ_Sri_Lanka_Insurance) &&
+        (player_list[player_id].Player_Position != SQ_Ceylinco_Insurance))
+    {
+        return;
+    }
+
+
+    for(int i = 0; i < SQ_Board_Size; i++)
+    {
+        int obtaining_insurance = false;
+        Insurance_Packages chosen_package = Not_Insured;
+        int Package_Cost = 0;
+
+        if((board[i].Cell_Type == SQ_Type_Property) &&
+            (board[i].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id) &&
+            (board[i].Insurance_Details.Package == Not_Insured))
+        {
+            switch ((Owners_Property)player_id)
+            {
+            case Aggressive_Investor:
+            {
+                if((board[i].Cell_Data.Properties.Number_of_Houses > 0))
+                {
+                    chosen_package = Basic_Property_Insurance;
+                    obtaining_insurance = true;
+                    Package_Cost = Round_Off((double)Property_Value_Assess(board[i]) * 0.05);
+                }
+                else if(board[i].Cell_Data.Properties.Number_of_Hotels > 0)
+                {
+                    chosen_package = Comprehensive_Insurance;
+                    obtaining_insurance = true;
+                    Package_Cost = Round_Off((double)Property_Value_Assess(board[i]) * 0.1);
+                }
+
+                break;
+            }
+
+            case Conservative_Banker:
+            {
+                if((board[i].Cell_Data.Properties.Number_of_Houses > 0) ||
+                    (board[i].Cell_Data.Properties.Number_of_Hotels == 1))
+                {
+                    chosen_package = Comprehensive_Insurance;
+                    obtaining_insurance = true;
+                    Package_Cost = Round_Off((double)Property_Value_Assess(board[i]) * 0.1);
+                }
+
+                break;
+            }
+
+            case Risk_Taker:
+            {
+                if((board[i].Cell_Data.Properties.Number_of_Houses > 0) ||
+                    (board[i].Cell_Data.Properties.Number_of_Hotels == 1) &&
+                    (player_list[player_id].Insurance_Trigger != false))
+                {
+                    chosen_package = Comprehensive_Insurance;
+                    obtaining_insurance = true;
+                    Package_Cost = Round_Off((double)Property_Value_Assess(board[i]) * 0.1);
+                }
+
+                break;
+            }
+
+            case Opportunistic_Trader:
+            {
+                if(board[i].Cell_Data.Properties.Number_of_Hotels == 1)
+                {
+                    chosen_package = Business_Interruption_Insurance;
+                    obtaining_insurance = true;
+                    Package_Cost = Round_Off((double)Property_Value_Assess(board[i]) * 0.15);
+                }
+
+                break;
+            }
+                
+            
+            default:
+                break;
+            }
+        }
+
+
+        if((chosen_package != Not_Insured)&&
+            (obtaining_insurance != false) &&
+            (player_list[player_id].Player_Cash >= Package_Cost))
+        {
+            player_list[player_id].Player_Cash -= Package_Cost;
+            board[i].Insurance_Details.Package = chosen_package;
+            board[i].Insurance_Details.Expire_Round = round_count + 20;
+
+            if(chosen_package == Basic_Property_Insurance)
+            {
+                printf("\nBasic Property Insurance purchased.\n");
+            }
+            else if(chosen_package == Comprehensive_Insurance)
+            {
+                printf("Comprehensive Insurance purchased.\n");
+            }
+            else if(chosen_package == Business_Interruption_Insurance)
+            {
+                printf("Business Interruption Insurance purchased.\n");
+            }
+
+            printf("Property : %s\n",board[i].Square_Name);
+            printf("Premium : %d\n",Package_Cost);
+        }
+
+    }
+}
+
+
+void Player_Repairs_Damages(Players player_list[],square board[],int player_id)
+{
+    
+    for(int i = 0; i < SQ_Board_Size; i++)
+    {
+        int repair_cost = 0;
+        int player_repairs = false;
+
+        if(board[i].Cell_Type != SQ_Type_Property)
+        {
+            continue;
+        }
+
+        if((board[i].Cell_Type == SQ_Type_Property) &&
+            (board[i].Cell_Data.Properties.Property_Owner == (Owners_Property)player_id) &&
+            (board[i].Cell_Data.Properties.Property_Damages != No_Damage))
+        {
+            repair_cost = Property_Value_Assess(board[i]);
+            player_repairs = true;
+        }
+
+        if((player_list[player_id].Player_Cash >= repair_cost) &&
+            (player_repairs == true))
+        {
+            player_list[player_id].Player_Cash -= repair_cost;
+            board[i].Square_Status = Property_Open;
+            board[i].Insurance_Details.Is_Claimed = false;
+            board[i].Cell_Data.Properties.Property_Damages = No_Damage;
+
+            printf("\n%s has restored %s.\n",player_list[player_id].Player_Name,board[i].Square_Name);
+        }
+        
     }
 }

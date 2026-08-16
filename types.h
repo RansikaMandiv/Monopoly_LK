@@ -56,9 +56,6 @@ typedef enum{
     Basic_Property_Insurance,
     Comprehensive_Insurance,
     Business_Interruption_Insurance,
-    Basic_Property_Insurance_Premium,
-    Comprehensive_Insurance_Premium,
-    Business_Interruption_Insurance_Premium
 
 }Insurance_Packages;
 
@@ -248,6 +245,19 @@ typedef enum{
 
 typedef enum{
 
+    No_Damage,
+    Fire_Damage,
+    Flood_Damage,
+    Riot_Damage,
+    Building_Collapsed_Damage,
+    Electrical_Failure_Damage,
+    Vandalism_Damage,
+    Earthquake_Damage
+
+}Damage_Types;
+
+typedef enum{
+
     Card_Deactivated,
     Card_Activated,
 
@@ -268,6 +278,7 @@ typedef struct{
     short Number_of_Hotels;
     Mortgage_Status Mortgage;
     int Mortgage_Value;
+    Damage_Types Property_Damages;
 
 }Property;
 
@@ -276,6 +287,8 @@ typedef struct{
     
     Insurance_Companies Name;
     Insurance_Packages Package;
+    int Expire_Round;
+    int Is_Claimed;
 
 }Insurance;
 
@@ -360,25 +373,32 @@ typedef struct {
     //Square_ID Player_Owns[30];
     int Player_Cash;
     int Player_Assets;
+
     Player_Loan Loan_status;
     int Player_Loan_Amount;
     int Player_Loan_Interest_Rate;
     int Player_Loan_Start;
+
     int Player_Tax_Due;
+
     Square_ID Player_Position;
     short Player_Roll_Order;
     short Temp_Dice_Value;
     short Total_Dice_Value;
+
     Property_Group_Type Has_Partial_Monopoly[9];
     Property_Group_Type Has_Monopoly[9];
+
     Player_Bankrupt Is_Bankrupt;
     Player_Jail Jail_Status;
     Player_Bid Bidding_Status;
     int Jail_Counter;
+    
     Player_Go Player_Passed_Go;
     Player_Previous_Round Previous_Data;
     National_Event_Card Player_Card_Stack[20];
     Player_Temp_Boosts Current_Boost;
+    int Insurance_Trigger;
     
 
 
@@ -423,9 +443,11 @@ void Player_Obtains_Loans(Players player_list[],square board[],int player_id,int
 void Inflation_Rate_Calculator(Economic *economic_status,square board[],int round_count,int *loan_interest);
 void National_Event_Cards(square board[],Players player_list[],int player_id,int *drawn_card,int round_count,Economic *economy_status);
 void National_Event_Card_Reset(square board[],Players player_list[],int player_id,int round_count);
-
-
-
-
+int Property_Value_Assess(square assessing_square);
+void Insurance_Claims(square *claiming_cell,Players player_list[]);
+void Insurance_Round_Check(square board[],int round_count);
+void Player_Obtains_Insurance(Players player_list[],square board[],int player_id,int round_count);
+void Random_Disasters(square board[],Players player_list[],int round_count);
+void Player_Repairs_Damages(Players player_list[],square board[],int player_id);
 
 #endif
